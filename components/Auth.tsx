@@ -7,43 +7,43 @@ export default function Auth() {
       <div>
         <img
           className="mx-auto h-12 w-auto"
-          src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+          src="guildhub_logo.png"
           alt="Workflow"
         />
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-          Login
+        <h2 className="mt-6 text-center text-xl font-extrabold text-black">
+          ログイン
         </h2>
       </div>
       <form className="mt-8 space-y-6">
         <input type="hidden" name="remember" value="true" />
-        <div className="rounded-md shadow-sm -space-y-px">
-          <div>
-            <input
-              name="username"
-              type="text"
-              autoComplete="username"
-              required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Username"
-            />
-          </div>
-          <div>
-            <input
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Password"
-            />
-          </div>
+        <div>
+          <input
+            name="username"
+            type="text"
+            autoComplete="username"
+            required
+            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Username"
+          />
         </div>
 
-        <div className="flex items-center justify-center">
-          <div className="text-sm">
-            <span className="cursor-pointer font-medium text-white hover:text-indigo-500">
-              change mode ?
-            </span>
+        <div>
+          <input
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Password"
+          />
+        </div>
+        <div className="rounded-md shadow-sm -space-y-px">
+          <div className="flex items-center justify-center">
+            <div className="text-sm">
+              <span className="cursor-pointer font-medium text-white hover:text-indigo-500">
+                change mode ?
+              </span>
+            </div>
           </div>
         </div>
 
