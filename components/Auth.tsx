@@ -8,19 +8,18 @@ export default function Auth() {
   const router = useRouter();
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [isLogin, setIsLogin] = useState(true);
 
   const login = async () => {
     try {
       await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/vi/auth/sign_in/`,
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/sign_in/`,
         {
           method: "POST",
           body: JSON.stringify({
             email: email,
-            name: "Trao",
             password: password,
-            password_confirmation: password,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +51,12 @@ export default function Auth() {
       try {
         await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/`, {
           method: "POST",
-          body: JSON.stringify({ email: email, password: password }),
+          body: JSON.stringify({
+            email: email,
+            name: username,
+            password: password,
+            password_confirmation: password,
+          }),
           headers: {
             "Content-Type": "application/json",
           },
@@ -112,6 +116,27 @@ export default function Auth() {
             }}
           />
         </div>
+        {isLogin ? (
+          ""
+        ) : (
+          <>
+            <div className="text-black">名前</div>
+            <div>
+              <input
+                name="username"
+                type="username"
+                autoComplete="current-password"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+            </div>
+          </>
+        )}
         <div className="rounded-md -space-y-px">
           <div className="flex items-center justify-center">
             <div className="text-sm">
