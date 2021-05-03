@@ -1,7 +1,71 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Cookie from "universal-cookie";
+
+const cookie = new Cookie();
 
 export default function Auth() {
+  const router = useRouter();
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
+
+  const login = async () => {
+    try {
+      await fetch(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/vi/auth/sign_in/`,
+        {
+          method: "POST",
+          body: JSON.stringify({ mail: mail, password: password }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => {
+          if (res.status === 400) {
+            throw "authentication failed";
+          } else if (res.ok) {
+            return res.json();
+          }
+        })
+        .then((data) => {
+          const options = { path: "/" };
+          cookie.set("access_token", data.access, options);
+        });
+      router.push("/main-page");
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const authUser = async (e) => {
+    e.preventDefault();
+    if (isLogin) {
+      login;
+    } else {
+      try {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/sign_up/`,
+          {
+            method: "POST",
+            body: JSON.stringify({ mail: mail, password: password }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        ).then((res) => {
+          if (res.status === 400) {
+            throw "authentication failed";
+          }
+        });
+        login();
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+
   return (
     <div className="max-w-md w-full space-y-8 bg-white p-12">
       <div>
@@ -11,20 +75,24 @@ export default function Auth() {
           alt="Workflow"
         />
         <h2 className="mt-6 text-center text-xl font-extrabold text-black">
-          ログイン
+          {isLogin ? "ログイン" : "ユーザー作成"}
         </h2>
       </div>
-      <form className="mt-8 space-y-6">
+      <form className="mt-8 space-y-6" onSubmit={authUser}>
         <input type="hidden" name="remember" value="true" />
         <div className="text-black">メールアドレス</div>
         <div>
           <input
-            name="address"
+            name="email"
             type="text"
-            autoComplete="address"
+            autoComplete="email"
             required
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Address"
+            placeholder="email address"
+            value={mail}
+            onChange={(e) => {
+              setMail(e.target.value);
+            }}
           />
         </div>
         <div className="text-black">パスワード</div>
@@ -36,13 +104,20 @@ export default function Auth() {
             required
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
         </div>
         <div className="rounded-md -space-y-px">
           <div className="flex items-center justify-center">
             <div className="text-sm">
-              <span className="cursor-pointer font-medium text-indigo-500">
-                新規ユーザー登録
+              <span
+                onClick={() => setIsLogin(!isLogin)}
+                className="cursor-pointer font-medium text-indigo-500"
+              >
+                change mode ?
               </span>
             </div>
           </div>
@@ -68,7 +143,7 @@ export default function Auth() {
                 />
               </svg>
             </span>
-            ログイン
+            {isLogin ? "ログイン" : "新規ユーザー作成"}
           </button>
         </div>
       </form>
