@@ -5,6 +5,7 @@ import Header from "../components/Header";
 const cookie = new Cookie();
 
 export default function MainPage() {
+  console.log(cookie);
   const router = useRouter();
   const logout = () => {
     cookie.remove("access_token");
