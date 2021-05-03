@@ -35,6 +35,7 @@ export default function Auth() {
         })
         .then((data) => {
           const options = { path: "/" };
+          console.log(data);
           cookie.set("access_token", data.access, options);
         });
       router.push("/main-page");
@@ -64,6 +65,7 @@ export default function Auth() {
           if (res.status === 400) {
             throw "authentication failed";
           }
+          console.log(res.headers);
         });
         login();
       } catch (err) {
