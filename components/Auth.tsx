@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 export default function Auth() {
   return (
-    <div className="max-w-md w-full space-y-8">
+    <div className="max-w-md w-full space-y-8 bg-white p-12">
       <div>
         <img
           className="mx-auto h-12 w-auto"
@@ -16,17 +16,18 @@ export default function Auth() {
       </div>
       <form className="mt-8 space-y-6">
         <input type="hidden" name="remember" value="true" />
+        <div className="text-black">メールアドレス</div>
         <div>
           <input
-            name="username"
+            name="address"
             type="text"
-            autoComplete="username"
+            autoComplete="address"
             required
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Username"
+            placeholder="Address"
           />
         </div>
-
+        <div className="text-black">パスワード</div>
         <div>
           <input
             name="password"
@@ -37,11 +38,11 @@ export default function Auth() {
             placeholder="Password"
           />
         </div>
-        <div className="rounded-md shadow-sm -space-y-px">
+        <div className="rounded-md -space-y-px">
           <div className="flex items-center justify-center">
             <div className="text-sm">
-              <span className="cursor-pointer font-medium text-white hover:text-indigo-500">
-                change mode ?
+              <span className="cursor-pointer font-medium text-indigo-500">
+                新規ユーザー登録
               </span>
             </div>
           </div>
@@ -67,7 +68,7 @@ export default function Auth() {
                 />
               </svg>
             </span>
-            Login with JWT
+            ログイン
           </button>
         </div>
       </form>
