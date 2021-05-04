@@ -30,14 +30,14 @@ export default function Auth() {
           if (res.status === 400) {
             throw "authentication failed";
           } else if (res.ok) {
-            return res.json();
+            const options = { path: "/" };
+            const headers = res.headers
+            cookie.set("client", headers.get('client'), options);
+            cookie.set("access-token", headers.get('access-token'), options);
+            cookie.set("uid", headers.get('uid'), options);
+            router.push("/main-page");
           }
         })
-        .then((data) => {
-          const options = { path: "/" };
-          cookie.set("access_token", data.access, options);
-        });
-      router.push("/main-page");
     } catch (err) {
       alert(err);
     }
