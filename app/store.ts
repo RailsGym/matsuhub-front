@@ -1,0 +1,25 @@
+import { useDispatch } from 'react-redux'
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import rootReducer, { RootState }  from '../app/rootReducer'
+
+export const store = configureStore({
+  reducer: rootReducer
+});
+
+// env developmentのときは Hot Module Replacementでコードの反映を高速化することができるのでHMRにrootReducerの更新を追加
+if (process.env.NODE_ENV === 'development' && module.hot) {
+  module.hot.accept('./rootReducer', () => {
+    const newRootReducer = require('./rootReducer').default
+    store.replaceReducer(newRootReducer)
+  })
+}
+
+export type AppDispatch = typeof store.dispatch
+
+export function useAppDispatch(): AppDispatch {
+  return useDispatch<AppDispatch>()
+}
+
+export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>
+
+export default store
