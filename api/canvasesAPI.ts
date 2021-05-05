@@ -5,7 +5,7 @@ import { Canvas } from '../models/canvases';
 export async function getCanvases(): Promise<Canvas[] | null> {
   const url = baseUrl + 'api/v1/canvas';
   const userAuthHeader = await userAuthRequestHeader();
-  if(!userAuthHeader) {
+  if (!userAuthHeader) {
     return null;
   }
 

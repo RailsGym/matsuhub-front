@@ -8,6 +8,8 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
+    "@headlessui/react": "^1.1.1",
+    "@heroicons/react": "^1.0.1",
     "@reduxjs/toolkit": "^1.5.1",
     "@tailwindcss/forms": "^0.3.2",
     "@types/react-redux": "^7.1.16",
