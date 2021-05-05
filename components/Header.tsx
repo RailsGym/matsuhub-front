@@ -8,6 +8,7 @@ import { useAppDispatch } from '../app/store'
 import { fetchCanvases } from './../features/canvases/canvasesSlice';
 import { Canvas } from "../models/canvases";
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { init } from "../features/loginUser/LoginUserSlice";
 
 const selectCanvases = (state: RootState) => state.canvases
 
@@ -24,6 +25,12 @@ export default function Header({ title = "Default title" }) {
     dispatch(fetchCanvases());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(init());
+  }, [dispatch]);
+
+  const { loginUser, initialized } = useSelector((state: RootState) => state.loginUser)
+
   const togglePopoverOpen = () => {
     console.log('togglePopoverOpen')
     setOpen(!open);
@@ -38,7 +45,8 @@ export default function Header({ title = "Default title" }) {
         <div className="bg-gray-100">
           <div className="py-3 px-3">
             <div className="flex justify-between flex-wrap">
-              <div className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-indigo-50">
+              <div
+                className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-indigo-50">
                 <Popover className="relative">
                   <Popover.Button
                     className={classNames(
@@ -72,7 +80,7 @@ export default function Header({ title = "Default title" }) {
                     >
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          { canvases ? (
+                          {canvases ? (
                             <>
                               {canvases.map((item) => (
                                 <Link href={`canvases/${item.id}`}>
@@ -87,7 +95,7 @@ export default function Header({ title = "Default title" }) {
                                 </Link>
                               ))}
                             </>
-                          ) : null }
+                          ) : null}
                         </div>
                       </div>
                     </Popover.Panel>
@@ -99,7 +107,9 @@ export default function Header({ title = "Default title" }) {
                   href="#"
                   className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-indigo-50"
                 >
-                  matsumoto
+                  {loginUser ? (
+                    <span>{loginUser.name}</span>
+                  ) : null}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
