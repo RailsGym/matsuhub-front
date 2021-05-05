@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import Header from "../components/Header";
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
+import ToastMessageContainer from "../features/toastMessage/ToastMessageContainer";
 const cookie = new Cookie();
 
 export default function MainPage() {
@@ -14,6 +15,7 @@ export default function MainPage() {
   };
   return (
     <Provider store={store}>
+      <ToastMessageContainer />
       <Header title="main-page"></Header>
       <svg
         onClick={logout}
