@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux'
 import Head from "next/head";
+import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react'
 import { RootState } from '../app/rootReducer'
 import { useAppDispatch } from '../app/store'
@@ -74,15 +75,16 @@ export default function Header({ title = "Default title" }) {
                           { canvases ? (
                             <>
                               {canvases.map((item) => (
+                                <Link href={`canvases/${item.id}`}>
                                   <a
                                     key={item.id}
-                                    href={`canvases/${item.id}`}
                                     className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                   >
                                     <div className="ml-4">
                                       <p className="text-base font-medium text-gray-900">{item.title}</p>
                                     </div>
                                   </a>
+                                </Link>
                               ))}
                             </>
                           ) : null }
