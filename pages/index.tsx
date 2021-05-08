@@ -6,7 +6,7 @@ export default function MainPage() {
   const router = useRouter();
   const logout = () => {
     cookie.remove("access_token");
-    router.push("/");
+    router.push("/sign_in");
   };
   return (
     <>
