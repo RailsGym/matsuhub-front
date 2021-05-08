@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {User} from "../models/users";
+import {User} from "models/users";
 import  {baseUrl, userAuthRequestHeader} from "./baseRequest";
 
 export async function getMe(): Promise<User | null> {

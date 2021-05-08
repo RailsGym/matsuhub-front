@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux'
 import Head from "next/head";
 import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react'
-import { RootState } from '../app/rootReducer'
-import { useAppDispatch } from '../app/store'
-import { fetchCanvases } from './../features/canvases/canvasesSlice';
-import { Canvas } from "../models/canvases";
+import { RootState } from 'app/rootReducer'
+import { useAppDispatch } from 'app/store'
+import { fetchCanvases } from 'features/canvases/canvasesSlice';
+import { Canvas } from "models/canvases";
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { init } from "../features/loginUser/LoginUserSlice";
+import { init } from "features/loginUser/LoginUserSlice";
 
 const selectCanvases = (state: RootState) => state.canvases
 

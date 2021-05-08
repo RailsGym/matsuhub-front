@@ -35,7 +35,7 @@ export default function Auth() {
             cookie.set("client", headers.get('client'), options);
             cookie.set("access-token", headers.get('access-token'), options);
             cookie.set("uid", headers.get('uid'), options);
-            router.push("/main-page");
+            router.push("/");
           }
         })
     } catch (err) {
