@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getCanvases } from "../../api/canvasesAPI";
+import { getCanvases } from "api/canvasesAPI";
 
-import { AppThunk } from '../../app/store'
-import { Canvas } from "../../models/canvases";
-import toastMessage from "../toastMessage/toastMessage";
+import { AppThunk } from 'app/store'
+import { Canvas } from "models/canvases";
+import toastMessage from "features/toastMessage/toastMessage";
 
 type CanvasListState = Canvas[] | null
 

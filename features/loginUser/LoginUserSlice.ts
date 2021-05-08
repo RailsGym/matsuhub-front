@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {AppThunk} from "../../app/store";
-import {getMe } from "../../api/usersAPI";
-import { User } from '../../models/users';
+import {AppThunk} from "app/store";
+import {getMe } from "api/usersAPI";
+import { User } from 'models/users';
 import Cookie from "universal-cookie";
 
 interface LoginUserState {
