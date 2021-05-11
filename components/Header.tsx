@@ -18,7 +18,7 @@ function classNames(...classes) {
 
 export default function Header({ title = "Default title" }) {
   const canvases = useSelector(selectCanvases)
-  const [open, setOpen] = useState<Boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
