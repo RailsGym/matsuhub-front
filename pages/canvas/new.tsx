@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { createCanvas } from "features/canvases/canvasesSlice";
 
 const SContainer = styled.div`
   margin: auto;
@@ -43,19 +45,28 @@ const SCreateButton = styled.button`
 `;
 
 export default function CreateCanvasCard() {
-  const [canvasTitle, setCanvasTitle] = useState();
+  const [title, setTitle] = useState<string | number>();
+
+  const dispatch = useDispatch();
+
   const handleInputChange = event => {
-    setCanvasTitle(event.target.value);
+    setTitle(event.target.value);
   };
-  const createCanvas = () => {
-    alert(canvasTitle);
+  const saveCanvas = () => {
+    dispatch(createCanvas(title));
+    setTitle("");
   };
+
   return (
     <SContainer>
       <STitle>キャンバス新規作成</STitle>
       <SNameLabel>名前</SNameLabel>
-      <SCanvasTitleInput type="text" onChange={handleInputChange} />
-      <SCreateButton disabled={!canvasTitle} onClick={createCanvas}>
+      <SCanvasTitleInput
+        type="text"
+        value={title}
+        onChange={handleInputChange}
+      />
+      <SCreateButton disabled={!title} onClick={saveCanvas}>
         新規作成
       </SCreateButton>
     </SContainer>
