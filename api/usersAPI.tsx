@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {User} from "models/users";
 import  {baseUrl, userAuthRequestHeader} from "./baseRequest";
+import {Canvas} from "../models/canvases";
 
 export async function getMe(): Promise<User | null> {
   const url = baseUrl + '/api/v1/users/me';
@@ -9,7 +10,7 @@ export async function getMe(): Promise<User | null> {
     return null;
   }
 
-  const response = await axios.get<User>(
+  const response = await axios.get<{'user': User}>(
     url,
     {
       headers: userAuthHeader
