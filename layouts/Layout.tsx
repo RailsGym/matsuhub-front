@@ -1,5 +1,5 @@
 import ToastMessageContainer from 'features/toastMessage/ToastMessageContainer';
-import {store} from "app/store";
+import { store}  from "app/store";
 import Header from "components/Header";
 import {Provider} from "react-redux";
 
