@@ -44,7 +44,7 @@ const SCreateButton = styled.button`
   `}
 `;
 
-export default function CreateCanvasCard() {
+export default function CanvasNew() {
   const [title, setTitle] = useState<string | number>();
 
   const dispatch = useDispatch();
