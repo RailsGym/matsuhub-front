@@ -39,8 +39,8 @@ export type Area = {
 export interface Canvas {
   id: string;
   title: string;
-  owner?: User;
-  areas: { [key: string] : Area }
+  owner_id: number;
+  areas?: { [key: string] : Area }
   createdAt?: Date;
   updatedAt?: Date;
 }
