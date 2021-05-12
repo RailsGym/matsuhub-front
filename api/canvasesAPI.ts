@@ -2,8 +2,8 @@ import axios from "axios";
 import { baseUrl, userAuthRequestHeader } from "./baseRequest";
 import { Canvas } from "models/canvases";
 
+const url = baseUrl + "api/v1/canvas";
 export async function getCanvases(): Promise<Canvas[] | null> {
-  const url = baseUrl + "api/v1/canvas";
   const userAuthHeader = await userAuthRequestHeader();
   if (!userAuthHeader) {
     return null;
@@ -20,7 +20,6 @@ export async function getCanvases(): Promise<Canvas[] | null> {
 }
 
 export async function createCanvas(title): Promise<Canvas> {
-  const url = baseUrl + "api/v1/canvas";
   const userAuthHeader = await userAuthRequestHeader();
   if (!userAuthHeader) {
     return null;
