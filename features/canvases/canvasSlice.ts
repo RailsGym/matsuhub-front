@@ -30,6 +30,7 @@ export const newCanvas = (title): AppThunk => async dispatch => {
     dispatch(createCanvasSuccess(canvas));
     toastMessage(["キャンバスを作成しました"], "success");
   } catch (err) {
+    // ここでAPIのレスポンスからエラーメッセージを取得する
     console.log(err.toString());
     toastMessage(["キャンバス作成に失敗しました"], "error");
   }
