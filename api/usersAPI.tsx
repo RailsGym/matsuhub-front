@@ -9,7 +9,7 @@ export async function getMe(): Promise<User | null> {
     return null;
   }
 
-  const response = await axios.get<User>(
+  const response = await axios.get<{'user': User}>(
     url,
     {
       headers: userAuthHeader
