@@ -27,7 +27,7 @@ export async function createCanvas(title): Promise<Canvas> {
   }
 
   try {
-    const canvasResponse = await axios.post<Canvas>(
+    const canvasResponse = await axios.post<{'canvas': Canvas}>(
       url,
       {
         title: title
