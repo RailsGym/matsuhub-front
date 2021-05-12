@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createCanvases, getCanvases } from "api/canvasesAPI";
+import { getCanvases } from "api/canvasesAPI";
 
 import { AppThunk } from "app/store";
 import { Canvas } from "models/canvases";
@@ -28,22 +28,9 @@ export const fetchCanvases = (): AppThunk => async dispatch => {
     const canvases: Canvas[] | null = await getCanvases();
     if (canvases === null) return;
 
-    // キャンバス一覧取得がエラーになっているので一旦コメントアウト
-    // dispatch(getCanvasesSuccess(canvases));
+    dispatch(getCanvasesSuccess(canvases));
   } catch (err) {
     console.log(err.toString());
     toastMessage(["キャンバス一覧の取得に失敗しました"], "error");
-  }
-};
-
-export const createCanvas = (title): AppThunk => async dispatch => {
-  try {
-    const canvases: Canvas[] | null = await createCanvases(title);
-
-    dispatch(getCanvasesSuccess(canvases));
-    toastMessage(["キャンバスを作成しました"], "success");
-  } catch (err) {
-    console.log(err.toString());
-    toastMessage(["キャンバス作成に失敗しました"], "error");
   }
 };

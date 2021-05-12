@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { createCanvas } from "features/canvases/canvasesSlice";
+import { newCanvas } from "features/canvases/canvasSlice";
 
 const SContainer = styled.div`
   margin: auto;
@@ -53,7 +53,7 @@ export default function CanvasNew() {
     setTitle(event.target.value);
   };
   const saveCanvas = () => {
-    dispatch(createCanvas(title));
+    dispatch(newCanvas(title));
     setTitle("");
   };
 

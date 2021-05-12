@@ -19,7 +19,7 @@ export async function getCanvases(): Promise<Canvas[] | null> {
   }
 }
 
-export async function createCanvases(title): Promise<Canvas[] | null> {
+export async function createCanvas(title): Promise<Canvas> {
   const url = baseUrl + "api/v1/canvas";
   const userAuthHeader = await userAuthRequestHeader();
   if (!userAuthHeader) {
@@ -27,7 +27,7 @@ export async function createCanvases(title): Promise<Canvas[] | null> {
   }
 
   try {
-    const canvasesResponse = await axios.post<Canvas[]>(
+    const canvasResponse = await axios.post<Canvas>(
       url,
       {
         title: title
@@ -36,7 +36,7 @@ export async function createCanvases(title): Promise<Canvas[] | null> {
         headers: userAuthHeader
       }
     );
-    return canvasesResponse.data.canvases;
+    return canvasResponse.data.canvas;
   } catch (err) {
     throw err;
   }
