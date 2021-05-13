@@ -1,4 +1,4 @@
-import "tailwindcss/tailwind.css";
+import 'tailwindcss/tailwind.css';
 import Layout from 'layouts/Layout'
 import LayoutNotLogin from 'layouts/LayoutNotLogin'
 

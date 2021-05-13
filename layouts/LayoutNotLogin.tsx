@@ -1,7 +1,7 @@
-import Head from "next/head";
+import Head from 'next/head';
 import ToastMessageContainer from 'features/toastMessage/ToastMessageContainer';
 
-export default function LayoutNotLogin({ children, title = "Default title" }) {
+export default function LayoutNotLogin({ children, title = 'Default title' }) {
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-white font-mono bg-gray-100">
       <ToastMessageContainer />

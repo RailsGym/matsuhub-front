@@ -1,8 +1,8 @@
-import axios from "axios";
-import { baseUrl, userAuthRequestHeader } from "./baseRequest";
-import { Canvas } from "models/canvases";
+import axios from 'axios';
+import { baseUrl, userAuthRequestHeader } from './baseRequest';
+import { Canvas } from 'models/canvases';
 
-const url = baseUrl + "api/v1/canvas";
+const url = baseUrl + 'api/v1/canvas';
 export async function getCanvases(): Promise<Canvas[] | null> {
   const userAuthHeader = await userAuthRequestHeader();
   if (!userAuthHeader) {

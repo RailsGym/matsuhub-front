@@ -1,4 +1,4 @@
-import Auth from "components/Auth";
+import Auth from 'components/Auth';
 
 export const getServerSideProps = async (context) => ({
   props: {
