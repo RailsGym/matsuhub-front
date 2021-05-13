@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { newCanvas } from 'features/canvases/canvasSlice';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/rootReducer';
 
 const SContainer = styled.div`
   margin: auto;
@@ -44,17 +47,27 @@ const SCreateButton = styled.button`
   `}
 `;
 
+const selectCanvas = (state: RootState) => state.canvas;
+
 export default function CanvasNew() {
+  const canvas = useSelector(selectCanvas);
+
   const [title, setTitle] = useState<string | number>();
 
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (canvas) {
+      router.push(`/canvas/${canvas.id}`);
+    } 
+  }, [canvas]);
 
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
   const saveCanvas = () => {
     dispatch(newCanvas(title));
-    setTitle('');
   };
 
   return (

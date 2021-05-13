@@ -37,6 +37,6 @@ export async function createCanvas(title): Promise<Canvas> {
     );
     return canvasResponse.data.canvas;
   } catch (err) {
-    throw err;
+    throw err.response.data.errors.toString();
   }
 }
