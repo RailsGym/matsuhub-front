@@ -1,11 +1,13 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { login } from "features/loginUser/LoginUserSlice";
+import { signUp } from "features/signUpUser/signUpUserSlice";
 import { RootState } from "app/rootReducer";
 import Cookie from "universal-cookie";
 
 const cookie = new Cookie();
+const selectSignedUpUser = (state: RootState) => state.signedUpUser
 
 export default function Auth() {
   const router = useRouter();
@@ -15,15 +17,28 @@ export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
 
   const { loginUser } = useSelector((state: RootState) => state.loginUser)
+  const { signedUpUser } = useSelector(selectSignedUpUser)
 
   const dispatch = useDispatch();
   const signInUser = async () => {
     dispatch(login(email, password));
   };
 
-  if (loginUser) {
-    router.push("/");
-  }
+  const signUpUser = async () => {
+    dispatch(signUp(email, username, password));
+  };
+
+  useEffect(() => {
+    if (loginUser) {
+      router.push("/");
+    }
+  }, [loginUser]);
+
+  useEffect(() => {
+    if (signedUpUser) {
+      dispatch(login(email, password));
+    }
+  }, [dispatch, signedUpUser]);
 
   const authUser = async (e) => {
     e.preventDefault();
@@ -31,23 +46,7 @@ export default function Auth() {
       await signInUser();
     } else {
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/`, {
-          method: "POST",
-          body: JSON.stringify({
-            email: email,
-            name: username,
-            password: password,
-            password_confirmation: password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then((res) => {
-          if (res.status === 400) {
-            throw "authentication failed";
-          }
-        });
-        await signInUser();
+        await signUpUser();
       } catch (err) {
         alert(err);
       }
