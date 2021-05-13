@@ -1,12 +1,12 @@
-import Cookie from "universal-cookie";
-import { useRouter } from "next/router";
+import Cookie from 'universal-cookie';
+import { useRouter } from 'next/router';
 const cookie = new Cookie();
 
 export default function MainPage() {
   const router = useRouter();
   const logout = () => {
-    cookie.remove("access_token");
-    router.push("/sign_in");
+    cookie.remove('access_token');
+    router.push('/sign_in');
   };
   return (
     <>

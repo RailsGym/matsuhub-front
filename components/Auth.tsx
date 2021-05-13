@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Cookie from "universal-cookie";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Cookie from 'universal-cookie';
 
 const cookie = new Cookie();
 
 export default function Auth() {
   const router = useRouter();
-  const [email, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [isLogin, setIsLogin] = useState(true);
 
   const login = async () => {
@@ -16,26 +16,26 @@ export default function Auth() {
       await fetch(
         `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/sign_in/`,
         {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify({
             email: email,
             password: password,
           }),
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       )
         .then((res) => {
           if (res.status === 400) {
-            throw "authentication failed";
+            throw 'authentication failed';
           } else if (res.ok) {
-            const options = { path: "/" };
+            const options = { path: '/' };
             const headers = res.headers
-            cookie.set("client", headers.get('client'), options);
-            cookie.set("access-token", headers.get('access-token'), options);
-            cookie.set("uid", headers.get('uid'), options);
-            router.push("/");
+            cookie.set('client', headers.get('client'), options);
+            cookie.set('access-token', headers.get('access-token'), options);
+            cookie.set('uid', headers.get('uid'), options);
+            router.push('/');
           }
         })
     } catch (err) {
@@ -50,7 +50,7 @@ export default function Auth() {
     } else {
       try {
         await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/`, {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify({
             email: email,
             name: username,
@@ -58,11 +58,11 @@ export default function Auth() {
             password_confirmation: password,
           }),
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }).then((res) => {
           if (res.status === 400) {
-            throw "authentication failed";
+            throw 'authentication failed';
           }
         });
         login();
@@ -81,7 +81,7 @@ export default function Auth() {
           alt="Workflow"
         />
         <h2 className="mt-6 text-center text-xl font-extrabold text-black">
-          {isLogin ? "ログイン" : "ユーザー作成"}
+          {isLogin ? 'ログイン' : 'ユーザー作成'}
         </h2>
       </div>
       <form className="mt-8 space-y-6" onSubmit={authUser}>
@@ -117,7 +117,7 @@ export default function Auth() {
           />
         </div>
         {isLogin ? (
-          ""
+          ''
         ) : (
           <>
             <div className="text-black">名前</div>
@@ -155,7 +155,7 @@ export default function Auth() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {isLogin ? "ログイン" : "新規ユーザー作成"}
+            {isLogin ? 'ログイン' : '新規ユーザー作成'}
           </button>
         </div>
       </form>

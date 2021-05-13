@@ -1,5 +1,5 @@
-import React from "react";
-import {Slide, ToastContainer} from "react-toastify";
+import React from 'react';
+import {Slide, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ToastMessageContainer: React.FC = () => (
