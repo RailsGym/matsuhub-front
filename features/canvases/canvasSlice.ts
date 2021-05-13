@@ -5,9 +5,9 @@ import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
 import toastMessage from 'features/toastMessage/toastMessage';
 
-type CanvasListState = Canvas;
+type CanvasState = Canvas;
 
-let initialState: CanvasListState = null as CanvasListState;
+let initialState: CanvasState = null as CanvasState;
 
 const canvasSlice = createSlice({
   name: 'canvas',
@@ -30,8 +30,7 @@ export const newCanvas = (title): AppThunk => async dispatch => {
     dispatch(createCanvasSuccess(canvas));
     toastMessage(['キャンバスを作成しました'], 'success');
   } catch (err) {
-    // ここでAPIのレスポンスからエラーメッセージを取得する
-    console.log(err.toString());
-    toastMessage(['キャンバス作成に失敗しました'], 'error');
+    console.log(err);
+    toastMessage([`キャンバス作成に失敗しました　${err}`], "error");
   }
 };
