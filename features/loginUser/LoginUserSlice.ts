@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { AppThunk } from "app/store";
-import { getMe, createSession } from "api/usersAPI";
-import toastMessage from "features/toastMessage/toastMessage";
+import { AppThunk } from 'app/store';
+import { getMe, createSession } from 'api/usersAPI';
+import toastMessage from 'features/toastMessage/toastMessage';
 import { User } from 'models/users';
-import Cookie from "universal-cookie";
+import Cookie from 'universal-cookie';
 
 interface LoginUserState {
   initialized: boolean;

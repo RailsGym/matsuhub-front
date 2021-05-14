@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux'
-import Head from "next/head";
+import Head from 'next/head';
 import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react'
 import { RootState } from 'app/rootReducer'
 import { useAppDispatch } from 'app/store'
 import { fetchCanvases } from 'features/canvases/canvasesSlice';
-import { Canvas } from "models/canvases";
+import { Canvas } from 'models/canvases';
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { init } from "features/loginUser/LoginUserSlice";
+import { init } from 'features/loginUser/LoginUserSlice';
 
 const selectCanvases = (state: RootState) => state.canvases
 
@@ -16,7 +16,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header({ title = "Default title" }) {
+export default function Header({ title = 'Default title' }) {
   const canvases = useSelector(selectCanvases)
   const [open, setOpen] = useState<boolean>(false)
   const dispatch = useAppDispatch()

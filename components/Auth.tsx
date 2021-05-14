@@ -1,19 +1,19 @@
-import {useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { login } from "features/loginUser/LoginUserSlice";
-import { signUp } from "features/signUpUser/signUpUserSlice";
-import { RootState } from "app/rootReducer";
-import Cookie from "universal-cookie";
+import {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { login } from 'features/loginUser/LoginUserSlice';
+import { signUp } from 'features/signUpUser/signUpUserSlice';
+import { RootState } from 'app/rootReducer';
+import Cookie from 'universal-cookie';
 
 const cookie = new Cookie();
 const selectSignedUpUser = (state: RootState) => state.signedUpUser
 
 export default function Auth() {
   const router = useRouter();
-  const [email, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const [isLogin, setIsLogin] = useState(true);
 
   const { loginUser } = useSelector((state: RootState) => state.loginUser)
@@ -62,7 +62,7 @@ export default function Auth() {
           alt="Workflow"
         />
         <h2 className="mt-6 text-center text-xl font-extrabold text-black">
-          {isLogin ? "ログイン" : "ユーザー作成"}
+          {isLogin ? 'ログイン' : 'ユーザー作成'}
         </h2>
       </div>
       <form className="mt-8 space-y-6" onSubmit={authUser}>
@@ -98,7 +98,7 @@ export default function Auth() {
           />
         </div>
         {isLogin ? (
-          ""
+          ''
         ) : (
           <>
             <div className="text-black">名前</div>
@@ -136,7 +136,7 @@ export default function Auth() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {isLogin ? "ログイン" : "新規ユーザー作成"}
+            {isLogin ? 'ログイン' : '新規ユーザー作成'}
           </button>
         </div>
       </form>

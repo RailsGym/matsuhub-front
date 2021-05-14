@@ -1,5 +1,5 @@
-import React from "react";
-import { toast } from "react-toastify";
+import React from 'react';
+import { toast } from 'react-toastify';
 
 const toastMessage = (messages: Array<string>, messageType: string = 'default') => {
   if (messageType === 'error') {
