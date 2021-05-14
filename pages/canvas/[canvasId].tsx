@@ -1,7 +1,9 @@
+import Sidebar from 'components/Sidebar'
+
 export default function CanvasShow() {
   return (
     <div>
-      <h1>キャンバス詳細ページ</h1>
+      <Sidebar />
     </div>
   )
 };
