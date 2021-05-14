@@ -34,7 +34,7 @@ export async function createUser(email: string, username: string, password: stri
     )
     return true
   } catch (err) {
-    throw err
+    throw err.response.data.errors.full_messages.join('。').toString();
   }
 }
 

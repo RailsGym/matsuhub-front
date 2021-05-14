@@ -34,6 +34,6 @@ export const signUp = (email: string, username: string, password: string): AppTh
     }
   } catch (err) {
     console.error(err);
-    toastMessage([err.toString()], 'error');
+    toastMessage([`ユーザ登録に失敗しました。${err}`], 'error');
   }
 }
