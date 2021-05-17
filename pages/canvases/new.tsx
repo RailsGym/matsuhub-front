@@ -49,7 +49,7 @@ const SCreateButton = styled.button`
 
 export const getServerSideProps = async context => ({
   props: {
-    layout: 'notSidebar'
+    layout: 'noSidebar'
   }
 });
 

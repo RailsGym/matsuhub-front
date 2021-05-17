@@ -3,7 +3,7 @@ import { store } from 'app/store';
 import Header from 'components/Header';
 import { Provider } from 'react-redux';
 
-export default function LayoutNotSidebar({ children, title = 'Default title' }) {
+export default function LayoutNoSidebar({ children, title = 'Default title' }) {
   return (
     <Provider store={store}>
       <ToastMessageContainer />

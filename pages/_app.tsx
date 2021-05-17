@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import Layout from 'layouts/Layout'
 import LayoutNotLogin from 'layouts/LayoutNotLogin'
-import LayoutNotSidebar from 'layouts/LayoutNotSideBar';
+import LayoutNoSidebar from 'layouts/LayoutNoSidebar';
 
 function MyApp({ Component, pageProps }) {
   switch (pageProps.layout) {
@@ -12,11 +12,11 @@ function MyApp({ Component, pageProps }) {
         </LayoutNotLogin>
       )
     }
-    case 'notSidebar': {
+    case 'noSidebar': {
       return (
-        <LayoutNotSidebar>
+        <LayoutNoSidebar>
           <Component {...pageProps} />
-        </LayoutNotSidebar>
+        </LayoutNoSidebar>
       );
     }
     default: {
