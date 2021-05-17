@@ -47,6 +47,12 @@ const SCreateButton = styled.button`
   `}
 `;
 
+export const getServerSideProps = async context => ({
+  props: {
+    layout: 'notSidebar'
+  }
+});
+
 const selectCanvas = (state: RootState) => state.canvas;
 
 export default function CanvasNew() {
@@ -59,7 +65,7 @@ export default function CanvasNew() {
 
   useEffect(() => {
     if (canvas) {
-      router.push(`/canvas/${canvas.id}`);
+      router.push(`/canvases/${canvas.id}`);
     } 
   }, [canvas]);
 
