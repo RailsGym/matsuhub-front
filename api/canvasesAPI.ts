@@ -2,7 +2,7 @@ import axios from 'axios';
 import { baseUrl, userAuthRequestHeader } from './baseRequest';
 import { Canvas } from 'models/canvases';
 
-const url = baseUrl + 'api/v1/canvas';
+const url = baseUrl + 'api/v1/canvases';
 export async function getCanvases(): Promise<Canvas[] | null> {
   const userAuthHeader = await userAuthRequestHeader();
   if (!userAuthHeader) {
@@ -29,7 +29,7 @@ export async function createCanvas(title): Promise<Canvas> {
     const canvasResponse = await axios.post<{'canvas': Canvas}>(
       url,
       {
-        title: title
+        canvas: { title: title }
       },
       {
         headers: userAuthHeader
