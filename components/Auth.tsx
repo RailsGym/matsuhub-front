@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { login } from 'features/loginUser/LoginUserSlice';
-import { signUp } from 'features/signUpUser/signUpUserSlice';
 import { RootState } from 'app/rootReducer';
 import Cookie from 'universal-cookie';
 

@@ -1,7 +1,7 @@
-import {AppThunk} from "../../app/store";
-import {createUser} from "../../api/usersAPI";
-import toastMessage from "../toastMessage/toastMessage";
-import {createSlice} from "@reduxjs/toolkit";
+import {AppThunk} from 'app/store';
+import {createUser} from 'api/usersAPI';
+import toastMessage from 'features/toastMessage/toastMessage';
+import {createSlice} from '@reduxjs/toolkit';
 
 interface SignUpUserState {
   signedUpUser: boolean | null;
