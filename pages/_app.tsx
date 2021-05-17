@@ -1,4 +1,5 @@
-import 'tailwindcss/tailwind.css';
+import 'styles/globals.css';
+import 'styles/components/buttons.css';
 import Layout from 'layouts/Layout'
 import LayoutNotLogin from 'layouts/LayoutNotLogin'
 

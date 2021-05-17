@@ -1,0 +1,3 @@
+.btn-blue {
+  @apply hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue border text-white bg-blue rounded text-sm font-medium rounded-md group relative w-full flex justify-center;
+}

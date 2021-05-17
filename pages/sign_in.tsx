@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
 import { useRouter } from 'next/router';
@@ -31,11 +32,7 @@ export default function SignIn() {
   return (
     <div className="max-w-md w-full space-y-8 bg-white p-12">
       <div>
-        <img
-          className="mx-auto h-12 w-auto"
-          src="guildhub_logo.png"
-          alt="Workflow"
-        />
+        <h1>MatsuHub</h1>
         <h2 className="mt-6 text-center text-xl font-extrabold text-black">
           ログイン
         </h2>
@@ -75,10 +72,15 @@ export default function SignIn() {
         <div>
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="btn-blue py-2 px-4 border-transparent"
           >
             ログイン
           </button>
+          <Link href='/sign_up'>
+            <a className='text-center text-blue'>
+              アカウント登録はこちら
+            </a>
+          </Link>
         </div>
       </form>
     </div>
