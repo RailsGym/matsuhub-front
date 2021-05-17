@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { login } from 'features/loginUser/LoginUserSlice';
+import { RootState } from 'app/rootReducer';
 import Cookie from 'universal-cookie';
 
 const cookie = new Cookie();
+const selectSignedUpUser = (state: RootState) => state.signedUpUser
 
 export default function Auth() {
   const router = useRouter();
@@ -11,61 +15,37 @@ export default function Auth() {
   const [username, setUsername] = useState('');
   const [isLogin, setIsLogin] = useState(true);
 
-  const login = async () => {
-    try {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/sign_in/`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-        .then((res) => {
-          if (res.status === 400) {
-            throw 'authentication failed';
-          } else if (res.ok) {
-            const options = { path: '/' };
-            const headers = res.headers
-            cookie.set('client', headers.get('client'), options);
-            cookie.set('access-token', headers.get('access-token'), options);
-            cookie.set('uid', headers.get('uid'), options);
-            router.push('/');
-          }
-        })
-    } catch (err) {
-      alert(err);
-    }
+  const { loginUser } = useSelector((state: RootState) => state.loginUser)
+  const { signedUpUser } = useSelector(selectSignedUpUser)
+
+  const dispatch = useDispatch();
+  const signInUser = async () => {
+    dispatch(login(email, password));
   };
+
+  const signUpUser = async () => {
+    dispatch(signUp(email, username, password));
+  };
+
+  useEffect(() => {
+    if (loginUser) {
+      router.push("/");
+    }
+  }, [loginUser]);
+
+  useEffect(() => {
+    if (signedUpUser) {
+      dispatch(login(email, password));
+    }
+  }, [dispatch, signedUpUser]);
 
   const authUser = async (e) => {
     e.preventDefault();
     if (isLogin) {
-      login();
+      await signInUser();
     } else {
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/v1/auth/`, {
-          method: 'POST',
-          body: JSON.stringify({
-            email: email,
-            name: username,
-            password: password,
-            password_confirmation: password,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }).then((res) => {
-          if (res.status === 400) {
-            throw 'authentication failed';
-          }
-        });
-        login();
+        await signUpUser();
       } catch (err) {
         alert(err);
       }

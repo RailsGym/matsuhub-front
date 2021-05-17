@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {AppThunk} from 'app/store';
-import {getMe } from 'api/usersAPI';
+import { AppThunk } from 'app/store';
+import { getMe, createSession } from 'api/usersAPI';
+import toastMessage from 'features/toastMessage/toastMessage';
 import { User } from 'models/users';
 import Cookie from 'universal-cookie';
 
@@ -44,4 +45,16 @@ export const init = (): AppThunk => async dispatch => {
     console.error(e);
   }
   dispatch(initSuccess(true));
+}
+
+export const login = (email: string, password: string): AppThunk => async dispatch => {
+  try {
+    const user: User | null = await createSession(email, password);
+    if (user) {
+      dispatch(loginSuccess(user));
+    }
+  } catch (err) {
+    console.error(err);
+    toastMessage(['メールアドレスまたはパスワードが正しくありません。'], 'error');
+  }
 }
