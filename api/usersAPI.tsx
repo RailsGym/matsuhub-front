@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {User} from 'models/users';
 import  {baseUrl, userAuthRequestHeader} from './baseRequest';
-import Cookie from "universal-cookie";
+import Cookie from 'universal-cookie';
 
 export async function getMe(): Promise<User | null> {
   const url = baseUrl + '/api/v1/users/me';
