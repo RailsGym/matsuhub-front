@@ -32,14 +32,17 @@ export default function Auth() {
   };
 
   useEffect(() => {
-    dispatch(fetchCanvases());
-  }, [dispatch]);
+    if (loginUser) {
+      dispatch(fetchCanvases());
+    }
+  }, [dispatch, loginUser]);
 
   useEffect(() => {
     if (loginUser) {
       if (canvases && !canvases.length) {
         router.push('/canvases/new');
       } else if (canvases) {
+        // TODO: 最終的には最後に開いたキャンバスに遷移するようにしたい
         const lastCreatedCanvas = canvases[canvases.length - 1];
         router.push(`/canvases/${lastCreatedCanvas.id}`);
       }
