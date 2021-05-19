@@ -49,7 +49,7 @@ export default function Auth() {
   useEffect(() => {
     if (signedUpUser) {
       dispatch(login(email, password));
-      router.push("/canvases/new");
+      router.push('/canvases/new');
     }
   }, [signedUpUser]);
 
