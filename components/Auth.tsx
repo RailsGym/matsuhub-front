@@ -5,9 +5,11 @@ import { login } from 'features/loginUser/LoginUserSlice';
 import { signUp } from 'features/signUpUser/SignUpUserSlice';
 import { RootState } from 'app/rootReducer';
 import Cookie from 'universal-cookie';
+import { fetchCanvases } from 'features/canvases/canvasesSlice';
 
 const cookie = new Cookie();
 const selectSignedUpUser = (state: RootState) => state.signedUpUser
+const selectCanvases = (state: RootState) => state.canvases;
 
 export default function Auth() {
   const router = useRouter();
@@ -18,6 +20,7 @@ export default function Auth() {
 
   const { loginUser } = useSelector((state: RootState) => state.loginUser)
   const { signedUpUser } = useSelector(selectSignedUpUser)
+  const canvases = useSelector(selectCanvases);
 
   const dispatch = useDispatch();
   const signInUser = async () => {
@@ -29,10 +32,19 @@ export default function Auth() {
   };
 
   useEffect(() => {
+    dispatch(fetchCanvases());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (loginUser) {
-      router.push("/");
+      if (canvases && !canvases.length) {
+        router.push('/canvases/new');
+      } else if (canvases) {
+        const lastCreatedCanvas = canvases[canvases.length - 1];
+        router.push(`/canvases/${lastCreatedCanvas.id}`);
+      }
     }
-  }, [loginUser]);
+  }, [loginUser, canvases]);
 
   useEffect(() => {
     if (signedUpUser) {
