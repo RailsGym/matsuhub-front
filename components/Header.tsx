@@ -45,12 +45,12 @@ export default function Header({ title = 'Default title' }) {
         <div className="bg-gray-100">
           <div className="py-3 px-3">
             <div className="flex justify-between flex-wrap">
-              <div className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white">
+              <div className="flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium text-gray-700">
                 <Popover className="relative" onClick={togglePopoverOpen}>
                   <Popover.Button
                     className={classNames(
-                      open ? "text-gray-900" : "text-gray-500",
-                      "group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
+                      open ? "text-gray-1000" : "text-gray-700",
+                      "group rounded-md inline-flex items-center text-lg font-semibold hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
                     )}
                   >
                     キャンバスをつくる
@@ -65,10 +65,10 @@ export default function Header({ title = 'Default title' }) {
                   <Transition
                     show={open}
                     as={Fragment}
-                    enter="transition ease-out duration-200"
+                    enter="transition ease-out duration-50"
                     enterFrom="opacity-0 translate-y-1"
                     enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in duration-200"
+                    leave="transition ease-in duration-50"
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
@@ -77,9 +77,9 @@ export default function Header({ title = 'Default title' }) {
                       className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0"
                     >
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-1/2">
-                        <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-3">
+                        <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
                           <Link href="/canvases/new">
-                            <a className="text-sm font-medium text-gray-900 border-bottom-solid border-b-2 p-2">
+                            <a className="text-sm font-medium text-gray-900 border-bottom-solid border-b-2 py-1 px-2">
                               新しいキャンバスを作成する
                             </a>
                           </Link>
@@ -89,10 +89,10 @@ export default function Header({ title = 'Default title' }) {
                                 <Link href={`/canvases/${item.id}`}>
                                   <a
                                     key={item.id}
-                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                                    className="-m-3 py-2 px-1 flex items-start rounded-lg hover:bg-gray-50"
                                   >
                                     <div className="ml-4">
-                                      <p className="text-base font-medium text-gray-900">
+                                      <p className="text-sm font-medium text-gray-900">
                                         {item.title}
                                       </p>
                                     </div>
