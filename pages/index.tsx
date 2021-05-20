@@ -4,7 +4,9 @@ import BacisAuth from 'components/BacisAuth';
 
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
-  await BacisAuth(req, res);
+  if (process.env.NODE_ENV === 'production') {
+    await BacisAuth(req, res);
+  }
   return {
     props: {}
   };
