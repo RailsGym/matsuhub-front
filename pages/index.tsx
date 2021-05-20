@@ -1,5 +1,15 @@
 import Cookie from 'universal-cookie';
 import { useRouter } from 'next/router';
+import BacisAuth from 'components/BacisAuth';
+
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await BacisAuth(req, res);
+  return {
+    props: {}
+  };
+}
+
 const cookie = new Cookie();
 
 export default function MainPage() {

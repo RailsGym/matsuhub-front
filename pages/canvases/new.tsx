@@ -5,6 +5,17 @@ import { newCanvas } from 'features/canvases/canvasSlice';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
+import BacisAuth from 'components/BacisAuth';
+
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  await BacisAuth(req, res);
+  return {
+    props: {
+      layout: 'noSidebar'
+    }
+  };
+}
 
 const SContainer = styled.div`
   margin: auto;
@@ -47,11 +58,6 @@ const SCreateButton = styled.button`
   `}
 `;
 
-export const getServerSideProps = async context => ({
-  props: {
-    layout: 'noSidebar'
-  }
-});
 
 const selectCanvas = (state: RootState) => state.canvas;
 
