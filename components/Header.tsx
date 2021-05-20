@@ -37,7 +37,7 @@ export default function Header({ title = 'Default title' }) {
   }
 
   return (
-    <div className="font-mono bg-gray-100">
+    <div className="bg-gray-100">
       <Head>
         <title>{title}</title>
       </Head>
