@@ -1,9 +1,9 @@
-import BacisAuth from 'components/BacisAuth';
+import BasicAuth from 'components/BasicAuth';
 
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   if (process.env.NODE_ENV === 'production') {
-    await BacisAuth(req, res);
+    await BasicAuth(req, res);
   }
   return {
     props: {}
