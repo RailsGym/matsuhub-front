@@ -9,6 +9,7 @@ import { fetchCanvases } from 'features/canvases/canvasesSlice';
 import { Canvas } from 'models/canvases';
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { init } from 'features/loginUser/LoginUserSlice';
+import { useRouter } from 'next/router';
 
 const selectCanvases = (state: RootState) => state.canvases
 
@@ -18,18 +19,26 @@ function classNames(...classes) {
 
 export default function Header({ title = 'Default title' }) {
   const canvases = useSelector(selectCanvases)
+  const { loginUser, initialized } = useSelector((state: RootState) => state.loginUser);
   const [open, setOpen] = useState<boolean>(false)
   const dispatch = useAppDispatch()
+  const router = useRouter();
 
   useEffect(() => {
-    dispatch(fetchCanvases());
+    if (loginUser) {
+      dispatch(fetchCanvases());
+    }
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(init());
   }, [dispatch]);
 
-  const { loginUser, initialized } = useSelector((state: RootState) => state.loginUser)
+  useEffect(() => {
+    if (!loginUser && initialized) {
+      router.push('/sign_in');
+    }
+  }, [initialized]);
 
   const togglePopoverOpen = () => {
     console.log('togglePopoverOpen')
