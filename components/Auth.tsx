@@ -38,13 +38,13 @@ export default function Auth() {
   }, [dispatch, loginUser]);
 
   useEffect(() => {
-    if (loginUser) {
-      if (canvases && !canvases.length) {
-        router.push('/canvases/new');
-      } else if (canvases) {
+    if (loginUser && canvases) {
+      if (canvases.length) {
         // TODO: 最終的には最後に開いたキャンバスに遷移するようにしたい
         const lastCreatedCanvas = canvases[canvases.length - 1];
         router.push(`/canvases/${lastCreatedCanvas.id}`);
+      } else {
+        router.push("/canvases/new");
       }
     }
   }, [loginUser, canvases]);
