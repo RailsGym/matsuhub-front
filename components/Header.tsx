@@ -10,15 +10,16 @@ import { Canvas } from 'models/canvases';
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { init } from 'features/loginUser/LoginUserSlice';
 import { useRouter } from 'next/router';
+import Cookie from 'universal-cookie';
 
-const selectCanvases = (state: RootState) => state.canvases
+const cookie = new Cookie();
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Header({ title = 'Default title' }) {
-  const canvases = useSelector(selectCanvases)
+  const canvases = useSelector((state: RootState) => state.canvases);
   const { loginUser, initialized } = useSelector((state: RootState) => state.loginUser);
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
@@ -51,6 +52,13 @@ export default function Header({ title = 'Default title' }) {
     setUserMenuOpen(!userMenuOpen);
   };
 
+  const logout = () => {
+    cookie.remove('access-token');
+    cookie.remove('client');
+    cookie.remove('uid');
+    router.push('/sign_in');
+  };
+  
   return (
     <div className="bg-gray-100">
       <Head>
@@ -161,7 +169,7 @@ export default function Header({ title = 'Default title' }) {
                     >
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-1/3">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
-                          <a className="text-sm font-medium text-gray-900 py-1 px-2">ログアウト</a>
+                          <button className="text-sm font-medium text-gray-900 py-1 px-2" onClick={logout}>ログアウト</button>
                         </div>
                       </div>
                     </Popover.Panel>
