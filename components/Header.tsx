@@ -20,7 +20,8 @@ function classNames(...classes) {
 export default function Header({ title = 'Default title' }) {
   const canvases = useSelector(selectCanvases)
   const { loginUser, initialized } = useSelector((state: RootState) => state.loginUser);
-  const [open, setOpen] = useState<boolean>(false)
+  const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
+  const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch()
   const router = useRouter();
 
@@ -40,10 +41,15 @@ export default function Header({ title = 'Default title' }) {
     }
   }, [initialized]);
 
-  const togglePopoverOpen = () => {
-    console.log('togglePopoverOpen')
-    setOpen(!open);
-  }
+  const togglePopoverCanvasMenuOpen = () => {
+    console.log('togglePopoverCanvasMenuOpen');
+    setCanvasMenuOpen(!canvasMenuOpen);
+  };
+
+  const togglePopoverUserMenuOpen = () => {
+    console.log('togglePopoverUserMenuOpen');
+    setUserMenuOpen(!userMenuOpen);
+  };
 
   return (
     <div className="bg-gray-100">
@@ -52,27 +58,30 @@ export default function Header({ title = 'Default title' }) {
       </Head>
       <main className="flex flex-1 w-screen flex-col">
         <div className="bg-gray-100">
-          <div className="py-3 px-3">
+          <div className="py-1">
             <div className="flex justify-between flex-wrap">
               <div className="flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium text-gray-700">
-                <Popover className="relative" onClick={togglePopoverOpen}>
+                <Popover
+                  className="relative"
+                  onClick={togglePopoverCanvasMenuOpen}
+                >
                   <Popover.Button
                     className={classNames(
-                      open ? "text-gray-1000" : "text-gray-700",
-                      "group rounded-md inline-flex items-center text-lg font-semibold hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
+                      canvasMenuOpen ? "text-gray-1000" : "text-gray-700",
+                      "group rounded-md inline-flex items-center text-md font-semibold hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
                     )}
                   >
                     キャンバスをつくる
                     <ChevronDownIcon
                       className={classNames(
-                        open ? "text-gray-600" : "text-gray-400",
+                        canvasMenuOpen ? "text-gray-600" : "text-gray-400",
                         "ml-2 h-5 w-5 group-hover:text-gray-500"
                       )}
                       aria-hidden="true"
                     />
                   </Popover.Button>
                   <Transition
-                    show={open}
+                    show={canvasMenuOpen}
                     as={Fragment}
                     enter="transition ease-out duration-50"
                     enterFrom="opacity-0 translate-y-1"
@@ -116,27 +125,48 @@ export default function Header({ title = 'Default title' }) {
                   </Transition>
                 </Popover>
               </div>
-              <div className="">
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-indigo-50"
+              <div className="flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium text-gray-700">
+                <Popover
+                  className="relative"
+                  onClick={togglePopoverUserMenuOpen}
                 >
-                  {loginUser ? <span>{loginUser.name}</span> : null}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <Popover.Button
+                    className={classNames(
+                      userMenuOpen ? "text-gray-1000" : "text-gray-700",
+                      "group rounded-md inline-flex items-center text-md hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
+                    )}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"
+                    {loginUser ? <span>{loginUser.name}</span> : null}
+                    <ChevronDownIcon
+                      className={classNames(
+                        userMenuOpen ? "text-gray-600" : "text-gray-400",
+                        "ml-2 h-5 w-5 group-hover:text-gray-500"
+                      )}
+                      aria-hidden="true"
                     />
-                  </svg>
-                </a>
+                  </Popover.Button>
+                  <Transition
+                    show={userMenuOpen}
+                    as={Fragment}
+                    enter="transition ease-out duration-50"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-50"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                    <Popover.Panel
+                      static
+                      className="absolute mt-3 transform px-2 w-screen max-w-sm sm:px-0 lg:ml-0"
+                    >
+                      <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-1/3">
+                        <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
+                          <a className="text-sm font-medium text-gray-900 py-1 px-2">ログアウト</a>
+                        </div>
+                      </div>
+                    </Popover.Panel>
+                  </Transition>
+                </Popover>
               </div>
             </div>
           </div>
