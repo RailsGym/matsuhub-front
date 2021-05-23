@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import loginUserReducer from "features/loginUser/LoginUserSlice";
-import signUpUserReducer from "features/signUpUser/SignUpUserSlice";
+import loginUserReducer from 'features/loginUser/LoginUserSlice';
+import signUpUserReducer from 'features/signUpUser/SignUpUserSlice';
 import canvasesReducer from 'features/canvases/canvasesSlice';
 import canvasReducer from 'features/canvases/canvasSlice';
 

@@ -2,6 +2,7 @@ import 'styles/globals.css';
 import 'styles/components/buttons.css';
 import Layout from 'layouts/Layout'
 import LayoutNotLogin from 'layouts/LayoutNotLogin'
+import LayoutNoSidebar from 'layouts/LayoutNoSidebar';
 
 function MyApp({ Component, pageProps }) {
   switch (pageProps.layout) {
@@ -11,6 +12,13 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </LayoutNotLogin>
       )
+    }
+    case 'noSidebar': {
+      return (
+        <LayoutNoSidebar>
+          <Component {...pageProps} />
+        </LayoutNoSidebar>
+      );
     }
     default: {
       return (

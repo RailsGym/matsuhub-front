@@ -47,6 +47,12 @@ const SCreateButton = styled.button`
   `}
 `;
 
+export const getServerSideProps = async context => ({
+  props: {
+    layout: 'noSidebar'
+  }
+});
+
 const selectCanvas = (state: RootState) => state.canvas;
 
 export default function CanvasNew() {
@@ -57,17 +63,14 @@ export default function CanvasNew() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
-    if (canvas) {
-      router.push(`/canvas/${canvas.id}`);
-    } 
-  }, [canvas]);
-
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
-  const saveCanvas = () => {
-    dispatch(newCanvas(title));
+  const saveCanvas = async() => {
+    await dispatch(newCanvas(title));
+    if (canvas) {
+      router.push(`/canvases/${canvas.id}`);
+    } 
   };
 
   return (
