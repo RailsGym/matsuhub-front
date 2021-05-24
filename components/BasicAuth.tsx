@@ -1,4 +1,4 @@
-import initializeBasicAuth from "nextjs-basic-auth";
+import initializeBasicAuth from 'nextjs-basic-auth';
 
 const users = [
   {
