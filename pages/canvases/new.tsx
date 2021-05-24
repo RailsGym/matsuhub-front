@@ -5,22 +5,12 @@ import { newCanvas } from 'features/canvases/canvasSlice';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
-import BasicAuth from 'components/BasicAuth';
 
-export async function getServerSideProps(ctx) {
-  const { req, res } = ctx;
-  if (process.env.NODE_ENV === 'production') {
-    await BasicAuth(req, res);
-    if (!req.headers.authorization) {
-      res.end('<html>Unauthorized</html>');
-    }
+export const getServerSideProps = async context => ({
+  props: {
+    layout: "noSidebar"
   }
-  return {
-    props: {
-      layout: 'noSidebar'
-    }
-  };
-}
+});
 
 const SContainer = styled.div`
   margin: auto;
