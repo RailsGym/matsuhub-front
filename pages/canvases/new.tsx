@@ -6,6 +6,12 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
 
+export const getServerSideProps = async context => ({
+  props: {
+    layout: 'noSidebar'
+  }
+});
+
 const SContainer = styled.div`
   margin: auto;
   text-align: center;
@@ -47,11 +53,6 @@ const SCreateButton = styled.button`
   `}
 `;
 
-export const getServerSideProps = async context => ({
-  props: {
-    layout: 'noSidebar'
-  }
-});
 
 const selectCanvas = (state: RootState) => state.canvas;
 
