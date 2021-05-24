@@ -43,12 +43,10 @@ export default function Header({ title = 'Default title' }) {
   }, [initialized]);
 
   const togglePopoverCanvasMenuOpen = () => {
-    console.log('togglePopoverCanvasMenuOpen');
     setCanvasMenuOpen(!canvasMenuOpen);
   };
 
   const togglePopoverUserMenuOpen = () => {
-    console.log('togglePopoverUserMenuOpen');
     setUserMenuOpen(!userMenuOpen);
   };
 
