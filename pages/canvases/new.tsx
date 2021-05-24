@@ -8,7 +8,7 @@ import { RootState } from 'app/rootReducer';
 
 export const getServerSideProps = async context => ({
   props: {
-    layout: "noSidebar"
+    layout: 'noSidebar'
   }
 });
 
