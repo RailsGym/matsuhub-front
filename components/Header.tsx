@@ -165,11 +165,16 @@ export default function Header({ title = 'Default title' }) {
                   >
                     <Popover.Panel
                       static
-                      className="absolute mt-3 transform px-2 w-screen max-w-sm sm:px-0 lg:ml-0"
+                      className="absolute right-0 flex justify-end mt-3 px-2 w-screen max-w-sm sm:px-0 lg:ml-0"
                     >
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-1/3">
-                        <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
-                          <button className="text-sm font-medium text-gray-900 py-1 px-2" onClick={logout}>ログアウト</button>
+                        <div className="grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
+                          <button
+                            className="text-sm font-medium text-gray-900 py-1 px-2"
+                            onClick={logout}
+                          >
+                            ログアウト
+                          </button>
                         </div>
                       </div>
                     </Popover.Panel>
