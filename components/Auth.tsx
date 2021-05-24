@@ -17,6 +17,7 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [isLogin, setIsLogin] = useState(true);
+  const loginCookie = cookie.get('access-token');
 
   const { loginUser } = useSelector((state: RootState) => state.loginUser)
   const { signedUpUser } = useSelector(selectSignedUpUser)
@@ -32,19 +33,19 @@ export default function Auth() {
   };
 
   useEffect(() => {
-    if (loginUser) {
+    if (loginCookie && loginUser) {
       dispatch(fetchCanvases());
     }
   }, [dispatch, loginUser]);
 
   useEffect(() => {
-    if (loginUser && canvases) {
+    if (loginCookie && loginUser && canvases) {
       if (canvases.length) {
         // TODO: 最終的には最後に開いたキャンバスに遷移するようにしたい
         const lastCreatedCanvas = canvases[canvases.length - 1];
         router.push(`/canvases/${lastCreatedCanvas.id}`);
       } else {
-        router.push("/canvases/new");
+        router.push('/canvases/new');
       }
     }
   }, [loginUser, canvases]);
