@@ -64,17 +64,14 @@ export default function CanvasNew() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
-    if (canvas) {
-      router.push(`/canvases/${canvas.id}`);
-    } 
-  }, [canvas]);
-
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
-  const saveCanvas = () => {
-    dispatch(newCanvas(title));
+  const saveCanvas = async() => {
+    await dispatch(newCanvas(title));
+    if (canvas) {
+      router.push(`/canvases/${canvas.id}`);
+    } 
   };
 
   return (

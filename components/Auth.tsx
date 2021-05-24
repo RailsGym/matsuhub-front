@@ -5,9 +5,11 @@ import { login } from 'features/loginUser/LoginUserSlice';
 import { signUp } from 'features/signUpUser/SignUpUserSlice';
 import { RootState } from 'app/rootReducer';
 import Cookie from 'universal-cookie';
+import { fetchCanvases } from 'features/canvases/canvasesSlice';
 
 const cookie = new Cookie();
 const selectSignedUpUser = (state: RootState) => state.signedUpUser
+const selectCanvases = (state: RootState) => state.canvases;
 
 export default function Auth() {
   const router = useRouter();
@@ -18,6 +20,7 @@ export default function Auth() {
 
   const { loginUser } = useSelector((state: RootState) => state.loginUser)
   const { signedUpUser } = useSelector(selectSignedUpUser)
+  const canvases = useSelector(selectCanvases);
 
   const dispatch = useDispatch();
   const signInUser = async () => {
@@ -30,15 +33,29 @@ export default function Auth() {
 
   useEffect(() => {
     if (loginUser) {
-      router.push("/");
+      dispatch(fetchCanvases());
     }
-  }, [loginUser]);
+  }, [dispatch, loginUser]);
+
+  useEffect(() => {
+    if (loginUser && canvases) {
+      if (canvases.length) {
+        // TODO: 最終的には最後に開いたキャンバスに遷移するようにしたい
+        const lastCreatedCanvas = canvases[canvases.length - 1];
+        router.push(`/canvases/${lastCreatedCanvas.id}`);
+      } else {
+        router.push("/canvases/new");
+      }
+    }
+  }, [loginUser, canvases]);
 
   useEffect(() => {
     if (signedUpUser) {
       dispatch(login(email, password));
+      router.push('/canvases/new');
     }
-  }, [dispatch, signedUpUser]);
+  }, [signedUpUser]);
+
 
   const authUser = async (e) => {
     e.preventDefault();
