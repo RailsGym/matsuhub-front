@@ -32,55 +32,61 @@ export default function SignIn() {
   return (
     <div className="max-w-md w-full space-y-8 bg-white p-12">
       <div>
-        <h1>MatsuHub</h1>
-        <h2 className="mt-6 text-center text-xl font-extrabold text-black">
+        <h1 className="site-title-logo">MatsuHub</h1>
+        <h2 className="mt-6 text-center text-xl font-extrabold text-blue">
           ログイン
         </h2>
       </div>
-      <form className="mt-8 space-y-6" onSubmit={authUser}>
+      <form className="mt-8" onSubmit={authUser}>
         <input type="hidden" name="remember" value="true" />
-        <div className="text-black">メールアドレス</div>
-        <div>
-          <input
-            name="email"
-            type="text"
-            autoComplete="email"
-            required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="email address"
-            value={email}
-            onChange={(e) => {
-              setMail(e.target.value);
-            }}
-          />
+        <div className="mt-10">
+          <div className="text-black">メールアドレス</div>
+          <div>
+            <input
+              name="email"
+              type="text"
+              autoComplete="email"
+              required
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="email address"
+              value={email}
+              onChange={(e) => {
+                setMail(e.target.value);
+              }}
+            />
+          </div>
         </div>
-        <div className="text-black">パスワード</div>
-        <div>
-          <input
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
+        <div className="mt-10">
+          <div className="text-black">パスワード</div>
+          <div>
+            <input
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
         </div>
-        <div>
+        <div className="mt-10">
           <button
             type="submit"
             className="btn-blue py-2 px-4 border-transparent"
           >
             ログイン
           </button>
-          <Link href='/sign_up'>
-            <a className='text-center text-blue'>
-              アカウント登録はこちら
-            </a>
-          </Link>
+          <div className="text-center mt-6">
+            <Link href='/sign_up'>
+              <a className='text-center text-blue'>
+                アカウント登録はこちら
+              </a>
+            </Link>
+          </div>
         </div>
       </form>
     </div>

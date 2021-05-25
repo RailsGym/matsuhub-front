@@ -1,3 +1,8 @@
 .btn-blue {
-  @apply hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue border text-white bg-blue rounded text-sm font-medium rounded-md group relative w-full flex justify-center;
+  background-color: #13B1C0;
+  @apply focus:ring-2 focus:ring-offset-2 focus:ring-blue-100 border text-white rounded text-sm font-medium rounded-md group relative w-full flex justify-center;
 }
+
+/*.btn-blue {*/
+/*  @apply hover:focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-100 border text-white bg-blue-100 rounded text-sm font-medium rounded-md group relative w-full flex justify-center;*/
+/*}*/
