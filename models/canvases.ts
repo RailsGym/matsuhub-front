@@ -1,5 +1,4 @@
-import { User } from "./users";
-import { Label } from "./labels";
+import { Label } from './labels';
 
 export type AreaIndex = "purpose" |
   "vision" |
@@ -43,4 +42,9 @@ export interface Canvas {
   areas?: { [key: string] : Area }
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface ShowCanvas {
+  title: string;
+  areas: [id: string, area_type: string, area_type_text: string, description: string, labels: []];
 }
