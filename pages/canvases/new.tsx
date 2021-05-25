@@ -5,6 +5,7 @@ import { newCanvas } from 'features/canvases/canvasSlice';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
+import { showCanvas } from 'features/canvases/canvasSlice';
 
 export const getServerSideProps = async context => ({
   props: {
@@ -53,24 +54,21 @@ const SCreateButton = styled.button`
   `}
 `;
 
-
-const selectCanvas = (state: RootState) => state.canvas;
-
 export default function CanvasNew() {
-  const canvas = useSelector(selectCanvas);
-
+  const { createdCanvas } = useSelector((state: RootState) => state.canvas);
   const [title, setTitle] = useState<string | number>();
-
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
+
   const saveCanvas = async() => {
     await dispatch(newCanvas(title));
-    if (canvas) {
-      router.push(`/canvases/${canvas.id}`);
+    if (createdCanvas) {
+      router.push(`/canvases/${createdCanvas.id}`);
+      dispatch(showCanvas(createdCanvas.id));
     } 
   };
 

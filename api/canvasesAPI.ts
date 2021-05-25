@@ -41,22 +41,21 @@ export async function createCanvas(title): Promise<Canvas> {
   }
 }
 
-export async function getCanvas(): Promise<Canvas[] | null> {
-  const userAuthHeader = await userAuthRequestHeader();
-  if (!userAuthHeader) {
-    return null;
-  }
+export async function getCanvas(canvasId): Promise<Canvas[] | null> {
+         const userAuthHeader = await userAuthRequestHeader();
+         if (!userAuthHeader) {
+           return null;
+         }
 
-  try {
-    const canvasResponse = await axios.get<{ canvas: Canvas[] }>(
-      // TODO: キャンバスのidを挿入したい
-      url + "/289",
-      {
-        headers: userAuthHeader
-      }
-    );
-    return canvasResponse.data.canvas;
-  } catch (err) {
-    throw err;
-  }
-}
+         try {
+           const canvasResponse = await axios.get<{ canvas: Canvas[] }>(
+             url + `/${canvasId}`,
+             {
+               headers: userAuthHeader
+             }
+           );
+           return canvasResponse.data.canvas;
+         } catch (err) {
+           throw err;
+         }
+       }

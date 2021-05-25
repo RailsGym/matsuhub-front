@@ -1,30 +1,35 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice} from '@reduxjs/toolkit';
 import { createCanvas } from 'api/canvasesAPI';
 import { getCanvas } from 'api/canvasesAPI';
-
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
 import toastMessage from 'features/toastMessage/toastMessage';
 
-type CanvasState = Canvas;
+interface CanvasState {
+  createdCanvas: Canvas | null;
+  getCanvas?
+}
 
-let initialState: CanvasState = null as CanvasState;
+const initialState: CanvasState = {
+  createdCanvas: null,
+  getCanvas: null
+};
 
 const canvasSlice = createSlice({
   name: 'canvas',
   initialState: initialState,
   reducers: {
-    createCanvasSuccess(state, { payload }: PayloadAction<Canvas>) {
-      return payload;
+    createCanvasSuccess: (state, action) => {
+      state.createdCanvas = action.payload;
     },
-    getCanvasSuccess(state, { payload }: PayloadAction) {
-      return payload;
+    getCanvasSuccess: (state, action) => {
+      state.getCanvas = action.payload;
     }
   }
 });
+export default canvasSlice.reducer;
 
-export const { createCanvasSuccess } = canvasSlice.actions;
-export const { getCanvasSuccess } = canvasSlice.actions;
+export const { createCanvasSuccess, getCanvasSuccess } = canvasSlice.actions;
 
 export const newCanvas = (title): AppThunk => async dispatch => {
   try {
@@ -38,15 +43,16 @@ export const newCanvas = (title): AppThunk => async dispatch => {
   }
 };
 
-export const showCanvas = (): AppThunk => async dispatch => {
-  try {
-    const canvas = await getCanvas();
+export const showCanvas = (canvasId): AppThunk => async dispatch => {
+         try {
+           const canvas = await getCanvas(canvasId);
 
-    dispatch(getCanvasSuccess(canvas));
-  } catch (err) {
-    console.log(err);
-    toastMessage([`キャンバス情報の取得に失敗しました　${err}`], 'error');
-  }
-};
-
-export default canvasSlice.reducer;
+           dispatch(getCanvasSuccess(canvas));
+         } catch (err) {
+           console.log(err);
+           toastMessage(
+             [`キャンバス情報の取得に失敗しました　${err}`],
+             'error'
+           );
+         }
+       };
