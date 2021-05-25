@@ -40,3 +40,23 @@ export async function createCanvas(title): Promise<Canvas> {
     throw err.response.data.errors.toString();
   }
 }
+
+export async function getCanvas(): Promise<Canvas[] | null> {
+  const userAuthHeader = await userAuthRequestHeader();
+  if (!userAuthHeader) {
+    return null;
+  }
+
+  try {
+    const canvasResponse = await axios.get<{ canvas: Canvas[] }>(
+      // TODO: キャンバスのidを挿入したい
+      url + "/289",
+      {
+        headers: userAuthHeader
+      }
+    );
+    return canvasResponse.data.canvas;
+  } catch (err) {
+    throw err;
+  }
+}
