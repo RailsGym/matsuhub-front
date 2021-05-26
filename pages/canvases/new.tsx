@@ -5,6 +5,7 @@ import { newCanvas } from 'features/canvases/canvasSlice';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
+import { createdCanvasReset } from 'features/canvases/canvasSlice';
 
 export const getServerSideProps = async context => ({
   props: {
@@ -59,15 +60,20 @@ export default function CanvasNew() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  useEffect(() => {
+    if (createdCanvas) {
+      // TODO: 最終的には最後に操作したキャンバスに遷移されるように
+      router.push(`/canvases/${createdCanvas.id}`);
+      dispatch(createdCanvasReset());
+    }
+  }, [createdCanvas]);
+
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
 
-  const saveCanvas = async() => {
-    await dispatch(newCanvas(title));
-    if (createdCanvas) {
-      router.push(`/canvases/${createdCanvas.id}`);
-    } 
+  const saveCanvas = () => {
+    dispatch(newCanvas(title));
   };
 
   return (
