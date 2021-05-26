@@ -5,7 +5,6 @@ import { newCanvas } from 'features/canvases/canvasSlice';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
-import { showCanvas } from 'features/canvases/canvasSlice';
 
 export const getServerSideProps = async context => ({
   props: {
@@ -68,7 +67,6 @@ export default function CanvasNew() {
     await dispatch(newCanvas(title));
     if (createdCanvas) {
       router.push(`/canvases/${createdCanvas.id}`);
-      dispatch(showCanvas(createdCanvas.id));
     } 
   };
 

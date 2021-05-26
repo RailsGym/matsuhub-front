@@ -43,7 +43,7 @@ export const newCanvas = (title): AppThunk => async dispatch => {
   }
 };
 
-export const showCanvas = (canvasId): AppThunk => async dispatch => {
+export const fetchCanvas = (canvasId): AppThunk => async dispatch => {
          try {
            const canvas: Canvas = await getCanvas(canvasId);
 
