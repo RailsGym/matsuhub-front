@@ -7,12 +7,12 @@ import toastMessage from 'features/toastMessage/toastMessage';
 
 interface CanvasState {
   createdCanvas: Canvas | null;
-  getCanvas: Canvas | null;
+  canvas: Canvas | null;
 }
 
 const initialState: CanvasState = {
   createdCanvas: null,
-  getCanvas: null
+  canvas: null
 };
 
 const canvasSlice = createSlice({
@@ -23,7 +23,7 @@ const canvasSlice = createSlice({
       state.createdCanvas = action.payload;
     },
     getCanvasSuccess: (state, action) => {
-      state.getCanvas = action.payload;
+      state.canvas = action.payload;
     }
   }
 });
