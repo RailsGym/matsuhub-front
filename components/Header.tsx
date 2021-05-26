@@ -102,7 +102,14 @@ export default function Header({ title = 'Default title' }) {
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-1/2">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
                           <Link href="/canvases/new">
-                            <a className="text-sm font-medium text-gray-900 border-bottom-solid border-b-2 py-1 px-2">
+                            <a
+                              className={classNames(
+                                canvases && canvases.length
+                                  ? "border-bottom-solid border-b-2"
+                                  : null,
+                                "text-sm font-medium text-gray-900 py-1 px-2"
+                              )}
+                            >
                               新しいキャンバスを作成する
                             </a>
                           </Link>
