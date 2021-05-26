@@ -72,8 +72,8 @@ export default function CanvasNew() {
     setTitle(event.target.value);
   };
 
-  const saveCanvas = async () => {
-    await dispatch(newCanvas(title));
+  const saveCanvas = () => {
+    dispatch(newCanvas(title));
   };
 
   return (
