@@ -43,8 +43,3 @@ export interface Canvas {
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-export interface ShowCanvas {
-  title: string;
-  areas: [id: string, area_type: string, area_type_text: string, description: string, labels: []];
-}

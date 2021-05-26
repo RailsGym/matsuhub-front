@@ -2,12 +2,12 @@ import { createSlice} from '@reduxjs/toolkit';
 import { createCanvas } from 'api/canvasesAPI';
 import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
-import { Canvas, ShowCanvas } from 'models/canvases';
+import { Canvas } from 'models/canvases';
 import toastMessage from 'features/toastMessage/toastMessage';
 
 interface CanvasState {
   createdCanvas: Canvas | null;
-  getCanvas: ShowCanvas | null;
+  getCanvas: Canvas | null;
 }
 
 const initialState: CanvasState = {
@@ -45,7 +45,7 @@ export const newCanvas = (title): AppThunk => async dispatch => {
 
 export const showCanvas = (canvasId): AppThunk => async dispatch => {
          try {
-           const canvas: ShowCanvas = await getCanvas(canvasId);
+           const canvas: Canvas = await getCanvas(canvasId);
 
            dispatch(getCanvasSuccess(canvas));
          } catch (err) {
