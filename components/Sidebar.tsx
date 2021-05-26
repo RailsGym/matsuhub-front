@@ -5,7 +5,6 @@ import { FiUsers } from 'react-icons/fi';
 
 const SContainer = styled.div`
   width: 194px;
-  position: fixed;
   height: 100%
   background-color: #f9f9f9;
   border-right: solid 2.5px #ebebeb;

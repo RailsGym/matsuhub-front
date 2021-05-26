@@ -53,24 +53,20 @@ const SCreateButton = styled.button`
   `}
 `;
 
-
-const selectCanvas = (state: RootState) => state.canvas;
-
 export default function CanvasNew() {
-  const canvas = useSelector(selectCanvas);
-
+  const { createdCanvas } = useSelector((state: RootState) => state.canvas);
   const [title, setTitle] = useState<string | number>();
-
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
+
   const saveCanvas = async() => {
     await dispatch(newCanvas(title));
-    if (canvas) {
-      router.push(`/canvases/${canvas.id}`);
+    if (createdCanvas) {
+      router.push(`/canvases/${createdCanvas.id}`);
     } 
   };
 

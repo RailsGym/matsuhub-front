@@ -1,5 +1,4 @@
-import { User } from "./users";
-import { Label } from "./labels";
+import { Label } from './labels';
 
 export type AreaIndex = "purpose" |
   "vision" |

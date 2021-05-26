@@ -6,7 +6,6 @@ import { Popover, Transition } from '@headlessui/react'
 import { RootState } from 'app/rootReducer'
 import { useAppDispatch } from 'app/store'
 import { fetchCanvases } from 'features/canvases/canvasesSlice';
-import { Canvas } from 'models/canvases';
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { init } from 'features/loginUser/LoginUserSlice';
 import { useRouter } from 'next/router';
@@ -110,11 +109,8 @@ export default function Header({ title = 'Default title' }) {
                           {canvases ? (
                             <>
                               {canvases.map(item => (
-                                <Link href={`/canvases/${item.id}`}>
-                                  <a
-                                    key={item.id}
-                                    className="-m-3 py-2 px-1 flex items-start rounded-lg hover:bg-gray-50"
-                                  >
+                                <Link href={`/canvases/${item.id}`} key={item.id}>
+                                  <a className="-m-3 py-2 px-1 flex items-start rounded-lg hover:bg-gray-50">
                                     <div className="ml-4">
                                       <p className="text-sm font-medium text-gray-900">
                                         {item.title}
