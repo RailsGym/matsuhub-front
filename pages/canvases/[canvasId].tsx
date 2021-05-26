@@ -39,7 +39,7 @@ export default function CanvasShow() {
           <tr>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/2"
-              colspan="3"
+              colSpan={3}
             >
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
@@ -56,7 +56,7 @@ export default function CanvasShow() {
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
-              colspan="3"
+              colSpan={3}
             >
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
@@ -75,7 +75,7 @@ export default function CanvasShow() {
           <tr>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6"
-              rowspan="2"
+              rowSpan={2}
             >
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
@@ -106,7 +106,7 @@ export default function CanvasShow() {
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6"
-              rowspan="2"
+              rowSpan={2}
             >
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
@@ -225,7 +225,7 @@ export default function CanvasShow() {
           <tr>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
-              colspan="3"
+              colSpan={3}
             >
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
@@ -242,7 +242,7 @@ export default function CanvasShow() {
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
-              colspan="3"
+              colSpan={3}
             >
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
