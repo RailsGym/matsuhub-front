@@ -22,6 +22,9 @@ const canvasSlice = createSlice({
     createCanvasSuccess: (state, action) => {
       state.createdCanvas = action.payload;
     },
+    createdCanvasReset: state => {
+      state.createdCanvas = undefined;
+    },
     getCanvasSuccess: (state, action) => {
       state.canvas = action.payload;
     }
@@ -29,7 +32,11 @@ const canvasSlice = createSlice({
 });
 export default canvasSlice.reducer;
 
-export const { createCanvasSuccess, getCanvasSuccess } = canvasSlice.actions;
+export const {
+         createCanvasSuccess,
+         getCanvasSuccess,
+         createdCanvasReset
+       } = canvasSlice.actions;
 
 export const newCanvas = (title): AppThunk => async dispatch => {
   try {
@@ -44,15 +51,15 @@ export const newCanvas = (title): AppThunk => async dispatch => {
 };
 
 export const fetchCanvas = (canvasId): AppThunk => async dispatch => {
-         try {
-           const canvas: Canvas = await getCanvas(canvasId);
+  try {
+    const canvas: Canvas = await getCanvas(canvasId);
 
-           dispatch(getCanvasSuccess(canvas));
-         } catch (err) {
-           console.log(err);
-           toastMessage(
-             [`キャンバス情報の取得に失敗しました　${err}`],
-             'error'
-           );
-         }
-       };
+    dispatch(getCanvasSuccess(canvas));
+  } catch (err) {
+    console.log(err);
+    toastMessage(
+      [`キャンバス情報の取得に失敗しました　${err}`],
+      'error'
+    );
+  }
+};
