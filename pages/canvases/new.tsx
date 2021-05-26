@@ -46,12 +46,11 @@ const SCreateButton = styled.button`
   background-color: #13b1c0;
   border-radius: 5px;
   color: #ffffff;
-  ${({ disabled }) =>
-    disabled &&
-    `
-    opacity: 0.5;
-    cursor: default;
-  `}
+  &:hover {
+    color: #ccc;
+    background-color: #0f8c98;
+    outline: none;
+  }
 `;
 
 export default function CanvasNew() {
@@ -85,7 +84,7 @@ export default function CanvasNew() {
         value={title}
         onChange={handleInputChange}
       />
-      <SCreateButton disabled={!title} onClick={saveCanvas}>
+      <SCreateButton onClick={saveCanvas}>
         新規作成
       </SCreateButton>
     </SContainer>
