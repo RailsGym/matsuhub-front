@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { BiDockLeft } from 'react-icons/bi';
 import { FiLink2 } from 'react-icons/fi';
 import { FiUsers } from 'react-icons/fi';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const SContainer = styled.div`
   width: 194px;
@@ -35,17 +37,24 @@ const IconStyle = {
 };
 
 export default function Sidebar() {
+  const router = useRouter();
+  const { canvasId } = router.query;
+
   return (
     <SContainer>
       <SUl>
-        <SSideBarFirstList>
-          <BiDockLeft style={IconStyle} />
-          仮説キャンバス
-        </SSideBarFirstList>
-        <SSideBarList>
-          <FiLink2 style={IconStyle} />
-          設定
-        </SSideBarList>
+        <Link href={`/canvases/${canvasId}`}>
+          <SSideBarFirstList>
+            <BiDockLeft style={IconStyle} />
+            仮説キャンバス
+          </SSideBarFirstList>
+        </Link>
+        <Link href={`/canvases/${canvasId}/settings`}>
+          <SSideBarList>
+            <FiLink2 style={IconStyle} />
+            設定
+          </SSideBarList>
+        </Link>
         <SSideBarList>
           <FiUsers style={IconStyle} />
           メンバー
