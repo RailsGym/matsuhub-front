@@ -7,13 +7,15 @@ export default function Settings() {
           キャンバス 設定
         </h3>
         <h4 className="mb-1">キャンバス名</h4>
-        <input
-          type="text"
-          className="mr-3 h-8 w-1/2 border-gray-400 rounded-md"
-        />
-        <button className="h-8 w-1/12 rounded-md bg-customgreen text-white text-sm hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none">
-          更新する
-        </button>
+        <div className="flex">
+          <input
+            type="text"
+            className="mr-3 h-8 w-1/2 border-gray-400 rounded-md"
+          />
+          <button className="h-8 w-1/12 rounded-md bg-customgreen text-white text-sm hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none">
+            更新する
+          </button>
+        </div>
       </div>
     </div>
   );

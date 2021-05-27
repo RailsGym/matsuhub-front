@@ -44,21 +44,23 @@ export default function Sidebar() {
     <SContainer>
       <SUl>
         <Link href={`/canvases/${canvasId}`}>
-          <SSideBarFirstList>
+          <SSideBarFirstList className="hover: cursor-pointer hover:text-gray-900 hover:underline">
             <BiDockLeft style={IconStyle} />
             仮説キャンバス
           </SSideBarFirstList>
         </Link>
         <Link href={`/canvases/${canvasId}/settings`}>
-          <SSideBarList>
+          <SSideBarList className="hover: cursor-pointer hover:text-gray-900 hover:underline">
             <FiLink2 style={IconStyle} />
             設定
           </SSideBarList>
         </Link>
-        <SSideBarList>
-          <FiUsers style={IconStyle} />
-          メンバー
-        </SSideBarList>
+        <Link href={"/"}>
+          <SSideBarList className="hover: cursor-pointer hover:text-gray-900 hover:underline">
+            <FiUsers style={IconStyle} />
+            メンバー
+          </SSideBarList>
+        </Link>
       </SUl>
     </SContainer>
   );
