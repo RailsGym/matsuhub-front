@@ -55,7 +55,8 @@ export default function Sidebar() {
             設定
           </SSideBarList>
         </Link>
-        <Link href={"/"}>
+        {/* TODO: 最終的にはメンバー詳細ページのリンクを設定したい */}
+        <Link href={`/canvases/${canvasId}`}>
           <SSideBarList className="hover: cursor-pointer hover:text-gray-900 hover:underline">
             <FiUsers style={IconStyle} />
             メンバー
