@@ -1,13 +1,19 @@
-import { updateCanvas } from "features/canvases/canvasSlice";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { updateCanvas } from 'features/canvases/canvasSlice';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { fetchCanvases } from 'features/canvases/canvasesSlice';
 
 export default function Settings() {
   const [title, setTitle] = useState<string | number>();
   const dispatch = useDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
+
+  useEffect(() => {
+    dispatch(fetchCanvases());
+  }, [dispatch]);
 
   const handleInputChange = event => {
     setTitle(event.target.value);
