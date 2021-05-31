@@ -50,9 +50,9 @@ export default function Header({ title = 'Default title' }) {
   };
 
   const logout = () => {
-    cookie.remove('access-token');
-    cookie.remove('client');
-    cookie.remove('uid');
+    cookie.remove('access-token', { path: '/' });
+    cookie.remove('client', { path: '/' });
+    cookie.remove('uid', { path: '/' });
     router.push('/sign_in');
   };
   
