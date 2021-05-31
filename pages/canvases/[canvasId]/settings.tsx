@@ -24,6 +24,12 @@ export default function Settings() {
     dispatch(fetchCanvas(canvasId));
   };
 
+  const onClickCanvasDelete = () => {
+    confirm(
+      'キャンバスを削除すると復元することができません。本当に削除しますか?'
+    );
+  }
+
   return (
     <div className="m-5 flex-grow">
       <h2 className="font-semibold text-gray-700">設定</h2>
@@ -46,6 +52,13 @@ export default function Settings() {
             更新する
           </button>
         </div>
+        <hr className="my-10 w-2/3 font-semibold text-gray-700 border-bottom-solid border-b" />
+        <button
+          onClick={onClickCanvasDelete}
+          className="text-blue-500 hover: outline-none hover:text-blue-500 hover:underline focus:outline-none"
+        >
+          キャンバスを削除
+        </button>
       </div>
     </div>
   );
