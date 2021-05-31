@@ -1,4 +1,4 @@
-import { updateCanvas } from 'features/canvases/canvasSlice';
+import { fetchCanvas, updateCanvas } from 'features/canvases/canvasSlice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -21,6 +21,7 @@ export default function Settings() {
 
   const onClickUpdateCanvas = () => {
     dispatch(updateCanvas(canvasId, title));
+    dispatch(fetchCanvas(canvasId));
   };
 
   return (
