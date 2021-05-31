@@ -10,10 +10,10 @@ export async function getCanvases(): Promise<Canvas[] | null> {
   }
 
   try {
-    const canvasesResponse = await axios.get<{'canvases': Canvas[]}>(url,{
+    const canvasesResponse = await axios.get<Canvas[]>(url,{
       headers: userAuthHeader
     });
-    return canvasesResponse.data.canvases;
+    return canvasesResponse.data;
   } catch (err) {
     throw err;
   }
