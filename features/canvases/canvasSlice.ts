@@ -1,5 +1,5 @@
 import { createSlice} from '@reduxjs/toolkit';
-import { createCanvas, putCanvas } from 'api/canvasesAPI';
+import { createCanvas, deleteCanvas, putCanvas } from 'api/canvasesAPI';
 import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
@@ -32,6 +32,9 @@ const canvasSlice = createSlice({
     },
     updateCanvasSuccess: (state, action) => {
       state.canvas = action.payload;
+    },
+    destroyCanvasSuccess: (state, action) => {
+      state.canvas = undefined;
     }
   }
 });
@@ -41,7 +44,8 @@ export const {
          createCanvasSuccess,
          getCanvasSuccess,
          createdCanvasReset,
-         updateCanvasSuccess
+         updateCanvasSuccess,
+         destroyCanvasSuccess
        } = canvasSlice.actions;
 
 export const newCanvas = (title): AppThunk => async dispatch => {
@@ -79,5 +83,17 @@ export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
   } catch (err) {
     console.log(err);
     toastMessage([`キャンバス更新に失敗しました　${err}`], 'error');
+  }
+};
+
+export const destroyCanvas = (canvasId): AppThunk => async dispatch => {
+  try {
+    const canvas: Canvas = await deleteCanvas(canvasId);
+
+    dispatch(destroyCanvasSuccess(canvas));
+    toastMessage(['キャンバスを削除しました'], 'success');
+  } catch (err) {
+    console.log(err);
+    toastMessage([`キャンバス削除に失敗しました　${err}`], 'error');
   }
 };

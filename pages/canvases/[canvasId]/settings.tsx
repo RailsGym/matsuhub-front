@@ -1,4 +1,4 @@
-import { fetchCanvas, updateCanvas } from 'features/canvases/canvasSlice';
+import { destroyCanvas, fetchCanvas, updateCanvas } from 'features/canvases/canvasSlice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -28,6 +28,8 @@ export default function Settings() {
     confirm(
       'キャンバスを削除すると復元することができません。本当に削除しますか?'
     );
+    dispatch(destroyCanvas(canvasId));
+    router.push('/canvases/new');
   }
 
   return (
