@@ -31,7 +31,7 @@ const canvasSlice = createSlice({
       state.canvas = action.payload;
     },
     updateCanvasSuccess: (state, action) => {
-      state.updatedcanvas = action.payload;
+      state.canvas = action.payload;
     }
   }
 });
@@ -71,13 +71,13 @@ export const fetchCanvas = (canvasId): AppThunk => async dispatch => {
 };
 
 export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
-         try {
-           const canvas: Canvas = await putCanvas(canvasId, title);
+  try {
+    const canvas: Canvas = await putCanvas(canvasId, title);
 
-           dispatch(updateCanvasSuccess(canvas));
-           toastMessage(['キャンバスを更新しました'], 'success');
-         } catch (err) {
-           console.log(err);
-           toastMessage([`キャンバス更新に失敗しました　${err}`], 'error');
-         }
-       };
+    dispatch(updateCanvasSuccess(canvas));
+    toastMessage(['キャンバスを更新しました'], 'success');
+  } catch (err) {
+    console.log(err);
+    toastMessage([`キャンバス更新に失敗しました　${err}`], 'error');
+  }
+};
