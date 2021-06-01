@@ -29,7 +29,7 @@ export default function Settings() {
       <h2 className="font-semibold text-gray-700">設定</h2>
       <div className="mt-4 ml-4">
         <h3 className="mb-5 font-semibold text-gray-700 border-bottom-solid border-b">
-          キャンバス 設定
+          キャンバス設定
         </h3>
         <h4 className="mb-1">キャンバス名</h4>
         <div className="flex">
