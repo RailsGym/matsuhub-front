@@ -19,6 +19,7 @@ function classNames(...classes) {
 
 export default function Header({ title = 'Default title' }) {
   const canvases = useSelector((state: RootState) => state.canvases);
+  const { canvas } = useSelector((state: RootState) => state.canvas);
   const { loginUser, initialized } = useSelector((state: RootState) => state.loginUser);
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
@@ -76,7 +77,9 @@ export default function Header({ title = 'Default title' }) {
                       "group rounded-md inline-flex items-center text-md font-semibold hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
                     )}
                   >
-                    キャンバスをつくる
+                    {canvas && router.pathname !== '/canvases/new'
+                      ? canvas.title
+                      : 'キャンバスをつくる'}
                     <ChevronDownIcon
                       className={classNames(
                         canvasMenuOpen ? "text-gray-600" : "text-gray-400",

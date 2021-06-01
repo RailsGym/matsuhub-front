@@ -3,6 +3,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'app/store';
+import { fetchCanvases } from 'features/canvases/canvasesSlice';
 import { fetchCanvas } from 'features/canvases/canvasSlice';
 import { RootState } from 'app/rootReducer';
 import { useRouter } from 'next/router';
@@ -12,6 +13,10 @@ export default function CanvasShow() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
+
+  useEffect(() => {
+      dispatch(fetchCanvases());
+  }, [dispatch]);
 
   useEffect(() => {
     if (canvasId) {

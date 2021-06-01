@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { BiDockLeft } from 'react-icons/bi';
 import { FiLink2 } from 'react-icons/fi';
 import { FiUsers } from 'react-icons/fi';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const SContainer = styled.div`
   width: 194px;
@@ -35,21 +37,31 @@ const IconStyle = {
 };
 
 export default function Sidebar() {
+  const router = useRouter();
+  const { canvasId } = router.query;
+
   return (
     <SContainer>
       <SUl>
-        <SSideBarFirstList>
-          <BiDockLeft style={IconStyle} />
-          仮説キャンバス
-        </SSideBarFirstList>
-        <SSideBarList>
-          <FiLink2 style={IconStyle} />
-          設定
-        </SSideBarList>
-        <SSideBarList>
-          <FiUsers style={IconStyle} />
-          メンバー
-        </SSideBarList>
+        <Link href={`/canvases/${canvasId}`}>
+          <SSideBarFirstList className="hover: cursor-pointer hover:text-gray-900 hover:underline">
+            <BiDockLeft style={IconStyle} />
+            仮説キャンバス
+          </SSideBarFirstList>
+        </Link>
+        <Link href={`/canvases/${canvasId}/settings`}>
+          <SSideBarList className="hover: cursor-pointer hover:text-gray-900 hover:underline">
+            <FiLink2 style={IconStyle} />
+            設定
+          </SSideBarList>
+        </Link>
+        {/* TODO: 最終的にはメンバー詳細ページのリンクを設定したい */}
+        <Link href={`/canvases/${canvasId}`}>
+          <SSideBarList className="hover: cursor-pointer hover:text-gray-900 hover:underline">
+            <FiUsers style={IconStyle} />
+            メンバー
+          </SSideBarList>
+        </Link>
       </SUl>
     </SContainer>
   );

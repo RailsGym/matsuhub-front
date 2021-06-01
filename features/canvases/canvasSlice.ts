@@ -1,5 +1,5 @@
 import { createSlice} from '@reduxjs/toolkit';
-import { createCanvas } from 'api/canvasesAPI';
+import { createCanvas, patchCanvas } from "api/canvasesAPI";
 import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
@@ -7,11 +7,13 @@ import toastMessage from 'features/toastMessage/toastMessage';
 
 interface CanvasState {
   createdCanvas: Canvas | null;
+  updatedcanvas: Canvas | null;
   canvas: Canvas | null;
 }
 
 const initialState: CanvasState = {
   createdCanvas: null,
+  updatedcanvas: null,
   canvas: null
 };
 
@@ -27,6 +29,9 @@ const canvasSlice = createSlice({
     },
     getCanvasSuccess: (state, action) => {
       state.canvas = action.payload;
+    },
+    updateCanvasSuccess: (state, action) => {
+      state.canvas = action.payload;
     }
   }
 });
@@ -35,7 +40,8 @@ export default canvasSlice.reducer;
 export const {
          createCanvasSuccess,
          getCanvasSuccess,
-         createdCanvasReset
+         createdCanvasReset,
+         updateCanvasSuccess
        } = canvasSlice.actions;
 
 export const newCanvas = (title): AppThunk => async dispatch => {
@@ -61,5 +67,17 @@ export const fetchCanvas = (canvasId): AppThunk => async dispatch => {
       [`キャンバス情報の取得に失敗しました　${err}`],
       'error'
     );
+  }
+};
+
+export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
+  try {
+    const canvas: Canvas = await patchCanvas(canvasId, title);
+
+    dispatch(updateCanvasSuccess(canvas));
+    toastMessage(['キャンバスを更新しました'], 'success');
+  } catch (err) {
+    console.log(err);
+    toastMessage([`キャンバス更新に失敗しました　${err}`], 'error');
   }
 };
