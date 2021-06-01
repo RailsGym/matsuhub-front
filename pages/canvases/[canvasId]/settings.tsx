@@ -4,12 +4,21 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { fetchCanvases } from 'features/canvases/canvasesSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/rootReducer';
 
 export default function Settings() {
   const [title, setTitle] = useState<string | number>();
+  const { canvas } = useSelector((state: RootState) => state.canvas);
   const dispatch = useDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
+
+  useEffect(() => {
+    if (canvas) {
+      setTitle(canvas.title);
+    }
+  }, [])
 
   useEffect(() => {
     dispatch(fetchCanvases());
