@@ -25,11 +25,12 @@ export default function Settings() {
   };
 
   const onClickCanvasDelete = () => {
-    confirm(
+    if (confirm(
       'キャンバスを削除すると復元することができません。本当に削除しますか?'
-    );
-    dispatch(destroyCanvas(canvasId));
-    router.push('/canvases/new');
+    )) {
+      dispatch(destroyCanvas(canvasId));
+      router.push( '/canvases/new');
+    }
   }
 
   return (
