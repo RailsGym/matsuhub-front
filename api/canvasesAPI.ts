@@ -60,7 +60,7 @@ export async function getCanvas(canvasId): Promise<Canvas | null> {
   }
 }
 
-export async function putCanvas(canvasId, title): Promise<Canvas> {
+export async function patchCanvas(canvasId, title): Promise<Canvas> {
   const userAuthHeader = await userAuthRequestHeader();
   if (!userAuthHeader) {
     return null;
