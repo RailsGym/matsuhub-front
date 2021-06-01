@@ -10,10 +10,10 @@ export async function getCanvases(): Promise<Canvas[] | null> {
   }
 
   try {
-    const canvasesResponse = await axios.get<{'canvases': Canvas[]}>(url,{
+    const canvasesResponse = await axios.get<Canvas[]>(url,{
       headers: userAuthHeader
     });
-    return canvasesResponse.data.canvases;
+    return canvasesResponse.data;
   } catch (err) {
     throw err;
   }
@@ -60,7 +60,7 @@ export async function getCanvas(canvasId): Promise<Canvas | null> {
   }
 }
 
-export async function putCanvas(canvasId, title): Promise<Canvas> {
+export async function patchCanvas(canvasId, title): Promise<Canvas> {
   const userAuthHeader = await userAuthRequestHeader();
   if (!userAuthHeader) {
     return null;

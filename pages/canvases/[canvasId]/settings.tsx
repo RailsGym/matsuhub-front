@@ -4,12 +4,21 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { fetchCanvases } from 'features/canvases/canvasesSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/rootReducer';
 
 export default function Settings() {
   const [title, setTitle] = useState<string | number>();
+  const { canvas } = useSelector((state: RootState) => state.canvas);
   const dispatch = useDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
+
+  useEffect(() => {
+    if (canvas) {
+      setTitle(canvas.title);
+    }
+  }, [])
 
   useEffect(() => {
     dispatch(fetchCanvases());
@@ -38,7 +47,7 @@ export default function Settings() {
       <h2 className="font-semibold text-gray-700">設定</h2>
       <div className="mt-4 ml-4">
         <h3 className="mb-5 font-semibold text-gray-700 border-bottom-solid border-b">
-          キャンバス 設定
+          キャンバス設定
         </h3>
         <h4 className="mb-1">キャンバス名</h4>
         <div className="flex">

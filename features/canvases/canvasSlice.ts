@@ -1,5 +1,5 @@
 import { createSlice} from '@reduxjs/toolkit';
-import { createCanvas, deleteCanvas, putCanvas } from 'api/canvasesAPI';
+import { createCanvas, patchCanvas, deleteCanvas } from 'api/canvasesAPI';
 import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
@@ -76,7 +76,7 @@ export const fetchCanvas = (canvasId): AppThunk => async dispatch => {
 
 export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
   try {
-    const canvas: Canvas = await putCanvas(canvasId, title);
+    const canvas: Canvas = await patchCanvas(canvasId, title);
 
     dispatch(updateCanvasSuccess(canvas));
     toastMessage(['キャンバスを更新しました'], 'success');
