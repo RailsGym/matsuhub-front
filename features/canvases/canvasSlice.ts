@@ -4,6 +4,7 @@ import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
 import toastMessage from 'features/toastMessage/toastMessage';
+import { fetchCanvases } from './canvasesSlice';
 
 interface CanvasState {
   createdCanvas: Canvas | null;
@@ -32,9 +33,6 @@ const canvasSlice = createSlice({
     },
     updateCanvasSuccess: (state, action) => {
       state.canvas = action.payload;
-    },
-    destroyCanvasSuccess: (state, action) => {
-      state.canvas = undefined;
     }
   }
 });
@@ -44,8 +42,7 @@ export const {
          createCanvasSuccess,
          getCanvasSuccess,
          createdCanvasReset,
-         updateCanvasSuccess,
-         destroyCanvasSuccess
+         updateCanvasSuccess
        } = canvasSlice.actions;
 
 export const newCanvas = (title): AppThunk => async dispatch => {
@@ -88,11 +85,10 @@ export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
 
 export const destroyCanvas = (canvasId): AppThunk => async dispatch => {
   try {
-    const canvas: Canvas = await deleteCanvas(canvasId);
+    await deleteCanvas(canvasId);
 
-
-    dispatch(destroyCanvasSuccess(canvas));
-    toastMessage([`${canvas.title} を削除しました`], 'success');
+    dispatch(fetchCanvases());
+    toastMessage(['キャンバスを削除しました'], 'success');
   } catch (err) {
     console.log(err);
     toastMessage([`キャンバス削除に失敗しました　${err}`], 'error');

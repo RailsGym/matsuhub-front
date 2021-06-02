@@ -46,7 +46,6 @@ export default function Settings() {
           return createdCanvas.title != canvas.title;
         });
         const lastCreatedCanvasId = createdCanvases[createdCanvases.length - 1].id;
-        dispatch(fetchCanvas(lastCreatedCanvasId));
         router.push(`/canvases/${lastCreatedCanvasId}`);
       }
     }
