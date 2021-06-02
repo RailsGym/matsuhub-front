@@ -9,6 +9,7 @@ import { RootState } from 'app/rootReducer';
 
 export default function Settings() {
   const [title, setTitle] = useState<string | number>();
+  const canvases = useSelector((state: RootState) => state.canvases);
   const { canvas } = useSelector((state: RootState) => state.canvas);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -38,7 +39,16 @@ export default function Settings() {
       'キャンバスを削除すると復元することができません。本当に削除しますか?'
     )) {
       dispatch(destroyCanvas(canvasId));
-      router.push( '/canvases/new');
+      if (canvases.length === 1) {
+        router.push('/canvases/new');
+      } else {
+        const createdCanvases = canvases.filter(function(createdCanvas) {
+          return createdCanvas.title != canvas.title;
+        });
+        const lastCreatedCanvasId = createdCanvases[createdCanvases.length - 1].id;
+        dispatch(fetchCanvas(lastCreatedCanvasId));
+        router.push(`/canvases/${lastCreatedCanvasId}`);
+      }
     }
   }
 

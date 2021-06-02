@@ -90,8 +90,9 @@ export const destroyCanvas = (canvasId): AppThunk => async dispatch => {
   try {
     const canvas: Canvas = await deleteCanvas(canvasId);
 
+
     dispatch(destroyCanvasSuccess(canvas));
-    toastMessage(['キャンバスを削除しました'], 'success');
+    toastMessage([`${canvas.title} を削除しました`], 'success');
   } catch (err) {
     console.log(err);
     toastMessage([`キャンバス削除に失敗しました　${err}`], 'error');
