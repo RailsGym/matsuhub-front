@@ -89,13 +89,13 @@ export async function deleteCanvas(canvasId): Promise<Canvas> {
   }
 
   try {
-    const canvasResponse = await axios.delete<{ canvas: Canvas }>(
+    const canvasResponse = await axios.delete(
       url + `/${canvasId}`,
       {
         headers: userAuthHeader
       }
     );
-    return canvasResponse.data.canvas;
+    return canvasResponse.data;
   } catch (err) {
     throw err.response.data.errors.toString();
   }
