@@ -44,7 +44,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][0]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -61,7 +61,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][1]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -80,7 +80,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][2]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -94,7 +94,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][3]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -111,7 +111,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][4]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -125,7 +125,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][5]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -139,7 +139,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][6]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -153,7 +153,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][7]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -169,7 +169,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][8]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -183,7 +183,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][9]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -197,7 +197,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][10]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -211,7 +211,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][11]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -230,7 +230,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][12]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
@@ -247,7 +247,7 @@ export default function CanvasShow() {
               <div className="absolute left-3 top-3">
                 <div className="flex mb-3">
                   <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                    目的
+                    {canvas ? canvas['areas'][13]['area_type_text'] : null}
                   </label>
                   <AiFillQuestionCircle style={IconStyle} />
                   <AiFillPlusCircle style={IconStyle} />
