@@ -51,6 +51,9 @@ const SCreateButton = styled.button`
     background-color: #0f8c98;
     outline: none;
   }
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default function CanvasNew() {
