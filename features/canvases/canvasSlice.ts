@@ -28,7 +28,7 @@ const canvasSlice = createSlice({
       state.createdCanvas = action.payload;
     },
     createdCanvasReset: state => {
-      state.createdCanvas = undefined;
+      state.createdCanvas = null;
     },
     getCanvasSuccess: (state, action) => {
       state.canvas = action.payload;
@@ -40,7 +40,7 @@ const canvasSlice = createSlice({
       state.destroyedCanvas = action.payload;
     },
     destroyedCanvasReset: state => {
-      state.destroyedCanvas = undefined;
+      state.destroyedCanvas = null;
     }
   }
 });
