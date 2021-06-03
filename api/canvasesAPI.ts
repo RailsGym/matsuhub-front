@@ -82,3 +82,21 @@ export async function patchCanvas(canvasId, title): Promise<Canvas> {
   }
 }
 
+export async function deleteCanvas(canvasId): Promise<Canvas> {
+  const userAuthHeader = await userAuthRequestHeader();
+  if (!userAuthHeader) {
+    return null;
+  }
+
+  try {
+    const canvasResponse = await axios.delete<{ canvas: Canvas }>(
+      url + `/${canvasId}`,
+      {
+        headers: userAuthHeader
+      }
+    );
+    return canvasResponse.data.canvas;
+  } catch (err) {
+    throw err.response.data.errors.toString();
+  }
+}

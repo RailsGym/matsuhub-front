@@ -1,4 +1,4 @@
-import { fetchCanvas, updateCanvas } from 'features/canvases/canvasSlice';
+import { destroyCanvas, fetchCanvas, updateCanvas } from 'features/canvases/canvasSlice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -6,10 +6,13 @@ import { useEffect } from 'react';
 import { fetchCanvases } from 'features/canvases/canvasesSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
+import { destroyedCanvasReset } from 'features/canvases/canvasSlice';
 
 export default function Settings() {
   const [title, setTitle] = useState<string | number>();
+  const canvases = useSelector((state: RootState) => state.canvases);
   const { canvas } = useSelector((state: RootState) => state.canvas);
+  const { destroyedCanvas } = useSelector((state: RootState) => state.canvas);
   const dispatch = useDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
@@ -24,6 +27,22 @@ export default function Settings() {
     dispatch(fetchCanvases());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (destroyedCanvas) {
+      if (canvases.length === 1) {
+        router.push('/canvases/new');
+      } else {
+        const createdCanvases = canvases.filter(function(createdCanvas) {
+          return createdCanvas.id != destroyedCanvas.id;
+        });
+        const lastCreatedCanvasId =
+          createdCanvases[createdCanvases.length - 1].id;
+        router.push(`/canvases/${lastCreatedCanvasId}`);
+      }
+      dispatch(destroyedCanvasReset());
+    }
+  }, [destroyedCanvas]);
+
   const handleInputChange = event => {
     setTitle(event.target.value);
   }
@@ -32,6 +51,14 @@ export default function Settings() {
     dispatch(updateCanvas(canvasId, title));
     dispatch(fetchCanvas(canvasId));
   };
+
+  const onClickCanvasDelete = () => {
+    if (confirm(
+      'キャンバスを削除すると復元することができません。本当に削除しますか?'
+    )) {
+      dispatch(destroyCanvas(canvasId));
+    }
+  }
 
   return (
     <div className="m-5 flex-grow">
@@ -55,6 +82,13 @@ export default function Settings() {
             更新する
           </button>
         </div>
+        <hr className="my-10 w-2/3 font-semibold text-gray-700 border-bottom-solid border-b" />
+        <button
+          onClick={onClickCanvasDelete}
+          className="text-blue-500 hover: outline-none hover:text-blue-500 hover:underline focus:outline-none"
+        >
+          キャンバスを削除
+        </button>
       </div>
     </div>
   );
