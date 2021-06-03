@@ -23,11 +23,6 @@ export default function CanvasShow() {
       dispatch(fetchCanvas(canvasId));
     }
   }, [canvasId]);
-  
-  const BorderSpacingStyle = {
-    borderCollapse: "separate",
-    borderSpacing: "4px"
-  }
 
   const IconStyle = {
     fontSize: "27px",
@@ -39,7 +34,7 @@ export default function CanvasShow() {
   return (
     <div className="flex-grow">
       <h1 className="m-3 font-semibold text-gray-700">仮説キャンバス</h1>
-      <table className="h-screen w-full mb-6" style={BorderSpacingStyle}>
+      <table className="h-screen w-full mb-6 bc-separate">
         <tbody>
           <tr>
             <td
