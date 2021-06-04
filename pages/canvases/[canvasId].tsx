@@ -8,13 +8,17 @@ import { fetchCanvas } from 'features/canvases/canvasSlice';
 import { RootState } from 'app/rootReducer';
 import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
+import { newLabel } from 'features/labels/labelSlice';
 
 export default function CanvasShow() {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
+  const [title, setTitle] = useState<string | number>();
   const { canvas } = useSelector((state: RootState) => state.canvas);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
+  // TODO: 動的にareaIdを定義できるようにしたい
+  const areaId = 1;
 
   useEffect(() => {
       dispatch(fetchCanvases());
@@ -28,6 +32,10 @@ export default function CanvasShow() {
 
   const togglePopoverCanvasMenuOpen = () => {
     setCanvasMenuOpen(!canvasMenuOpen);
+  };
+
+  const handleInputChange = event => {
+    setTitle(event.target.value);
   };
 
   const IconStyle = {
@@ -78,10 +86,12 @@ export default function CanvasShow() {
                         <input
                           type="text"
                           autoFocus={true}
+                          onChange={handleInputChange}
                           onKeyPress={e => {
                             if (e.key == "Enter") {
                               e.preventDefault();
-                              alert("テスト");
+                              dispatch(newLabel(title, areaId, canvasId))
+                              togglePopoverCanvasMenuOpen()
                             }
                           }}
                           className="border-gray-400 rounded-md"
