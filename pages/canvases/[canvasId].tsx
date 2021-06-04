@@ -80,7 +80,7 @@ export default function CanvasShow() {
                   leaveFrom="opacity-100 translate-y-0"
                   leaveTo="opacity-0 translate-y-1"
                 >
-                  <Popover.Panel className="transform mr-2">
+                  <Popover.Panel className="absolute top-12 left-2 transform w-screen max-w-xl">
                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                       <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
                         <input
@@ -94,7 +94,7 @@ export default function CanvasShow() {
                               togglePopoverCanvasMenuOpen()
                             }
                           }}
-                          className="border-gray-400 rounded-md"
+                          className="border-gray-400 rounded-md mr-2"
                         />
                       </div>
                     </div>
