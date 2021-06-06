@@ -5,6 +5,8 @@ import { RootState } from 'app/rootReducer';
 import { useRouter } from 'next/router';
 import { login } from 'features/loginUser/LoginUserSlice';
 import BasicAuth from 'components/BasicAuth';
+import {fetchCanvases} from "../features/canvases/canvasesSlice";
+import Cookie from "universal-cookie";
 
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
@@ -19,20 +21,38 @@ export async function getServerSideProps(ctx) {
       layout: 'notLogin'
     }
   };
-  }
+}
+
+const selectCanvases = (state: RootState) => state.canvases;
 
 export default function SignIn() {
   const router = useRouter();
   const [email, setMail] = useState('');
   const [password, setPassword] = useState('');
   const { loginUser } = useSelector((state: RootState) => state.loginUser)
+  const canvases = useSelector(selectCanvases);
   const dispatch = useDispatch();
 
+  const cookie = new Cookie()
+  const loginCookie = cookie.get('access-token');
+
   useEffect(() => {
-    if (loginUser) {
-      router.push("/");
+    if (loginCookie && loginUser) {
+      dispatch(fetchCanvases());
     }
-  }, [loginUser]);
+  }, [dispatch, loginUser]);
+
+  useEffect(() => {
+    if (loginCookie && loginUser && canvases) {
+      if (canvases.length) {
+        // TODO: 最終的には最後に開いたキャンバスに遷移するようにしたい
+        const lastCreatedCanvas = canvases[canvases.length - 1];
+        router.push(`/canvases/${lastCreatedCanvas.id}`);
+      } else {
+        router.push('/canvases/new');
+      }
+    }
+  }, [loginUser, canvases]);
 
   const authUser = async (e) => {
     e.preventDefault();
@@ -43,7 +63,7 @@ export default function SignIn() {
     <div className="max-w-md w-full space-y-8 bg-white p-12">
       <div>
         <h1 className="text-customgreen">MatsuHub</h1>
-        <h2 className="mt-6 text-center text-xl font-extrabold text-customblue">
+        <h2 className="mt-6 text-center text-xl font-extrabold text-customgreen">
           ログイン
         </h2>
       </div>

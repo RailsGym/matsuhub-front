@@ -4,11 +4,8 @@ import { login } from 'features/loginUser/LoginUserSlice';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from 'features/signUpUser/SignUpUserSlice';
-import { fetchCanvases } from 'features/canvases/canvasesSlice';
-import Cookie from 'universal-cookie';
 
 const selectSignedUpUser = (state: RootState) => state.signedUpUser
-const selectCanvases = (state: RootState) => state.canvases;
 
 export const getServerSideProps = async (context) => ({
   props: {
@@ -21,37 +18,12 @@ export default function SignUp() {
   const [email, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [isLogin, setIsLogin] = useState(true);
-
-  const cookie = new Cookie()
-  const loginCookie = cookie.get('access-token');
-
-  const { loginUser } = useSelector((state: RootState) => state.loginUser)
   const { signedUpUser } = useSelector(selectSignedUpUser)
-  const canvases = useSelector(selectCanvases);
 
   const dispatch = useDispatch();
   const signUpUser = async () => {
     dispatch(signUp(email, username, password));
   };
-
-  useEffect(() => {
-    if (loginCookie && loginUser) {
-      dispatch(fetchCanvases());
-    }
-  }, [dispatch, loginUser]);
-
-  useEffect(() => {
-    if (loginCookie && loginUser && canvases) {
-      if (canvases.length) {
-        // TODO: 最終的には最後に開いたキャンバスに遷移するようにしたい
-        const lastCreatedCanvas = canvases[canvases.length - 1];
-        router.push(`/canvases/${lastCreatedCanvas.id}`);
-      } else {
-        router.push('/canvases/new');
-      }
-    }
-  }, [loginUser, canvases]);
 
   useEffect(() => {
     if (signedUpUser) {
