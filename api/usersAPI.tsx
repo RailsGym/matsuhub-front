@@ -10,13 +10,13 @@ export async function getMe(): Promise<User | null> {
     return null;
   }
 
-  const response = await axios.get<{'user': User}>(
+  const response = await axios.get<User>(
     url,
     {
       headers: userAuthHeader
     }
   )
-  return response.data.user
+  return response.data
 }
 
 export async function createUser(email: string, username: string, password: string):Promise<boolean> {

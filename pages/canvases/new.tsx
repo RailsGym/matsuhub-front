@@ -5,6 +5,7 @@ import { newCanvas } from 'features/canvases/canvasSlice';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/rootReducer';
+import { createdCanvasReset } from 'features/canvases/canvasSlice';
 
 export const getServerSideProps = async context => ({
   props: {
@@ -45,33 +46,36 @@ const SCreateButton = styled.button`
   background-color: #13b1c0;
   border-radius: 5px;
   color: #ffffff;
-  ${({ disabled }) =>
-    disabled &&
-    `
-    opacity: 0.5;
-    cursor: default;
-  `}
+  &:hover {
+    color: #ccc;
+    background-color: #0f8c98;
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
-
-const selectCanvas = (state: RootState) => state.canvas;
-
 export default function CanvasNew() {
-  const canvas = useSelector(selectCanvas);
-
+  const { createdCanvas } = useSelector((state: RootState) => state.canvas);
   const [title, setTitle] = useState<string | number>();
-
   const dispatch = useDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    if (createdCanvas) {
+      // TODO: 最終的には最後に操作したキャンバスに遷移されるように
+      router.push(`/canvases/${createdCanvas.id}`);
+      dispatch(createdCanvasReset());
+    }
+  }, [createdCanvas]);
 
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
-  const saveCanvas = async() => {
-    await dispatch(newCanvas(title));
-    if (canvas) {
-      router.push(`/canvases/${canvas.id}`);
-    } 
+
+  const saveCanvas = () => {
+    dispatch(newCanvas(title));
   };
 
   return (
@@ -83,7 +87,7 @@ export default function CanvasNew() {
         value={title}
         onChange={handleInputChange}
       />
-      <SCreateButton disabled={!title} onClick={saveCanvas}>
+      <SCreateButton onClick={saveCanvas}>
         新規作成
       </SCreateButton>
     </SContainer>

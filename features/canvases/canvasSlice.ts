@@ -1,27 +1,59 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createCanvas } from 'api/canvasesAPI';
-
+import { createSlice} from '@reduxjs/toolkit';
+import { createCanvas, patchCanvas, deleteCanvas } from 'api/canvasesAPI';
+import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
 import toastMessage from 'features/toastMessage/toastMessage';
+import { fetchCanvases } from './canvasesSlice';
 
-type CanvasState = Canvas;
+interface CanvasState {
+  createdCanvas: Canvas | null;
+  updatedcanvas: Canvas | null;
+  destroyedCanvas: Canvas | null;
+  canvas: Canvas | null;
+}
 
-let initialState: CanvasState = null as CanvasState;
+const initialState: CanvasState = {
+  createdCanvas: null,
+  updatedcanvas: null,
+  destroyedCanvas: null,
+  canvas: null
+};
 
 const canvasSlice = createSlice({
   name: 'canvas',
   initialState: initialState,
   reducers: {
-    createCanvasSuccess(state, { payload }: PayloadAction<Canvas>) {
-      return payload;
+    createCanvasSuccess: (state, action) => {
+      state.createdCanvas = action.payload;
+    },
+    createdCanvasReset: state => {
+      state.createdCanvas = null;
+    },
+    getCanvasSuccess: (state, action) => {
+      state.canvas = action.payload;
+    },
+    updateCanvasSuccess: (state, action) => {
+      state.canvas = action.payload;
+    },
+    destroyCanvasSuccess: (state, action) => {
+      state.destroyedCanvas = action.payload;
+    },
+    destroyedCanvasReset: state => {
+      state.destroyedCanvas = null;
     }
   }
 });
-
-export const { createCanvasSuccess } = canvasSlice.actions;
-
 export default canvasSlice.reducer;
+
+export const {
+         createCanvasSuccess,
+         getCanvasSuccess,
+         createdCanvasReset,
+         updateCanvasSuccess,
+         destroyCanvasSuccess,
+         destroyedCanvasReset
+       } = canvasSlice.actions;
 
 export const newCanvas = (title): AppThunk => async dispatch => {
   try {
@@ -31,6 +63,44 @@ export const newCanvas = (title): AppThunk => async dispatch => {
     toastMessage(['キャンバスを作成しました'], 'success');
   } catch (err) {
     console.log(err);
-    toastMessage([`キャンバス作成に失敗しました　${err}`], "error");
+    toastMessage([`キャンバス作成に失敗しました　${err}`], 'error');
+  }
+};
+
+export const fetchCanvas = (canvasId): AppThunk => async dispatch => {
+  try {
+    const canvas: Canvas = await getCanvas(canvasId);
+
+    dispatch(getCanvasSuccess(canvas));
+  } catch (err) {
+    console.log(err);
+    toastMessage(
+      [`キャンバス情報の取得に失敗しました　${err}`],
+      'error'
+    );
+  }
+};
+
+export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
+  try {
+    const canvas: Canvas = await patchCanvas(canvasId, title);
+
+    dispatch(updateCanvasSuccess(canvas));
+    toastMessage(['キャンバスを更新しました'], 'success');
+  } catch (err) {
+    console.log(err);
+    toastMessage([`キャンバス更新に失敗しました　${err}`], 'error');
+  }
+};
+
+export const destroyCanvas = (canvasId): AppThunk => async dispatch => {
+  try {
+    const canvas: Canvas = await deleteCanvas(canvasId);
+
+    dispatch(destroyCanvasSuccess(canvas));
+    toastMessage([`${canvas.title} を削除しました`], 'success');
+  } catch (err) {
+    console.log(err);
+    toastMessage([`キャンバス削除に失敗しました　${err}`], 'error');
   }
 };

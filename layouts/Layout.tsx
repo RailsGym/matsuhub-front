@@ -9,8 +9,10 @@ export default function Layout({ children, title = 'Default title' }) {
     <Provider store={store}>
       <ToastMessageContainer />
       <Header title="main-page"></Header>
-      <Sidebar />
-      {children}
+      <div className="flex flex-row">
+        <Sidebar />
+        {children}
+      </div>
     </Provider>
   );
 }

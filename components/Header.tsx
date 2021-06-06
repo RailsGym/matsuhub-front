@@ -6,7 +6,6 @@ import { Popover, Transition } from '@headlessui/react'
 import { RootState } from 'app/rootReducer'
 import { useAppDispatch } from 'app/store'
 import { fetchCanvases } from 'features/canvases/canvasesSlice';
-import { Canvas } from 'models/canvases';
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { init } from 'features/loginUser/LoginUserSlice';
 import { useRouter } from 'next/router';
@@ -20,6 +19,7 @@ function classNames(...classes) {
 
 export default function Header({ title = 'Default title' }) {
   const canvases = useSelector((state: RootState) => state.canvases);
+  const { canvas } = useSelector((state: RootState) => state.canvas);
   const { loginUser, initialized } = useSelector((state: RootState) => state.loginUser);
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
@@ -51,9 +51,9 @@ export default function Header({ title = 'Default title' }) {
   };
 
   const logout = () => {
-    cookie.remove('access-token');
-    cookie.remove('client');
-    cookie.remove('uid');
+    cookie.remove('access-token', { path: '/' });
+    cookie.remove('client', { path: '/' });
+    cookie.remove('uid', { path: '/' });
     router.push('/sign_in');
   };
   
@@ -77,7 +77,9 @@ export default function Header({ title = 'Default title' }) {
                       "group rounded-md inline-flex items-center text-md font-semibold hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
                     )}
                   >
-                    キャンバスをつくる
+                    {canvas && router.pathname !== '/canvases/new'
+                      ? canvas.title
+                      : 'キャンバスをつくる'}
                     <ChevronDownIcon
                       className={classNames(
                         canvasMenuOpen ? "text-gray-600" : "text-gray-400",
@@ -103,18 +105,22 @@ export default function Header({ title = 'Default title' }) {
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-1/2">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
                           <Link href="/canvases/new">
-                            <a className="text-sm font-medium text-gray-900 border-bottom-solid border-b-2 py-1 px-2">
+                            <a
+                              className={classNames(
+                                canvases && canvases.length
+                                  ? "border-bottom-solid border-b-2"
+                                  : null,
+                                "text-sm font-medium text-gray-900 py-1 px-2"
+                              )}
+                            >
                               新しいキャンバスを作成する
                             </a>
                           </Link>
                           {canvases ? (
                             <>
                               {canvases.map(item => (
-                                <Link href={`/canvases/${item.id}`}>
-                                  <a
-                                    key={item.id}
-                                    className="-m-3 py-2 px-1 flex items-start rounded-lg hover:bg-gray-50"
-                                  >
+                                <Link href={`/canvases/${item.id}`} key={item.id}>
+                                  <a className="-m-3 py-2 px-1 flex items-start rounded-lg hover:bg-gray-50">
                                     <div className="ml-4">
                                       <p className="text-sm font-medium text-gray-900">
                                         {item.title}
