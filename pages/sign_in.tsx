@@ -42,8 +42,8 @@ export default function SignIn() {
   return (
     <div className="max-w-md w-full space-y-8 bg-white p-12">
       <div>
-        <h1 className="site-title-logo">MatsuHub</h1>
-        <h2 className="mt-6 text-center text-xl font-extrabold text-blue">
+        <h1 className="text-customgreen">MatsuHub</h1>
+        <h2 className="mt-6 text-center text-xl font-extrabold text-customblue">
           ログイン
         </h2>
       </div>
@@ -86,13 +86,13 @@ export default function SignIn() {
         <div className="mt-10">
           <button
             type="submit"
-            className="btn-blue py-2 px-4 border-transparent"
+            className="bg-customgreen py-2 px-4 border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-blue-100 border text-white rounded text-sm font-medium rounded-md group relative w-full flex justify-center"
           >
             ログイン
           </button>
           <div className="text-center mt-6">
             <Link href='/sign_up'>
-              <a className='text-center text-blue'>
+              <a className='text-center text-customgreen'>
                 アカウント登録はこちら
               </a>
             </Link>
