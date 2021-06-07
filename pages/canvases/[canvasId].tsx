@@ -59,9 +59,9 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/2"
               colSpan={3}
             >
-              <Popover onClick={togglePopoverCanvasMenuOpen}>
-                <div className="absolute left-3 top-3">
-                  <div className="flex w-auto">
+              <div className="h-full p-3">
+                <Popover onClick={togglePopoverCanvasMenuOpen}>
+                  <div className="flex w-auto mb-2">
                     <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
                       {canvas ? canvas["areas"][0]["area_type_text"] : null}
                     </label>
@@ -73,8 +73,7 @@ export default function CanvasShow() {
                       {canvas ? canvas["areas"][0]["description"] : null}
                     </p>
                   )}
-                </div>
-                <div className="flex flex-wrap mt-2">
+                  <div className="flex flex-wrap">
                   {canvas ? (
                     <>
                       {canvas["areas"][0]["labels"].map(item => (
@@ -86,38 +85,39 @@ export default function CanvasShow() {
                       ))}
                     </>
                   ) : null}
-                </div>
-                <Transition
-                  show={canvasMenuOpen}
-                  as={Fragment}
-                  enter="transition ease-out duration-50"
-                  enterFrom="opacity-0 translate-y-1"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-in duration-50"
-                  leaveFrom="opacity-100 translate-y-0"
-                  leaveTo="opacity-0 translate-y-1"
-                >
-                  <Popover.Panel className={classNames(canvas && !canvas["areas"][0]["labels"].length ? "absolute top-12 left-3 w-full mr-1" : null, "transform")} >
-                  <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                    <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
-                      <input
-                        type="text"
-                        autoFocus={true}
-                        onChange={handleInputChange}
-                        onKeyPress={e => {
-                          if (e.key == "Enter") {
-                            e.preventDefault();
-                            dispatch(newLabel(title, areaId, canvasId))
-                            togglePopoverCanvasMenuOpen()
-                          }
-                        }}
-                        className="border-gray-400 rounded-md mr-2"
-                      />
-                    </div>
                   </div>
-                </Popover.Panel>
-                </Transition>
-              </Popover>
+                  <Transition
+                    show={canvasMenuOpen}
+                    as={Fragment}
+                    enter="transition ease-out duration-50"
+                    enterFrom="opacity-0 translate-y-1"
+                    enterTo="opacity-100 translate-y-0"
+                    leave="transition ease-in duration-50"
+                    leaveFrom="opacity-100 translate-y-0"
+                    leaveTo="opacity-0 translate-y-1"
+                  >
+                  <Popover.Panel className="w-full transform">
+                    <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                      <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
+                        <input
+                          type="text"
+                          autoFocus={true}
+                          onChange={handleInputChange}
+                          onKeyPress={e => {
+                            if (e.key == "Enter") {
+                              e.preventDefault();
+                              dispatch(newLabel(title, areaId, canvasId))
+                              togglePopoverCanvasMenuOpen()
+                            }
+                          }}
+                          className="border-gray-400 rounded-md mr-2"
+                        />
+                      </div>
+                    </div>
+                  </Popover.Panel>
+                  </Transition>
+                </Popover>
+              </div>
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
