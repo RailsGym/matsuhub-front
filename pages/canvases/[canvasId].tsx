@@ -64,7 +64,7 @@ export default function CanvasShow() {
                     <AiFillQuestionCircle style={IconStyle} />
                     <AiFillPlusCircle style={IconStyle} aria-hidden="true" />
                   </div>
-                  {!canvasMenuOpen && (
+                  {!canvasMenuOpen && canvas && !canvas["areas"][0]["labels"].length &&(
                     <p className="text-gray-400 font-semibold text-xs">
                       {canvas ? canvas["areas"][0]["description"] : null}
                     </p>
@@ -101,6 +101,21 @@ export default function CanvasShow() {
                   </Popover.Panel>
                 </Transition>
               </Popover>
+              <>
+                {canvas ? (
+                  <>
+                    {canvas["areas"][0]["labels"].map(item => (
+                      <div className="flex flex-wrap m-3">
+                        <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm mr-2">
+                          <p>
+                            {item.title}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) : null}
+              </>
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
