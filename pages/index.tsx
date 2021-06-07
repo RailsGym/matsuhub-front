@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 const cookie = new Cookie();
 
-export default function MainPage() {
+export default function Index() {
   const router = useRouter();
   const logout = () => {
     cookie.remove('access_token');
