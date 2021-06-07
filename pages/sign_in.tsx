@@ -5,8 +5,8 @@ import { RootState } from 'app/rootReducer';
 import { useRouter } from 'next/router';
 import { login } from 'features/loginUser/LoginUserSlice';
 import BasicAuth from 'components/BasicAuth';
-import {fetchCanvases} from "../features/canvases/canvasesSlice";
-import Cookie from "universal-cookie";
+import {fetchCanvases} from 'features/canvases/canvasesSlice';
+import Cookie from 'universal-cookie';
 
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
