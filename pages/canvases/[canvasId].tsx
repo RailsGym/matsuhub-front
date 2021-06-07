@@ -10,6 +10,10 @@ import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
 import { newLabel } from 'features/labels/labelSlice';
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export default function CanvasShow() {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string | number>();
@@ -57,18 +61,31 @@ export default function CanvasShow() {
             >
               <Popover onClick={togglePopoverCanvasMenuOpen}>
                 <div className="absolute left-3 top-3">
-                  <div className="flex mb-3 w-auto">
+                  <div className="flex w-auto">
                     <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
                       {canvas ? canvas["areas"][0]["area_type_text"] : null}
                     </label>
                     <AiFillQuestionCircle style={IconStyle} />
                     <AiFillPlusCircle style={IconStyle} aria-hidden="true" />
                   </div>
-                  {!canvasMenuOpen && canvas && !canvas["areas"][0]["labels"].length &&(
+                  {!canvasMenuOpen && canvas && !canvas["areas"][0]["labels"].length && (
                     <p className="text-gray-400 font-semibold text-xs">
                       {canvas ? canvas["areas"][0]["description"] : null}
                     </p>
                   )}
+                </div>
+                <div className="flex flex-wrap mt-2">
+                  {canvas ? (
+                    <>
+                      {canvas["areas"][0]["labels"].map(item => (
+                        <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1">
+                          <p>
+                            {item.title}
+                          </p>
+                        </div>
+                      ))}
+                    </>
+                  ) : null}
                 </div>
                 <Transition
                   show={canvasMenuOpen}
@@ -80,42 +97,27 @@ export default function CanvasShow() {
                   leaveFrom="opacity-100 translate-y-0"
                   leaveTo="opacity-0 translate-y-1"
                 >
-                  <Popover.Panel className="absolute top-12 left-2 transform w-screen max-w-xl">
-                    <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                      <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
-                        <input
-                          type="text"
-                          autoFocus={true}
-                          onChange={handleInputChange}
-                          onKeyPress={e => {
-                            if (e.key == "Enter") {
-                              e.preventDefault();
-                              dispatch(newLabel(title, areaId, canvasId))
-                              togglePopoverCanvasMenuOpen()
-                            }
-                          }}
-                          className="border-gray-400 rounded-md mr-2"
-                        />
-                      </div>
+                  <Popover.Panel className={classNames(canvas && !canvas["areas"][0]["labels"].length ? "absolute top-12 left-3 w-full mr-1" : null, "transform")} >
+                  <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                    <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
+                      <input
+                        type="text"
+                        autoFocus={true}
+                        onChange={handleInputChange}
+                        onKeyPress={e => {
+                          if (e.key == "Enter") {
+                            e.preventDefault();
+                            dispatch(newLabel(title, areaId, canvasId))
+                            togglePopoverCanvasMenuOpen()
+                          }
+                        }}
+                        className="border-gray-400 rounded-md mr-2"
+                      />
                     </div>
-                  </Popover.Panel>
+                  </div>
+                </Popover.Panel>
                 </Transition>
               </Popover>
-              <>
-                {canvas ? (
-                  <>
-                    {canvas["areas"][0]["labels"].map(item => (
-                      <div className="flex flex-wrap m-3">
-                        <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm mr-2">
-                          <p>
-                            {item.title}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </>
-                ) : null}
-              </>
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
