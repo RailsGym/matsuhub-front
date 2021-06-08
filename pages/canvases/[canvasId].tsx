@@ -35,11 +35,11 @@ export default function CanvasShow() {
   return (
     <div className="flex-grow">
       <h1 className="m-3 font-semibold text-gray-700">仮説キャンバス</h1>
-      <table className="h-screen w-full mb-6 bc-separate">
+      <table className="w-full mb-6 bc-separate">
         <tbody>
           <tr>
             <td
-              className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/2"
+              className="relative bg-gray-100 border border-gray-150 rounded-md w-1/2"
               colSpan={3}
             >
               <Purpose number={0} />
