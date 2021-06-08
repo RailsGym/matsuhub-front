@@ -1,11 +1,7 @@
-import { AiFillQuestionCircle } from 'react-icons/ai';
-import { AiFillPlusCircle } from 'react-icons/ai';
 import { useEffect, useState, Fragment } from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'app/store';
 import { fetchCanvases } from 'features/canvases/canvasesSlice';
 import { fetchCanvas } from 'features/canvases/canvasSlice';
-import { RootState } from 'app/rootReducer';
 import { useRouter } from 'next/router';
 import Purpose from 'components/areas/Purpose';
 import Vision from 'components/areas/Vision';
@@ -23,7 +19,6 @@ import Profit from 'components/areas/Profit';
 import Market from 'components/areas/Market';
 
 export default function CanvasShow() {
-  const { canvas } = useSelector((state: RootState) => state.canvas);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
@@ -37,13 +32,6 @@ export default function CanvasShow() {
       dispatch(fetchCanvas(canvasId));
     }
   }, [canvasId]);
-
-  const IconStyle = {
-    fontSize: "27px",
-    color: "#D8D8D8",
-    marginRight: "4px",
-    marginBottom: "4px"
-  };
 
   return (
     <div className="flex-grow">
