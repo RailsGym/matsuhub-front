@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
 import { newLabel } from 'features/labels/labelSlice';
 
-export default function Purpose(props) {
+export default function Market(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string | number>();
   const { canvas } = useSelector((state: RootState) => state.canvas);
@@ -51,7 +51,7 @@ export default function Purpose(props) {
 
   return (
     <Popover onClick={togglePopoverCanvasMenuOpen} style={areaFlame}>
-      <div className="flex mb-2">
+      <div className="flex w-auto mb-2">
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
           {canvas ? canvas["areas"][props.number]["area_type_text"] : null}
         </label>
@@ -67,7 +67,7 @@ export default function Purpose(props) {
         {canvas ? (
           <>
             {canvas["areas"][props.number]["labels"].map(item => (
-              <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1" key={item.id}>
+              <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-full rounded-md text-sm m-1" key={item.id}>
                 <p>
                   {item.title}
                 </p>
@@ -86,8 +86,8 @@ export default function Purpose(props) {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel className="w-full transform">
-          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+        <Popover.Panel className="transform">
+          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-full">
             <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
               <input
                 type="text"
@@ -107,5 +107,5 @@ export default function Purpose(props) {
         </Popover.Panel>
       </Transition>
     </Popover>
-  ) 
+  )
 };

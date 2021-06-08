@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
 import { newLabel } from 'features/labels/labelSlice';
 
-export default function Purpose(props) {
+export default function Vision(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string | number>();
   const { canvas } = useSelector((state: RootState) => state.canvas);
@@ -51,7 +51,7 @@ export default function Purpose(props) {
 
   return (
     <Popover onClick={togglePopoverCanvasMenuOpen} style={areaFlame}>
-      <div className="flex mb-2">
+      <div className="flex w-auto mb-2">
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
           {canvas ? canvas["areas"][props.number]["area_type_text"] : null}
         </label>
@@ -107,5 +107,5 @@ export default function Purpose(props) {
         </Popover.Panel>
       </Transition>
     </Popover>
-  ) 
+  )
 };
