@@ -7,18 +7,13 @@ import { fetchCanvases } from 'features/canvases/canvasesSlice';
 import { fetchCanvas } from 'features/canvases/canvasSlice';
 import { RootState } from 'app/rootReducer';
 import { useRouter } from 'next/router';
-import { Popover, Transition } from '@headlessui/react';
-import { newLabel } from 'features/labels/labelSlice';
+import Purpose from 'components/areas/Purpose';
 
 export default function CanvasShow() {
-  const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
-  const [title, setTitle] = useState<string | number>();
   const { canvas } = useSelector((state: RootState) => state.canvas);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
-  // TODO: 動的にareaIdを定義できるようにしたい
-  const areaId = 1;
 
   useEffect(() => {
       dispatch(fetchCanvases());
@@ -29,14 +24,6 @@ export default function CanvasShow() {
       dispatch(fetchCanvas(canvasId));
     }
   }, [canvasId]);
-
-  const togglePopoverCanvasMenuOpen = () => {
-    setCanvasMenuOpen(!canvasMenuOpen);
-  };
-
-  const handleInputChange = event => {
-    setTitle(event.target.value);
-  };
 
   const IconStyle = {
     fontSize: "27px",
@@ -55,65 +42,7 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/2"
               colSpan={3}
             >
-              <div className="h-full p-3">
-                <Popover onClick={togglePopoverCanvasMenuOpen}>
-                  <div className="flex w-auto mb-2">
-                    <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-                      {canvas ? canvas["areas"][0]["area_type_text"] : null}
-                    </label>
-                    <AiFillQuestionCircle style={IconStyle} />
-                    <AiFillPlusCircle style={IconStyle} aria-hidden="true" />
-                  </div>
-                  {!canvasMenuOpen && canvas && !canvas["areas"][0]["labels"].length && (
-                    <p className="text-gray-400 font-semibold text-xs">
-                      {canvas ? canvas["areas"][0]["description"] : null}
-                    </p>
-                  )}
-                  <div className="flex flex-wrap">
-                  {canvas ? (
-                    <>
-                      {canvas["areas"][0]["labels"].map(item => (
-                        <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1" key={item.id}>
-                          <p>
-                            {item.title}
-                          </p>
-                        </div>
-                      ))}
-                    </>
-                  ) : null}
-                  </div>
-                  <Transition
-                    show={canvasMenuOpen}
-                    as={Fragment}
-                    enter="transition ease-out duration-50"
-                    enterFrom="opacity-0 translate-y-1"
-                    enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in duration-50"
-                    leaveFrom="opacity-100 translate-y-0"
-                    leaveTo="opacity-0 translate-y-1"
-                  >
-                  <Popover.Panel className="w-full transform">
-                    <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                      <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
-                        <input
-                          type="text"
-                          autoFocus={true}
-                          onChange={handleInputChange}
-                          onKeyPress={e => {
-                            if (e.key == "Enter") {
-                              e.preventDefault();
-                              dispatch(newLabel(title, areaId, canvasId))
-                              togglePopoverCanvasMenuOpen()
-                            }
-                          }}
-                          className="border-gray-400 rounded-md mr-2"
-                        />
-                      </div>
-                    </div>
-                  </Popover.Panel>
-                  </Transition>
-                </Popover>
-              </div>
+              <Purpose number={0} />
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
