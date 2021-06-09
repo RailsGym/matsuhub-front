@@ -67,7 +67,7 @@ export default function Profit(props) {
         {canvas ? (
           <>
             {canvas["areas"][props.number]["labels"].map(item => (
-              <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-full rounded-md text-sm m-1" key={item.id}>
+              <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1" key={item.id}>
                 <p>
                   {item.title}
                 </p>
