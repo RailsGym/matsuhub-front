@@ -86,6 +86,7 @@ export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
     const canvas: Canvas = await patchCanvas(canvasId, title);
 
     dispatch(updateCanvasSuccess(canvas));
+    dispatch(fetchCanvas(canvasId));
     toastMessage(['キャンバスを更新しました'], 'success');
   } catch (err) {
     console.log(err);

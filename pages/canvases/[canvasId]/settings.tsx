@@ -49,7 +49,6 @@ export default function Settings() {
 
   const onClickUpdateCanvas = () => {
     dispatch(updateCanvas(canvasId, title));
-    dispatch(fetchCanvas(canvasId));
   };
 
   const onClickCanvasDelete = () => {
