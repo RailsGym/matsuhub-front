@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const SContainer = styled.div`
-  width: 194px;
+  min-width: 194px;
   height: 100%
   background-color: #f9f9f9;
   border-right: solid 2.5px #ebebeb;

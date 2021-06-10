@@ -31,6 +31,7 @@ export default function Purpose(props) {
   };
 
   const areaFlame = {
+    minWidth: "613px",
     minHeight: "130px",
     padding: "8px"
   }

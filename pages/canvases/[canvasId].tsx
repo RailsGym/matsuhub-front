@@ -36,20 +36,10 @@ export default function CanvasShow() {
     }
   }, [canvasId]);
 
-  useEffect(() => {
-      dispatch(fetchCanvases());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (canvasId) {
-      dispatch(fetchCanvas(canvasId));
-    }
-  }, [canvasId]);
-
   return (
-    <div className="flex-grow">
+    <div className="w-full">
       <h1 className="m-3 font-semibold text-gray-700">仮説キャンバス</h1>
-      <table className="w-full mb-6 bc-separate">
+      <table className="mb-6 bc-separate">
         <tbody>
           <tr>
             <td
