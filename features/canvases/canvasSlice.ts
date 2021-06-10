@@ -4,7 +4,6 @@ import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
 import toastMessage from 'features/toastMessage/toastMessage';
-import { fetchCanvases } from './canvasesSlice';
 
 interface CanvasState {
   createdCanvas: Canvas | null;
@@ -86,7 +85,6 @@ export const updateCanvas = (canvasId, title): AppThunk => async dispatch => {
     const canvas: Canvas = await patchCanvas(canvasId, title);
 
     dispatch(updateCanvasSuccess(canvas));
-    dispatch(fetchCanvas(canvasId));
     toastMessage(['キャンバスを更新しました'], 'success');
   } catch (err) {
     console.log(err);
