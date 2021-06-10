@@ -84,7 +84,7 @@ export default function Settings() {
         <hr className="my-10 w-2/3 font-semibold text-gray-700 border-bottom-solid border-b" />
         <button
           onClick={onClickCanvasDelete}
-          className="text-blue-500 hover: outline-none hover:text-blue-500 hover:underline focus:outline-none"
+          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-2 py-1 bg-red-600 text-sm font-medium text-white hover:bg-red-700 focus:outline-none sm:w-auto sm:text-sm"
         >
           キャンバスを削除
         </button>
