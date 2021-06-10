@@ -73,7 +73,7 @@ export default function ImplicitProblem(props) {
         leaveTo="opacity-0 translate-y-1"
       >
         <Popover.Panel className="transform">
-          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-full">
+          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
               <input
                 type="text"
@@ -86,7 +86,7 @@ export default function ImplicitProblem(props) {
                     togglePopoverCanvasMenuOpen()
                   }
                 }}
-                className="border-gray-400 rounded-md mr-2"
+                className="border-gray-400 rounded-md mr-2 w-full"
               />
             </div>
           </div>
