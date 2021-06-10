@@ -5,20 +5,7 @@ import { fetchCanvas } from 'features/canvases/canvasSlice';
 import { useRouter } from 'next/router';
 import { RootState } from 'app/rootReducer';
 import { useSelector } from 'react-redux';
-import Purpose from 'components/areas/Purpose';
-import Vision from 'components/areas/Vision';
-import Solution from 'components/areas/Solution';
-import Superiority from 'components/areas/Superiority';
-import Indicator from 'components/areas/Indicator';
-import Value from 'components/areas/Value';
-import ExplicitPproblem from 'components/areas/ExplicitPproblem';
-import ImplicitProblem from 'components/areas/ImplicitProblem';
-import Substitute from 'components/areas/Substitute';
-import Channel from 'components/areas/Channel';
-import Situation from 'components/areas/Situation';
-import Trend from 'components/areas/Trend';
-import Profit from 'components/areas/Profit';
-import Market from 'components/areas/Market';
+import Area from 'components/Area';
 
 export default function CanvasShow() {
   const dispatch = useAppDispatch();
@@ -46,13 +33,13 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md w-1/2"
               colSpan={3}
             >
-              <Purpose number={0} canvas={canvas} />
+              <Area number={0} canvas={canvas} type={'landscape'} />
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
               colSpan={3}
             >
-              <Vision number={1} canvas={canvas} />
+              <Area number={1} canvas={canvas} type={'landscape'} />
             </td>
           </tr>
           <tr>
@@ -60,39 +47,39 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6"
               rowSpan={2}
             >
-              <Solution number={2} canvas={canvas} />
+              <Area number={2} canvas={canvas} type={'portrait'} />
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <Superiority number={3} canvas={canvas} />
+              <Area number={3} canvas={canvas} type={'square'} />
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6"
               rowSpan={2}
             >
-              <Indicator number={4} canvas={canvas} />
+              <Area number={4} canvas={canvas} type={'portrait'} />
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <Value number={5} canvas={canvas} />
+              <Area number={5} canvas={canvas} type={'square'} />
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <ExplicitPproblem number={6} canvas={canvas} />
+              <Area number={6} canvas={canvas} type={'square'} />
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <ImplicitProblem number={7} canvas={canvas} />
+              <Area number={7} canvas={canvas} type={'square'} />
             </td>
           </tr>
           <tr>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Substitute number={8} canvas={canvas} />
+              <Area number={8} canvas={canvas} type={'square'} />
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Channel number={9} canvas={canvas} />
+              <Area number={9} canvas={canvas} type={'square'} />
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Situation number={10} canvas={canvas} />
+              <Area number={10} canvas={canvas} type={'square'} />
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Trend number={11} canvas={canvas} />
+              <Area number={11} canvas={canvas} type={'square'} />
             </td>
           </tr>
           <tr>
@@ -100,13 +87,13 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
               colSpan={3}
             >
-              <Profit number={12} canvas={canvas} />
+              <Area number={12} canvas={canvas} type={'landscape'} />
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
               colSpan={3}
             >
-              <Market number={13} canvas={canvas} />
+              <Area number={13} canvas={canvas} type={'landscape'} />
             </td>
           </tr>
         </tbody>

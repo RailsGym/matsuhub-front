@@ -6,13 +6,17 @@ import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
 import { newLabel } from 'features/labels/labelSlice';
 
-export default function ExplicitPproblem(props) {
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export default function Area(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string | number>();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
-  const { number, canvas } = props
+  const { number, canvas, type } = props
   const areaId = number + 1;
 
   const togglePopoverCanvasMenuOpen = () => {
@@ -23,26 +27,18 @@ export default function ExplicitPproblem(props) {
     setTitle(event.target.value);
   };
 
-  const IconStyle = {
-    fontSize: "27px",
-    color: "#D8D8D8",
-    marginRight: "4px",
-    marginBottom: "4px"
-  };
-
-  const areaFlame = {
-    minHeight: "200px",
-    padding: "8px"
-  }
-
   return (
-    <Popover onClick={togglePopoverCanvasMenuOpen} style={areaFlame}>
-      <div className="flex w-auto mb-2">
+    <Popover className={classNames(
+      type === 'landscape' ? "landscape-flame" : type === 'square' ? "square-flame" : "portrait-flame", "p-2"
+    )}
+      onClick={togglePopoverCanvasMenuOpen}
+    >
+      <div className="flex mb-2">
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
           {canvas ? canvas["areas"][number]["area_type_text"] : null}
         </label>
-        <AiFillQuestionCircle style={IconStyle} />
-        <AiFillPlusCircle style={IconStyle} aria-hidden="true" />
+        <AiFillQuestionCircle className="area-icon" />
+        <AiFillPlusCircle className="area-icon" aria-hidden="true" />
       </div>
       {!canvasMenuOpen && canvas && !canvas["areas"][number]["labels"].length && (
         <p className="text-gray-400 font-semibold text-xs">
@@ -53,7 +49,9 @@ export default function ExplicitPproblem(props) {
         {canvas ? (
           <>
             {canvas["areas"][number]["labels"].map(item => (
-              <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-full rounded-md text-sm m-1" key={item.id}>
+              <div className={classNames(
+                type === 'landscape' ? "w-1/4" : "w-full", "grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1"
+              )} key={item.id}>
                 <p>
                   {item.title}
                 </p>

@@ -1,0 +1,15 @@
+.landscape-flame {
+  min-width: 613px;
+  min-height: 130px;
+}
+
+.portrait-flame {
+  min-height: 400px;
+}
+
+.square-flame {
+  min-height: 200px;
+}
+
+
+
