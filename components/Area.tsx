@@ -53,7 +53,7 @@ export default function Area(props) {
               <div className={classNames(
                 type === 'landscape' ? "w-1/4" : "w-full", "grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1"
               )} key={item.id}>
-                <p>
+                <p className="truncate">
                   {item.title}
                 </p>
               </div>
