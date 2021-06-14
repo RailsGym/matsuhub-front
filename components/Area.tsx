@@ -80,7 +80,7 @@ export default function Area(props) {
                     togglePopoverCanvasMenuOpen()
                   }
                 }}
-                className="border-gray-400 rounded-md mr-2 w-full"
+                className="border-gray-400 rounded-md mr-2 w-full focus:ring-customgreen focus:border-customgreen"
               />
             </div>
           </div>
