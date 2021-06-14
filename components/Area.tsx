@@ -5,6 +5,7 @@ import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
 import { newLabel } from 'features/labels/labelSlice';
+import { fetchCanvas } from 'features/canvases/canvasSlice';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -75,6 +76,7 @@ export default function Area(props) {
                   if (e.key == "Enter") {
                     e.preventDefault();
                     dispatch(newLabel(title, areaId, canvasId))
+                    dispatch(fetchCanvas(canvasId));
                     togglePopoverCanvasMenuOpen()
                   }
                 }}

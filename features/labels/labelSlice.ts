@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createLabel } from 'api/labelsAPI';
 import { AppThunk } from 'app/store';
-import { fetchCanvas } from 'features/canvases/canvasSlice';
 import toastMessage from 'features/toastMessage/toastMessage';
 import { Label } from 'models/labels';
 
@@ -37,7 +36,6 @@ export const newLabel = (title, areaId, canvasId): AppThunk => async dispatch =>
     const label: Label = await createLabel(title, areaId, canvasId);
 
     dispatch(createLabelSuccess(label));
-    dispatch(fetchCanvas(canvasId))
     toastMessage(['ラベルを作成しました'], 'success');
   } catch (err) {
     console.log(err);

@@ -21,7 +21,7 @@ export default function CanvasShow() {
     if (canvasId) {
       dispatch(fetchCanvas(canvasId));
     }
-  }, [canvasId]);
+  }, [canvasId, dispatch]);
 
   return (
     <div className="w-full">
