@@ -67,7 +67,7 @@ export default function Area(props) {
                       onKeyPress={e => {
                         if (e.key == "Enter") {
                           e.preventDefault();
-                          dispatch(updateLabel(title, areaId, canvasId, item.id, item.description))
+                          dispatch(updateLabel(title, areaId, canvasId, item.id, ""))
                           setLabelMenuOpen(!labelMenuOpen)
                         }
                       }}

@@ -26,7 +26,7 @@ const labelSlice = createSlice({
     createdLabelReset: state => {
       state.createdLabel = null;
     },
-    updateLabelSuccess: (state, action) => {
+    updatedLabelSuccess: (state, action) => {
       state.updatedLabel = action.payload;
     },
   }
@@ -36,7 +36,7 @@ export default labelSlice.reducer;
 export const {
   createLabelSuccess,
   createdLabelReset,
-  updateLabelSuccess
+  updatedLabelSuccess
 } = labelSlice.actions;
 
 export const newLabel = (title, areaId, canvasId): AppThunk => async dispatch => {
@@ -52,12 +52,11 @@ export const newLabel = (title, areaId, canvasId): AppThunk => async dispatch =>
   }
 };
 
-
 export const updateLabel = (title, areaId, canvasId, labelId, description): AppThunk => async dispatch => {
   try {
     const label: Label = await patchLabel(title, areaId, canvasId, labelId, description);
 
-    dispatch(updateLabelSuccess(label));
+    dispatch(updatedLabelSuccess(label));
     toastMessage(['ラベルを更新しました'], 'success');
   } catch (err) {
     console.log(err);
