@@ -11,6 +11,7 @@ export default function CanvasShow() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvas } = useSelector((state: RootState) => state.canvas);
+  const createdLabel = useSelector((state: RootState) => state.label);
   const { canvasId } = router.query;
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function CanvasShow() {
     if (canvasId) {
       dispatch(fetchCanvas(canvasId));
     }
-  }, [canvasId, dispatch]);
+  }, [canvasId, createdLabel]);
 
   return (
     <div className="w-full">

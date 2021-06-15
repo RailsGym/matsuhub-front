@@ -4,7 +4,6 @@ import { getCanvas } from 'api/canvasesAPI';
 import { AppThunk } from 'app/store';
 import { Canvas } from 'models/canvases';
 import toastMessage from 'features/toastMessage/toastMessage';
-import { fetchCanvases } from './canvasesSlice';
 
 interface CanvasState {
   createdCanvas: Canvas | null;
