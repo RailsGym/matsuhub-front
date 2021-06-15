@@ -13,6 +13,7 @@ function classNames(...classes) {
 export default function Area(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [labelMenuOpen, setLabelMenuOpen] = useState<boolean>(false);
+  const [labelID, setLabelID] = useState();
   const [title, setTitle] = useState<string | number>();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -24,7 +25,8 @@ export default function Area(props) {
     setCanvasMenuOpen(!canvasMenuOpen);
   };
 
-  const togglePopoverlabelMenuOpen = () => {
+  const togglePopoverlabelMenuOpen = (item) => {
+    setLabelID(item.id)
     setLabelMenuOpen(!labelMenuOpen);
   };
 
@@ -53,27 +55,29 @@ export default function Area(props) {
         {canvas ? (
           <>
             {canvas["areas"][number]["labels"].map(item => (
-              <div onClick={togglePopoverlabelMenuOpen} className={classNames(
+              <div onClick={() => togglePopoverlabelMenuOpen(item)} className={classNames(
                 type === 'landscape' ? "w-1/4" : "w-full", "grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1"
               )} key={item.id}>
-                {!labelMenuOpen ? (
-                  <p>
-                  {item.title}
-                  </p>)
-                  : (
+                {labelID == item.id && !labelMenuOpen ?
+                  (
                     <input
                       type="text"
                       autoFocus={true}
+                      value={item.title}
                       onChange={handleInputChange}
                       onKeyPress={e => {
                         if (e.key == "Enter") {
                           e.preventDefault();
-                          togglePopoverlabelMenuOpen()
+                          setLabelMenuOpen(!labelMenuOpen)
                         }
                       }}
-                      className="border-gray-400 rounded-md w-full"
-                    />
-                )}
+                    className="border-gray-400 rounded-md w-full"
+                  />)
+                  :(
+                    <p>
+                      {item.title}
+                    </p>
+                  )}
               </div>
             ))}
           </>
