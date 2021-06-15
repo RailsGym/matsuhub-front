@@ -4,7 +4,7 @@ import { useState, Fragment } from 'react';
 import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
-import { newLabel } from 'features/labels/labelSlice';
+import { newLabel, updateLabel } from 'features/labels/labelSlice';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -63,11 +63,11 @@ export default function Area(props) {
                     <input
                       type="text"
                       autoFocus={true}
-                      value={item.title}
                       onChange={handleInputChange}
                       onKeyPress={e => {
                         if (e.key == "Enter") {
                           e.preventDefault();
+                          dispatch(updateLabel(title, areaId, canvasId, item.id, item.description))
                           setLabelMenuOpen(!labelMenuOpen)
                         }
                       }}
