@@ -17,8 +17,7 @@ export default function Area(props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
-  const { number, canvas, type } = props
-  const areaId = number + 1;
+  const { number, areas, areaId, labels, type } = props
 
   const togglePopoverCanvasMenuOpen = () => {
     setCanvasMenuOpen(!canvasMenuOpen);
@@ -36,20 +35,20 @@ export default function Area(props) {
     >
       <div className="flex mb-2">
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-          {canvas ? canvas["areas"][number]["area_type_text"] : null}
+          {areas ? areas[number]["area_type_text"] : null}
         </label>
         <AiFillQuestionCircle className="area-icon" />
         <AiFillPlusCircle className="area-icon" aria-hidden="true" />
       </div>
-      {!canvasMenuOpen && canvas && !canvas["areas"][number]["labels"].length && (
+      {!canvasMenuOpen && labels && !labels.length && (
         <p className="text-gray-400 font-semibold text-xs">
-          {canvas ? canvas["areas"][number]["description"] : null}
+          {areas ? areas[number]["description"] : null}
         </p>
       )}
       <div className="flex flex-wrap">
-        {canvas ? (
+        {labels ? (
           <>
-            {canvas["areas"][number]["labels"].map(item => (
+            {labels.map(item => (
               <div className={classNames(
                 type === 'landscape' ? "w-1/4" : "w-full", "grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1"
               )} key={item.id}>
