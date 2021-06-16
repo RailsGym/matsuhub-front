@@ -14,7 +14,8 @@ function classNames(...classes) {
 export default function Area(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [labelMenuOpen, setLabelMenuOpen] = useState<boolean>(false);
-  const [labelID, setLabelID] = useState();
+  const [labelID, setLabelID] = useState<number>();
+  const [createdLabelTitle, setCreatedLabelTitle] = useState<string | number>();
   const [title, setTitle] = useState<string | number>();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -27,6 +28,7 @@ export default function Area(props) {
 
   const togglePopoverlabelMenuOpen = (item) => {
     setLabelID(item.id)
+    setCreatedLabelTitle(item.title)
     setLabelMenuOpen(!labelMenuOpen);
   };
 
@@ -62,6 +64,7 @@ export default function Area(props) {
                   (
                     <input
                       type="text"
+                      defaultValue={createdLabelTitle}
                       autoFocus={true}
                       onChange={handleInputChange}
                       onKeyPress={e => {
