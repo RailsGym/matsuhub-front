@@ -17,7 +17,7 @@ export default function Area(props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
-  const { number, areas, areaId, labels, type } = props
+  const { area, labels, type } = props
 
   const togglePopoverCanvasMenuOpen = () => {
     setCanvasMenuOpen(!canvasMenuOpen);
@@ -35,14 +35,14 @@ export default function Area(props) {
     >
       <div className="flex mb-2">
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-          {areas ? areas[number]["area_type_text"] : null}
+          {area ? area["area_type_text"] : null}
         </label>
         <AiFillQuestionCircle className="area-icon" />
         <AiFillPlusCircle className="area-icon" aria-hidden="true" />
       </div>
       {!canvasMenuOpen && labels && !labels.length && (
         <p className="text-gray-400 font-semibold text-xs">
-          {areas ? areas[number]["description"] : null}
+          {area ? area["description"] : null}
         </p>
       )}
       <div className="flex flex-wrap">
@@ -74,7 +74,7 @@ export default function Area(props) {
                 onKeyPress={e => {
                   if (e.key == "Enter") {
                     e.preventDefault();
-                    dispatch(newLabel(title, areaId, canvasId))
+                    dispatch(newLabel(title, area.id, canvasId))
                     dispatch(fetchCanvas(canvasId));
                     togglePopoverCanvasMenuOpen()
                   }
