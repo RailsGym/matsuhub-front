@@ -12,6 +12,7 @@ export default function CanvasShow() {
   const router = useRouter();
   const { canvas } = useSelector((state: RootState) => state.canvas);
   const updatedLabel = useSelector((state: RootState) => state.label);
+  const createdLabel = useSelector((state: RootState) => state.label);
   const { canvasId } = router.query;
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function CanvasShow() {
     if (canvasId) {
       dispatch(fetchCanvas(canvasId));
     }
-  }, [canvasId, updatedLabel]);
+  }, [canvasId, createdLabel, updatedLabel]);
 
   return (
     <div className="w-full">
@@ -34,13 +35,17 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md w-1/2"
               colSpan={3}
             >
-              <Area number={0} canvas={canvas} type={'landscape'} />
+              {
+                canvas && (<Area area={canvas.areas[0]} labels={canvas.areas[0].labels} type={'landscape'} />)
+              }
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
               colSpan={3}
             >
-              <Area number={1} canvas={canvas} type={'landscape'} />
+              {
+                canvas && (<Area area={canvas.areas[1]} labels={canvas.areas[1].labels} type={'landscape'} />)
+              }
             </td>
           </tr>
           <tr>
@@ -48,39 +53,59 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6"
               rowSpan={2}
             >
-              <Area number={2} canvas={canvas} type={'portrait'} />
+              {
+                canvas && (<Area area={canvas.areas[2]} labels={canvas.areas[2].labels} type={'portrait'} />)
+              }
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <Area number={3} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[3]} labels={canvas.areas[3].labels} type={'square'} />)
+              }
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6"
               rowSpan={2}
             >
-              <Area number={4} canvas={canvas} type={'portrait'} />
+              {
+                canvas && (<Area area={canvas.areas[4]} labels={canvas.areas[4].labels} type={'portrait'} />)
+              }
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <Area number={5} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[5]} labels={canvas.areas[5].labels} type={'square'} />)
+              }
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <Area number={6} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[6]} labels={canvas.areas[6].labels} type={'square'} />)
+              }
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto w-1/6">
-              <Area number={7} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[7]} labels={canvas.areas[7].labels} type={'square'} />)
+              }
             </td>
           </tr>
           <tr>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Area number={8} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[8]} labels={canvas.areas[8].labels} type={'square'} />)
+              }
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Area number={9} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[9]} labels={canvas.areas[9].labels} type={'square'} />)
+              }
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Area number={10} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[10]} labels={canvas.areas[10].labels} type={'square'} />)
+              }
             </td>
             <td className="relative bg-gray-100 border border-gray-150 rounded-md h-auto">
-              <Area number={11} canvas={canvas} type={'square'} />
+              {
+                canvas && (<Area area={canvas.areas[11]} labels={canvas.areas[11].labels} type={'square'} />)
+              }
             </td>
           </tr>
           <tr>
@@ -88,13 +113,17 @@ export default function CanvasShow() {
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
               colSpan={3}
             >
-              <Area number={12} canvas={canvas} type={'landscape'} />
+              {
+                canvas && (<Area area={canvas.areas[12]} labels={canvas.areas[12].labels} type={'landscape'} />)
+              }
             </td>
             <td
               className="relative bg-gray-100 border border-gray-150 rounded-md h-auto"
               colSpan={3}
             >
-              <Area number={13} canvas={canvas} type={'landscape'} />
+              {
+                canvas && (<Area area={canvas.areas[13]} labels={canvas.areas[13].labels} type={'landscape'} />)
+              }
             </td>
           </tr>
         </tbody>

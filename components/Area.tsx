@@ -5,6 +5,7 @@ import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
 import { newLabel, updateLabel } from 'features/labels/labelSlice';
+import { fetchCanvas } from 'features/canvases/canvasSlice';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -18,8 +19,7 @@ export default function Area(props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
-  const { number, canvas, type } = props
-  const areaId = number + 1;
+  const { area, labels, type } = props
 
   const togglePopoverCanvasMenuOpen = () => {
     setCanvasMenuOpen(!canvasMenuOpen);
@@ -41,20 +41,20 @@ export default function Area(props) {
     >
       <div className="flex mb-2">
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-          {canvas ? canvas["areas"][number]["area_type_text"] : null}
+          {area ? area["area_type_text"] : null}
         </label>
         <AiFillQuestionCircle className="area-icon" />
         <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverCanvasMenuOpen}/>
       </div>
-      {!canvasMenuOpen && canvas && !canvas["areas"][number]["labels"].length && (
+      {!canvasMenuOpen && labels && !labels.length && (
         <p className="text-gray-400 font-semibold text-xs">
-          {canvas ? canvas["areas"][number]["description"] : null}
+          {area ? area["description"] : null}
         </p>
       )}
       <div className="flex flex-wrap">
-        {canvas ? (
+        {labels ? (
           <>
-            {canvas["areas"][number]["labels"].map(item => (
+            {labels.map(item => (
               <div onClick={() => togglePopoverlabelMenuOpen(item)} className={classNames(
                 type === 'landscape' ? "w-1/4" : "w-full", "grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1"
               )} key={item.id}>
@@ -67,14 +67,14 @@ export default function Area(props) {
                       onKeyPress={e => {
                         if (e.key == "Enter") {
                           e.preventDefault();
-                          dispatch(updateLabel(title, areaId, canvasId, item.id, ""))
+                          dispatch(updateLabel(title, area.id, canvasId, item.id, ""))
                           setLabelMenuOpen(!labelMenuOpen)
                         }
                       }}
                     className="border-gray-400 rounded-md w-full"
                   />)
                   :(
-                    <p>
+                    <p className="line-clamp-3">
                       {item.title}
                     </p>
                   )}
@@ -97,11 +97,12 @@ export default function Area(props) {
                 onKeyPress={e => {
                   if (e.key == "Enter") {
                     e.preventDefault();
-                    dispatch(newLabel(title, areaId, canvasId))
+                    dispatch(newLabel(title, area.id, canvasId))
+                    dispatch(fetchCanvas(canvasId));
                     togglePopoverCanvasMenuOpen()
                   }
                 }}
-                className="border-gray-400 rounded-md mr-2 w-full"
+                className="border-gray-400 rounded-md mr-2 w-full focus:ring-customgreen focus:border-customgreen"
               />
             </div>
           </div>
