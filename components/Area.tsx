@@ -53,17 +53,16 @@ export default function Area(props) {
           {area ? area["description"] : null}
         </p>
       )}
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap items-start">
         {labels ? (
           <>
             {labels.map(item => (
-              <div onClick={() => togglePopoverlabelMenuOpen(item)} className={classNames(
+              <div className={classNames(
                 type === 'landscape' ? "w-1/4" : "w-full", "grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1"
               )} key={item.id}>
                 {labelID == item.id && !labelMenuOpen ?
                   (
-                    <input
-                      type="text"
+                    <textarea
                       defaultValue={createdLabelTitle}
                       autoFocus={true}
                       onChange={handleInputChange}
@@ -74,10 +73,10 @@ export default function Area(props) {
                           setLabelMenuOpen(!labelMenuOpen)
                         }
                       }}
-                    className="border-gray-400 rounded-md w-full"
+                      className="border-gray-400 rounded-md w-full text-sm"
                   />)
                   :(
-                    <p className="line-clamp-3">
+                    <p className="line-clamp-3" onClick={() => togglePopoverlabelMenuOpen(item)}>
                       {item.title}
                     </p>
                   )}
@@ -92,9 +91,8 @@ export default function Area(props) {
       >
         <Popover.Panel className="transform">
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-            <div className="grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen">
-              <input
-                type="text"
+            <div className="grid bg-white sm:gap-4 sm:p-2 border-l-4 border-customgreen">
+              <textarea
                 autoFocus={true}
                 onChange={handleInputChange}
                 onKeyPress={e => {
@@ -105,7 +103,7 @@ export default function Area(props) {
                     togglePopoverCanvasMenuOpen()
                   }
                 }}
-                className="border-gray-400 rounded-md mr-2 w-full focus:ring-customgreen focus:border-customgreen"
+                className="border-gray-400 rounded-md mr-2 w-full focus:ring-customgreen focus:border-customgreen label-create-from-size text-sm p-1"
               />
             </div>
           </div>
