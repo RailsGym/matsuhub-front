@@ -22,8 +22,14 @@ export default function Area(props) {
   const { canvasId } = router.query;
   const { area, labels, type } = props
 
-  const togglePopoverCanvasMenuOpen = () => {
+  const togglePopoverLabelMenuOpen = () => {
     setCanvasMenuOpen(!canvasMenuOpen);
+  };
+
+  const togglePopoverLabelMenuclose = () => {
+    if (!labelMenuOpen) {
+      setLabelMenuOpen(!labelMenuOpen);
+    }
   };
 
   const togglePopoverlabelMenuOpen = (item) => {
@@ -31,6 +37,10 @@ export default function Area(props) {
     setCreatedLabelTitle(item.title)
     setLabelMenuOpen(!labelMenuOpen);
   };
+
+  const stopLabelMenuOpen = (e) => {
+    e.stopPropagation()
+  }
 
   const handleInputChange = event => {
     setTitle(event.target.value);
@@ -40,13 +50,14 @@ export default function Area(props) {
     <Popover className={classNames(
       type === 'landscape' ? "landscape-flame" : type === 'square' ? "square-flame" : "portrait-flame", "p-2"
     )}
+      onClick={togglePopoverLabelMenuclose}
     >
       <div className="flex mb-2">
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
           {area ? area["area_type_text"] : null}
         </label>
         <AiFillQuestionCircle className="area-icon" />
-        <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverCanvasMenuOpen}/>
+        <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
       </div>
       {!canvasMenuOpen && labels && !labels.length && (
         <p className="text-gray-400 font-semibold text-xs">
@@ -59,7 +70,8 @@ export default function Area(props) {
             {labels.map(item => (
               <div className={classNames(
                 type === 'landscape' ? "w-1/4" : "w-full", "grid gap-6 bg-white sm:gap-5 sm:p-2 border-l-4 border-customgreen w-1/4 rounded-md text-sm m-1"
-              )} key={item.id}>
+              )} key={item.id}
+                onClick={stopLabelMenuOpen}>
                 {labelID == item.id && !labelMenuOpen ?
                   (
                     <textarea
@@ -100,7 +112,7 @@ export default function Area(props) {
                     e.preventDefault();
                     dispatch(newLabel(title, area.id, canvasId))
                     dispatch(fetchCanvas(canvasId));
-                    togglePopoverCanvasMenuOpen()
+                    togglePopoverLabelMenuOpen()
                   }
                 }}
                 className="border-gray-400 rounded-md mr-2 w-full focus:ring-customgreen focus:border-customgreen label-create-from-size text-sm p-1"
