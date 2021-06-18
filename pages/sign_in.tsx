@@ -61,15 +61,15 @@ export default function SignIn() {
 
   return (
     <div className="max-w-md w-full space-y-8 bg-white p-12">
-      <div>
-        <h1 className="text-customgreen">MatsuHub</h1>
-        <h2 className="mt-6 text-center text-xl font-extrabold text-customgreen">
+      <div className="text-center">
+        <h1 className="text-customgreen text-6xl font-semibold">MatsuHub</h1>
+        <h2 className="mt-8 text-center text-xl font-extrabold text-customgreen">
           ログイン
         </h2>
       </div>
       <form className="mt-8" onSubmit={authUser}>
         <input type="hidden" name="remember" value="true" />
-        <div className="mt-10">
+        <div className="mt-8">
           <div className="text-black">メールアドレス</div>
           <div>
             <input
@@ -77,8 +77,7 @@ export default function SignIn() {
               type="text"
               autoComplete="email"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="email address"
+              className="appearance-none rounded-none relative block w-full px-3 py-2 bg-gray-50 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-customgreen focus:border-customgreen focus:z-10 sm:text-sm"
               value={email}
               onChange={(e) => {
                 setMail(e.target.value);
@@ -94,8 +93,7 @@ export default function SignIn() {
               type="password"
               autoComplete="current-password"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Password"
+              className="appearance-none rounded-none relative block w-full px-3 py-2 bg-gray-50 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-customgreen focus:border-customgreen focus:z-10 sm:text-sm"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -106,7 +104,7 @@ export default function SignIn() {
         <div className="mt-10">
           <button
             type="submit"
-            className="bg-customgreen py-2 px-4 border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-blue-100 border text-white rounded text-sm font-medium rounded-md group relative w-full flex justify-center"
+            className="bg-customgreen py-2 px-4 border-transparent hover:bg-customhoverbackground hover: outline-none focus:outline-none border text-white rounded text-sm font-medium rounded-md group relative w-full flex justify-center"
           >
             ログイン
           </button>
