@@ -1,5 +1,6 @@
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { MdModeEdit } from 'react-icons/md';
 import { useState, Fragment } from 'react';
 import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
@@ -15,8 +16,12 @@ export default function Area(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [labelMenuOpen, setLabelMenuOpen] = useState<boolean>(false);
   const [labelID, setLabelID] = useState<number>();
+  const [labelEditID, setLabelEditID] = useState<number>();
+  const [labelEditIconID, setLabelEditIconID] = useState<number>();
   const [createdLabelTitle, setCreatedLabelTitle] = useState<string | number>();
   const [title, setTitle] = useState<string | number>();
+  const [hovered, setHovered] = useState<boolean>(false);
+  const [editHovered, setEditHovered] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
@@ -30,6 +35,7 @@ export default function Area(props) {
     if (!labelMenuOpen) {
       setLabelMenuOpen(!labelMenuOpen);
     }
+    setHovered(false)
   };
 
   const togglePopoverlabelMenuOpen = (item) => {
@@ -45,6 +51,16 @@ export default function Area(props) {
   const handleInputChange = event => {
     setTitle(event.target.value);
   };
+
+  const onMouseLabel = (item) => {
+    setLabelEditID(item.id)
+    setHovered(!hovered)
+  }
+
+  const onMouseLabelEdit = (item) => {
+    setLabelEditIconID(item.id)
+    setEditHovered(!editHovered)
+  }
 
   return (
     <Popover className={classNames(
@@ -87,10 +103,17 @@ export default function Area(props) {
                       }}
                       className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                   />)
-                  :(
-                    <p className="line-clamp-3" onClick={() => togglePopoverlabelMenuOpen(item)}>
-                      {item.title}
-                    </p>
+                  : (
+                    <div className="relative" onMouseEnter={() => onMouseLabel(item)} onMouseLeave={() => onMouseLabel(item)}>
+                      <p className="line-clamp-3" onClick={() => togglePopoverlabelMenuOpen(item)}>
+                        {item.title}
+                      </p>
+                      {labelEditID == item.id && hovered && (
+                        <div onMouseEnter={() => onMouseLabelEdit(item)} onMouseLeave={() => onMouseLabelEdit(item)}>
+                          <MdModeEdit className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
+                        </div>
+                      )}
+                    </div>
                   )}
               </div>
             ))}
