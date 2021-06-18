@@ -85,7 +85,7 @@ export default function Area(props) {
                           setLabelMenuOpen(!labelMenuOpen)
                         }
                       }}
-                      className="border-gray-400 rounded-md w-full text-sm"
+                      className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                   />)
                   :(
                     <p className="line-clamp-3" onClick={() => togglePopoverlabelMenuOpen(item)}>
