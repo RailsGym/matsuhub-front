@@ -65,10 +65,15 @@ export default function Area(props) {
     setEditHovered(!editHovered)
   }
 
-  const onClickModal = () => {
+  const onClickModal = (item) => {
+    setCreatedLabelTitle(item.title)
     setModalIsOpen(!modalIsOpen)
     setHovered(false)
     setEditHovered(false)
+  }
+
+  const onClickUpdate = (title, area, canvasId, item) => {
+    dispatch(updateLabel(title, area.id, canvasId, item.id, ""))
   }
 
   const modalStyle = {
@@ -136,21 +141,24 @@ export default function Area(props) {
                       </p>
                       {labelEditID == item.id && hovered && (
                         <div onMouseEnter={() => onMouseLabelEdit(item)} onMouseLeave={() => onMouseLabelEdit(item)}>
-                          <MdModeEdit onClick={onClickModal} className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
+                          <MdModeEdit onClick={() => onClickModal(item)} className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
                         </div>
                       )}
                       <Modal isOpen={modalIsOpen} style={modalStyle} >
                         <div className="mt-2">
                           <div className="modal-icon">
-                            <BsX onClick={onClickModal} />
+                            <BsX onClick={() => onClickModal(item)} />
                           </div>
                           <div className="mb-7">
                             <p className="text-gray-600 font-semibold text-sm">タイトル</p>
                             <textarea
+                              onChange={handleInputChange}
+                              defaultValue={createdLabelTitle}
                               className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                             />
                             <div className="text-right">
                               <button
+                                onClick={() => onClickUpdate(title, area, canvasId, item)}
                                 className="p-1 h-6 rounded-md bg-customgreen text-white text-xs hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
                               >
                                 更新する
