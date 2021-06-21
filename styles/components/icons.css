@@ -4,3 +4,14 @@
   margin-right: 4px;
   margin-bottom: 4px;
 }
+
+.modal-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 27px;
+  color: #D8D8D8;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}

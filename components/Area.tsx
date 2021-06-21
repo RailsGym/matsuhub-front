@@ -1,6 +1,8 @@
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { BsX } from 'react-icons/bs';
 import { MdModeEdit } from 'react-icons/md';
+import Modal from "react-modal";
 import { useState, Fragment } from 'react';
 import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
@@ -22,6 +24,7 @@ export default function Area(props) {
   const [title, setTitle] = useState<string | number>();
   const [hovered, setHovered] = useState<boolean>(false);
   const [editHovered, setEditHovered] = useState<boolean>(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
@@ -61,6 +64,29 @@ export default function Area(props) {
     setLabelEditIconID(item.id)
     setEditHovered(!editHovered)
   }
+
+  const onClickModal = () => {
+    setModalIsOpen(!modalIsOpen)
+    setHovered(false)
+    setEditHovered(false)
+  }
+
+  const modalStyle = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+    },
+    content: {
+      position: "absolute",
+      top: "12rem",
+      left: "30rem",
+      right: "30rem",
+      bottom: "16rem",
+      borderRadius: "1rem",
+      padding: "1.5rem"
+    }
+  };
 
   return (
     <Popover className={classNames(
@@ -110,9 +136,42 @@ export default function Area(props) {
                       </p>
                       {labelEditID == item.id && hovered && (
                         <div onMouseEnter={() => onMouseLabelEdit(item)} onMouseLeave={() => onMouseLabelEdit(item)}>
-                          <MdModeEdit className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
+                          <MdModeEdit onClick={onClickModal} className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
                         </div>
                       )}
+                      <Modal isOpen={modalIsOpen} style={modalStyle} >
+                        <div className="mt-2">
+                          <div className="modal-icon">
+                            <BsX onClick={onClickModal} />
+                          </div>
+                          <div className="mb-7">
+                            <p className="text-gray-600 font-semibold text-sm">タイトル</p>
+                            <textarea
+                              className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                            />
+                            <div className="text-right">
+                              <button
+                                className="p-1 h-6 rounded-md bg-customgreen text-white text-xs hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
+                              >
+                                更新する
+                              </button>
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-gray-600 font-semibold text-sm">説明</p>
+                            <textarea
+                              className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                            />
+                            <div className="text-right">
+                              <button
+                                className="p-1 h-6 rounded-md bg-customgreen text-white text-xs hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
+                              >
+                                更新する
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </Modal>
                     </div>
                   )}
               </div>
