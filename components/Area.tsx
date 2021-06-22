@@ -86,6 +86,7 @@ export default function Area(props) {
     setEditHovered(false)
   }
 
+   // TODO: 最終的にclassでstyleを指定できるように
   const modalStyle = {
     overlay: {
       position: "fixed",
