@@ -22,7 +22,7 @@ export default function Area(props) {
   const [createdLabelTitle, setCreatedLabelTitle] = useState<string | number>();
   const [createdLabelDescription, setCreatedLabelDescription] = useState<string | number>();
   const [title, setTitle] = useState<string | number>();
-  const [description, setDescription] = useState<string | number>();
+  const [description, setDescription] = useState<string | number>("");
   const [hovered, setHovered] = useState<boolean>(false);
   const [editHovered, setEditHovered] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -33,13 +33,14 @@ export default function Area(props) {
 
   const togglePopoverLabelMenuOpen = () => {
     setCanvasMenuOpen(!canvasMenuOpen);
+    labelEditHoverReset()
   };
 
   const togglePopoverLabelMenuclose = () => {
     if (!labelMenuOpen) {
       setLabelMenuOpen(!labelMenuOpen);
     }
-    setHovered(false)
+    labelEditHoverReset()
   };
 
   const togglePopoverlabelMenuOpen = (item) => {
@@ -52,8 +53,11 @@ export default function Area(props) {
     e.stopPropagation()
   }
 
-  const handleInputChange = event => {
+  const handleInputChangeTitle = event => {
     setTitle(event.target.value);
+  };
+
+  const handleInputChangeLabel = event => {
     setDescription(event.target.value)
   };
 
@@ -70,16 +74,16 @@ export default function Area(props) {
     setCreatedLabelTitle(item.title)
     setCreatedLabelDescription(item.description)
     setModalIsOpen(!modalIsOpen)
+    labelEditHoverReset()
+  }
+
+  const onClickUpdate = (area, item) => {
+    dispatch(updateLabel(title, area.id, canvasId, item.id, description))
+  }
+
+  const labelEditHoverReset = () => {
     setHovered(false)
     setEditHovered(false)
-  }
-
-  const onClickUpdateTitle= (title, area, canvasId, item) => {
-    dispatch(updateLabel(title, area.id, canvasId, item.id, item.description))
-  }
-
-  const onClickUpdateDescription = (area, canvasId, item) => {
-    dispatch(updateLabel(item.title, area.id, canvasId, item.id, description))
   }
 
   const modalStyle = {
@@ -87,6 +91,7 @@ export default function Area(props) {
       position: "fixed",
       top: 0,
       left: 0,
+      background: "rgba(94,96,98,0.3)"
     },
     content: {
       position: "absolute",
@@ -94,8 +99,8 @@ export default function Area(props) {
       left: "30rem",
       right: "30rem",
       bottom: "16rem",
-      borderRadius: "1rem",
-      padding: "1.5rem"
+      borderRadius: "0.5rem",
+      padding: "1.5rem",
     }
   };
 
@@ -130,12 +135,12 @@ export default function Area(props) {
                     <textarea
                       defaultValue={createdLabelTitle}
                       autoFocus={true}
-                      onChange={handleInputChange}
+                      onChange={handleInputChangeTitle}
                       onKeyPress={e => {
                         if (e.key == "Enter") {
                           e.preventDefault();
-                          dispatch(updateLabel(title, area.id, canvasId, item.id, ""))
-                          setLabelMenuOpen(!labelMenuOpen)
+                          dispatch(updateLabel(title, area.id, canvasId, item.id, description))
+                          togglePopoverLabelMenuclose()
                         }
                       }}
                       className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
@@ -155,37 +160,29 @@ export default function Area(props) {
                           <div className="modal-icon">
                             <BsX onClick={() => onClickModal(item)} />
                           </div>
-                          <div className="mb-7">
+                          <div className="mb-6">
                             <p className="text-gray-600 font-semibold text-sm">タイトル</p>
                             <textarea
-                              onChange={handleInputChange}
+                              onChange={handleInputChangeTitle}
                               defaultValue={createdLabelTitle}
-                              className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                              className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                             />
-                            <div className="text-right">
-                              <button
-                                onClick={() => onClickUpdateTitle(title, area, canvasId, item)}
-                                className="p-1 h-6 rounded-md bg-customgreen text-white text-xs hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
-                              >
-                                更新する
-                              </button>
-                            </div>
                           </div>
                           <div>
                             <p className="text-gray-600 font-semibold text-sm">説明</p>
                             <textarea
-                              onChange={handleInputChange}
+                              onChange={handleInputChangeLabel}
                               defaultValue={createdLabelDescription}
-                              className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                              className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                             />
-                            <div className="text-right">
-                              <button
-                                onClick={() => onClickUpdateDescription(area, canvasId, item)}
-                                className="p-1 h-6 rounded-md bg-customgreen text-white text-xs hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
-                              >
-                                更新する
+                          </div>
+                          <div className="mt-4 text-right">
+                            <button
+                              onClick={() => onClickUpdate(area, item)}
+                              className="h-8 w-1/4 rounded-md bg-customgreen text-white text-sm hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
+                            >
+                              更新する
                               </button>
-                            </div>
                           </div>
                         </div>
                       </Modal>
@@ -205,7 +202,7 @@ export default function Area(props) {
             <div className="grid bg-white sm:gap-4 sm:p-2 border-l-4 border-customgreen">
               <textarea
                 autoFocus={true}
-                onChange={handleInputChange}
+                onChange={handleInputChangeTitle}
                 onKeyPress={e => {
                   if (e.key == "Enter") {
                     e.preventDefault();
