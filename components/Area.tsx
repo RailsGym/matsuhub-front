@@ -19,8 +19,6 @@ export default function Area(props) {
   const [labelMenuOpen, setLabelMenuOpen] = useState<boolean>(false);
   const [labelID, setLabelID] = useState<number>();
   const [labelEditID, setLabelEditID] = useState<number>();
-  const [createdLabelTitle, setCreatedLabelTitle] = useState<string | number>();
-  const [createdLabelDescription, setCreatedLabelDescription] = useState<string | number>();
   const [title, setTitle] = useState<string | number>();
   const [description, setDescription] = useState<string | number>("");
   const [hovered, setHovered] = useState<boolean>(false);
@@ -45,7 +43,6 @@ export default function Area(props) {
 
   const togglePopoverlabelMenuOpen = (item) => {
     setLabelID(item.id)
-    setCreatedLabelTitle(item.title)
     setLabelMenuOpen(!labelMenuOpen);
   };
 
@@ -71,13 +68,13 @@ export default function Area(props) {
   }
 
   const onClickModal = (item) => {
-    setCreatedLabelTitle(item.title)
-    setCreatedLabelDescription(item.description)
+    setTitle(item.title)
+    !item.description ? setDescription("") : setDescription(item.description)
     setModalIsOpen(!modalIsOpen)
     labelEditHoverReset()
   }
 
-  const onClickUpdate = (area, item) => {
+  const labelUpdate = (area, item) => {
     dispatch(updateLabel(title, area.id, canvasId, item.id, description))
   }
 
@@ -134,13 +131,13 @@ export default function Area(props) {
                 {labelID == item.id && !labelMenuOpen ?
                   (
                     <textarea
-                      defaultValue={createdLabelTitle}
+                      defaultValue={item.title}
                       autoFocus={true}
                       onChange={handleInputChangeTitle}
                       onKeyPress={e => {
                         if (e.key == "Enter") {
                           e.preventDefault();
-                          dispatch(updateLabel(title, area.id, canvasId, item.id, description))
+                          labelUpdate(area, item)
                           togglePopoverLabelMenuclose()
                         }
                       }}
@@ -165,7 +162,7 @@ export default function Area(props) {
                             <p className="text-gray-600 font-semibold text-sm">タイトル</p>
                             <textarea
                               onChange={handleInputChangeTitle}
-                              defaultValue={createdLabelTitle}
+                              defaultValue={title}
                               className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                             />
                           </div>
@@ -173,13 +170,13 @@ export default function Area(props) {
                             <p className="text-gray-600 font-semibold text-sm">説明</p>
                             <textarea
                               onChange={handleInputChangeLabel}
-                              defaultValue={createdLabelDescription}
+                              defaultValue={description}
                               className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                             />
                           </div>
                           <div className="mt-4 text-right">
                             <button
-                              onClick={() => onClickUpdate(area, item)}
+                              onClick={() => labelUpdate(area, labels.find(label => label.id == labelEditID))}
                               className="h-8 w-1/4 rounded-md bg-customgreen text-white text-sm hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
                             >
                               更新する
