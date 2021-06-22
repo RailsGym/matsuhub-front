@@ -155,7 +155,7 @@ export default function Area(props) {
                           <MdModeEdit onClick={() => onClickModal(item)} className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
                         </div>
                       )}
-                      <Modal isOpen={modalIsOpen} style={modalStyle} >
+                      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} style={modalStyle} >
                         <div className="mt-2">
                           <div className="modal-icon">
                             <BsX onClick={() => onClickModal(item)} />
