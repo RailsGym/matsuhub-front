@@ -2,7 +2,7 @@ import { AiFillQuestionCircle } from 'react-icons/ai';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { BsX } from 'react-icons/bs';
 import { MdModeEdit } from 'react-icons/md';
-import Modal from "react-modal";
+import Modal from 'react-modal';
 import { useState, Fragment } from 'react';
 import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
@@ -18,9 +18,9 @@ export default function Area(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [labelMenuOpen, setLabelMenuOpen] = useState<boolean>(false);
   const [labelID, setLabelID] = useState<number>();
-  const [labelEditID, setLabelEditID] = useState<number>();
+  const [editLabelId, setEditLabelId] = useState<number>();
   const [title, setTitle] = useState<string | number>();
-  const [description, setDescription] = useState<string | number>("");
+  const [description, setDescription] = useState<string>("");
   const [hovered, setHovered] = useState<boolean>(false);
   const [editHovered, setEditHovered] = useState<boolean>(false);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -59,7 +59,7 @@ export default function Area(props) {
   };
 
   const onMouseLabel = (item) => {
-    setLabelEditID(item.id)
+    setEditLabelId(item.id)
     setHovered(!hovered)
   }
 
@@ -148,7 +148,7 @@ export default function Area(props) {
                       <p className="line-clamp-3" onClick={() => togglePopoverlabelMenuOpen(item)}>
                         {item.title}
                       </p>
-                      {labelEditID == item.id && hovered && (
+                      {editLabelId == item.id && hovered && (
                         <div onMouseEnter={() => onMouseLabelEdit()} onMouseLeave={() => onMouseLabelEdit()}>
                           <MdModeEdit onClick={() => onClickModal(item)} className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
                         </div>
@@ -176,7 +176,7 @@ export default function Area(props) {
                           </div>
                           <div className="mt-4 text-right">
                             <button
-                              onClick={() => labelUpdate(area, labels.find(label => label.id == labelEditID))}
+                              onClick={() => labelUpdate(area, labels.find(label => label.id == editLabelId))}
                               className="h-8 w-1/4 rounded-md bg-customgreen text-white text-sm hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
                             >
                               更新する
