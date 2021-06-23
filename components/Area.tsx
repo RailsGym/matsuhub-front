@@ -89,20 +89,20 @@ export default function Area(props) {
     )}
       onClick={togglePopoverLabelMenuclose}
     >
-      <div className="flex mb-2">
-        <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-          {area ? area["area_type_text"] : null}
-        </label>
-        <AiFillQuestionCircle className="area-icon" />
-        <Popover.Button>
+      <Popover.Button >
+        <div className="flex mb-2">
+          <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
+            {area ? area["area_type_text"] : null}
+          </label>
+          <AiFillQuestionCircle className="area-icon" />
           <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
-        </Popover.Button>
-      </div>
-      {!canvasMenuOpen && labels && !labels.length && (
-        <p className="text-gray-400 font-semibold text-xs">
-          {area ? area["description"] : null}
-        </p>
-      )}
+          </div>
+        {!canvasMenuOpen && labels && !labels.length && (
+          <p className="text-gray-400 font-semibold text-xs">
+            {area ? area["description"] : null}
+          </p>
+        )}
+      </Popover.Button>
       <div className="flex flex-wrap items-start">
         {labels ? (
           <>
