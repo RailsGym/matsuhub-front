@@ -89,20 +89,20 @@ export default function Area(props) {
     )}
       onClick={togglePopoverLabelMenuclose}
     >
+      <div className="flex mb-2">
+        <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
+          {area ? area["area_type_text"] : null}
+        </label>
+      <AiFillQuestionCircle className="area-icon" />
       <Popover.Button >
-        <div className="flex mb-2">
-          <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
-            {area ? area["area_type_text"] : null}
-          </label>
-          <AiFillQuestionCircle className="area-icon" />
-          <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
-          </div>
-        {!canvasMenuOpen && labels && !labels.length && (
-          <p className="text-gray-400 font-semibold text-xs">
-            {area ? area["description"] : null}
-          </p>
-        )}
-      </Popover.Button>
+        <AiFillPlusCircle className="area-icon" aria-hidden="true"/>
+        </Popover.Button>
+      </div>
+      {!canvasMenuOpen && labels && !labels.length && (
+        <p className="text-gray-400 font-semibold text-xs">
+          {area ? area["description"] : null}
+        </p>
+      )}
       <div className="flex flex-wrap items-start">
         {labels ? (
           <>
@@ -175,7 +175,6 @@ export default function Area(props) {
         ) : null}
       </div>
       <Transition
-        show={canvasMenuOpen}
         as={Fragment}
       >
         <Popover.Panel className="transform">
