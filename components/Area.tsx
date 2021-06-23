@@ -1,5 +1,8 @@
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { BsX } from 'react-icons/bs';
+import { MdModeEdit } from 'react-icons/md';
+import Modal from 'react-modal';
 import { useState, Fragment } from 'react';
 import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
@@ -15,8 +18,12 @@ export default function Area(props) {
   const [canvasMenuOpen, setCanvasMenuOpen] = useState<boolean>(false);
   const [labelMenuOpen, setLabelMenuOpen] = useState<boolean>(false);
   const [labelID, setLabelID] = useState<number>();
-  const [createdLabelTitle, setCreatedLabelTitle] = useState<string | number>();
+  const [editLabelId, setEditLabelId] = useState<number>();
   const [title, setTitle] = useState<string | number>();
+  const [description, setDescription] = useState<string>("");
+  const [hovered, setHovered] = useState<boolean>(false);
+  const [editHovered, setEditHovered] = useState<boolean>(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { canvasId } = router.query;
@@ -24,17 +31,18 @@ export default function Area(props) {
 
   const togglePopoverLabelMenuOpen = () => {
     setCanvasMenuOpen(!canvasMenuOpen);
+    labelEditHoverReset()
   };
 
   const togglePopoverLabelMenuclose = () => {
     if (!labelMenuOpen) {
       setLabelMenuOpen(!labelMenuOpen);
     }
+    labelEditHoverReset()
   };
 
   const togglePopoverlabelMenuOpen = (item) => {
     setLabelID(item.id)
-    setCreatedLabelTitle(item.title)
     setLabelMenuOpen(!labelMenuOpen);
   };
 
@@ -42,9 +50,38 @@ export default function Area(props) {
     e.stopPropagation()
   }
 
-  const handleInputChange = event => {
+  const handleInputChangeTitle = event => {
     setTitle(event.target.value);
   };
+
+  const handleInputChangeLabel = event => {
+    setDescription(event.target.value)
+  };
+
+  const onMouseLabel = (item) => {
+    setEditLabelId(item.id)
+    setHovered(!hovered)
+  }
+
+  const onMouseLabelEdit = () => {
+    setEditHovered(!editHovered)
+  }
+
+  const onClickModal = (item) => {
+    setTitle(item.title)
+    !item.description ? setDescription("") : setDescription(item.description)
+    setModalIsOpen(!modalIsOpen)
+    labelEditHoverReset()
+  }
+
+  const labelUpdate = (area, item) => {
+    dispatch(updateLabel(title, area.id, canvasId, item.id, description))
+  }
+
+  const labelEditHoverReset = () => {
+    setHovered(false)
+    setEditHovered(false)
+  }
 
   return (
     <Popover className={classNames(
@@ -75,22 +112,60 @@ export default function Area(props) {
                 {labelID == item.id && !labelMenuOpen ?
                   (
                     <textarea
-                      defaultValue={createdLabelTitle}
+                      defaultValue={item.title}
                       autoFocus={true}
-                      onChange={handleInputChange}
+                      onChange={handleInputChangeTitle}
                       onKeyPress={e => {
                         if (e.key == "Enter") {
                           e.preventDefault();
-                          dispatch(updateLabel(title, area.id, canvasId, item.id, ""))
-                          setLabelMenuOpen(!labelMenuOpen)
+                          labelUpdate(area, item)
+                          togglePopoverLabelMenuclose()
                         }
                       }}
                       className="border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                   />)
-                  :(
-                    <p className="line-clamp-3" onClick={() => togglePopoverlabelMenuOpen(item)}>
-                      {item.title}
-                    </p>
+                  : (
+                    <div className="relative" onMouseEnter={() => onMouseLabel(item)} onMouseLeave={() => onMouseLabel(item)}>
+                      <p className="line-clamp-3" onClick={() => togglePopoverlabelMenuOpen(item)}>
+                        {item.title}
+                      </p>
+                      {editLabelId == item.id && hovered && (
+                        <div onMouseEnter={() => onMouseLabelEdit()} onMouseLeave={() => onMouseLabelEdit()}>
+                          <MdModeEdit onClick={() => onClickModal(item)} className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
+                        </div>
+                      )}
+                      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className="Modal" overlayClassName="Overlay">
+                        <div className="mt-2">
+                          <div className="modal-icon">
+                            <BsX onClick={() => onClickModal(item)} />
+                          </div>
+                          <div className="mb-6">
+                            <p className="text-gray-600 font-semibold text-sm">タイトル</p>
+                            <textarea
+                              onChange={handleInputChangeTitle}
+                              defaultValue={title}
+                              className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                            />
+                          </div>
+                          <div>
+                            <p className="text-gray-600 font-semibold text-sm">説明</p>
+                            <textarea
+                              onChange={handleInputChangeLabel}
+                              defaultValue={description}
+                              className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                            />
+                          </div>
+                          <div className="mt-4 text-right">
+                            <button
+                              onClick={() => labelUpdate(area, labels.find(label => label.id == editLabelId))}
+                              className="h-8 w-1/4 rounded-md bg-customgreen text-white text-sm hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
+                            >
+                              更新する
+                              </button>
+                          </div>
+                        </div>
+                      </Modal>
+                    </div>
                   )}
               </div>
             ))}
@@ -106,7 +181,7 @@ export default function Area(props) {
             <div className="grid bg-white sm:gap-4 sm:p-2 border-l-4 border-customgreen">
               <textarea
                 autoFocus={true}
-                onChange={handleInputChange}
+                onChange={handleInputChangeTitle}
                 onKeyPress={e => {
                   if (e.key == "Enter") {
                     e.preventDefault();
