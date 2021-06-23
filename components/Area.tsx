@@ -83,25 +83,6 @@ export default function Area(props) {
     setEditHovered(false)
   }
 
-   // TODO: 最終的にclassでstyleを指定できるように
-  const modalStyle = {
-    overlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      background: "rgba(94,96,98,0.3)"
-    },
-    content: {
-      position: "absolute",
-      top: "12rem",
-      left: "30rem",
-      right: "30rem",
-      bottom: "16rem",
-      borderRadius: "0.5rem",
-      padding: "1.5rem",
-    }
-  };
-
   return (
     <Popover className={classNames(
       type === 'landscape' ? "landscape-flame" : type === 'square' ? "square-flame" : "portrait-flame", "p-2"
@@ -153,7 +134,7 @@ export default function Area(props) {
                           <MdModeEdit onClick={() => onClickModal(item)} className={classNames(editHovered && ("bg-gray-100 rounded-sm"), "absolute right-0 bottom-0 text-xl")} />
                         </div>
                       )}
-                      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} style={modalStyle} >
+                      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className="Modal" overlayClassName="Overlay">
                         <div className="mt-2">
                           <div className="modal-icon">
                             <BsX onClick={() => onClickModal(item)} />

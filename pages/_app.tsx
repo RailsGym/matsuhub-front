@@ -3,6 +3,7 @@ import 'styles/components/tables.css';
 import 'styles/components/icons.css';
 import 'styles/components/areas.css';
 import 'styles/components/labels.css';
+import 'styles/components/modals.css';
 import Layout from 'layouts/Layout'
 import LayoutNotLogin from 'layouts/LayoutNotLogin'
 import LayoutNoSidebar from 'layouts/LayoutNoSidebar';
