@@ -176,7 +176,7 @@ export default function Area(props) {
         show={canvasMenuOpen}
         as={Fragment}
       >
-        <Popover.Panel className="transform">
+        <Popover.Panel static>
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div className="grid bg-white sm:gap-4 sm:p-2 border-l-4 border-customgreen">
               <textarea
