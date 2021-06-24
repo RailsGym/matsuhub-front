@@ -95,7 +95,7 @@ export default function Area(props) {
         </label>
       <AiFillQuestionCircle className="area-icon" />
       <Popover.Button >
-        <AiFillPlusCircle className="area-icon" aria-hidden="true"/>
+        <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
       </Popover.Button>
       </div>
       {!canvasMenuOpen && labels && !labels.length && (
@@ -174,25 +174,29 @@ export default function Area(props) {
           </>
         ) : null}
       </div>
-      <Popover.Panel>
-        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-          <div className="grid bg-white sm:gap-4 sm:p-2 border-l-4 border-customgreen">
-            <textarea
-              autoFocus={true}
-              onChange={handleInputChangeTitle}
-              onKeyPress={e => {
-                if (e.key == "Enter") {
-                  e.preventDefault();
-                  dispatch(newLabel(title, area.id, canvasId))
-                  dispatch(fetchCanvas(canvasId));
-                  togglePopoverLabelMenuOpen()
-                }
-              }}
-              className="border-gray-400 rounded-md mr-2 w-full focus:ring-customgreen focus:border-customgreen label-create-from-size text-sm p-1"
-            />
+      <Transition
+        show={canvasMenuOpen}
+      >
+        <Popover.Panel>
+          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+            <div className="grid bg-white sm:gap-4 sm:p-2 border-l-4 border-customgreen">
+              <textarea
+                autoFocus={true}
+                onChange={handleInputChangeTitle}
+                onKeyPress={e => {
+                  if (e.key == "Enter") {
+                    e.preventDefault();
+                    dispatch(newLabel(title, area.id, canvasId))
+                    dispatch(fetchCanvas(canvasId));
+                    togglePopoverLabelMenuOpen()
+                  }
+                }}
+                className="border-gray-400 rounded-md mr-2 w-full focus:ring-customgreen focus:border-customgreen label-create-from-size text-sm p-1"
+              />
+            </div>
           </div>
-        </div>
-      </Popover.Panel>
+        </Popover.Panel>
+      </Transition>
     </Popover>
   )
 };
