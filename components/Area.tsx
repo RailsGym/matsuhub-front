@@ -94,9 +94,7 @@ export default function Area(props) {
           {area ? area["area_type_text"] : null}
         </label>
       <AiFillQuestionCircle className="area-icon" />
-      <Popover.Button >
-        <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
-      </Popover.Button>
+      <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
       </div>
       {!canvasMenuOpen && labels && !labels.length && (
         <p className="text-gray-400 font-semibold text-xs">
@@ -177,7 +175,7 @@ export default function Area(props) {
       <Transition
         show={canvasMenuOpen}
       >
-        <Popover.Panel>
+        <Popover.Panel static>
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div className="grid bg-white sm:gap-4 sm:p-2 border-l-4 border-customgreen">
               <textarea
