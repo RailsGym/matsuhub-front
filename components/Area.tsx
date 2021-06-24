@@ -7,7 +7,7 @@ import { useState, Fragment } from 'react';
 import { useAppDispatch } from 'app/store';
 import { useRouter } from 'next/router';
 import { Popover, Transition } from '@headlessui/react';
-import { newLabel, updateLabel } from 'features/labels/labelSlice';
+import { newLabel, updateLabel, destroyLabel } from 'features/labels/labelSlice';
 import { fetchCanvas } from 'features/canvases/canvasSlice';
 
 function classNames(...classes) {
@@ -83,6 +83,15 @@ export default function Area(props) {
     setEditHovered(false)
   }
 
+  const onClickLabelDelete = () => {
+    if (confirm(
+      'ラベルを削除すると復元することができません。本当に削除しますか?'
+    )) {
+      dispatch(destroyLabel(canvasId, editLabelId));
+      setModalIsOpen(false)
+    }
+  }
+
   return (
     <Popover className={classNames(
       type === 'landscape' ? "landscape-flame" : type === 'square' ? "square-flame" : "portrait-flame", "p-2"
@@ -144,7 +153,7 @@ export default function Area(props) {
                             <textarea
                               onChange={handleInputChangeTitle}
                               defaultValue={title}
-                              className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                              className="h-20 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                             />
                           </div>
                           <div>
@@ -152,7 +161,7 @@ export default function Area(props) {
                             <textarea
                               onChange={handleInputChangeLabel}
                               defaultValue={description}
-                              className="h-20 bg-gray-100 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
+                              className="h-20 border-gray-400 rounded-md w-full text-sm focus:ring-customgreen focus:border-customgreen"
                             />
                           </div>
                           <div className="mt-4 text-right">
@@ -162,6 +171,14 @@ export default function Area(props) {
                             >
                               更新する
                               </button>
+                          </div>
+                          <div className="mb-2">
+                            <button
+                              onClick={onClickLabelDelete}
+                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-2 py-1 bg-red-600 text-xs font-medium text-white hover:bg-red-700 focus:outline-none sm:w-auto sm:text-xs"
+                            >
+                                ラベルを削除
+                            </button>
                           </div>
                         </div>
                       </Modal>
