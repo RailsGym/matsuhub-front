@@ -93,8 +93,8 @@ export default function Area(props) {
         <label className="pr-2 pt-1 text-gray-600 font-semibold text-sm">
           {area ? area["area_type_text"] : null}
         </label>
-      <AiFillQuestionCircle className="area-icon" />
-      <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
+        <AiFillQuestionCircle className="area-icon" />
+        <AiFillPlusCircle className="area-icon" aria-hidden="true" onClick={togglePopoverLabelMenuOpen}/>
       </div>
       {!canvasMenuOpen && labels && !labels.length && (
         <p className="text-gray-400 font-semibold text-xs">
@@ -174,6 +174,7 @@ export default function Area(props) {
       </div>
       <Transition
         show={canvasMenuOpen}
+        as={Fragment}
       >
         <Popover.Panel static>
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
