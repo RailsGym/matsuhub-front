@@ -177,7 +177,7 @@ export default function Area(props) {
                               onClick={onClickLabelDelete}
                               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-2 py-1 bg-red-600 text-xs font-medium text-white hover:bg-red-700 focus:outline-none sm:w-auto sm:text-xs"
                             >
-                                ラベルを削除
+                                削除する
                             </button>
                           </div>
                         </div>
