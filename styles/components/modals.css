@@ -1,10 +1,13 @@
 .Modal {
   position: absolute;
-  top: 170px;
-  left: 470px;
-  right: 470px;
-  bottom: 270px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 350px;
+  max-width: 550px;
   border-radius: 6px;
+  margin: auto;
   padding: 16px;
   background-color: #ffff;
   outline: none;
