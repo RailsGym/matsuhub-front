@@ -85,7 +85,7 @@ export default function Area(props) {
 
   const onClickLabelDelete = () => {
     if (confirm(
-      'ラベルを削除すると復元することができません。本当に削除しますか?'
+      '仮説を削除すると復元することができません。本当に削除しますか?'
     )) {
       dispatch(destroyLabel(canvasId, editLabelId));
       setModalIsOpen(false)

@@ -73,9 +73,9 @@ export const destroyLabel = (canvasId, labelId): AppThunk => async dispatch => {
     const label: Label = await deleteLabel(canvasId, labelId);
 
     dispatch(destroyLabelSuccess(label));
-    toastMessage(['ラベルを削除しました'], 'success');
+    toastMessage(['仮説を削除しました'], 'success');
   } catch (err) {
     console.log(err);
-    toastMessage([`ラベル削除に失敗しました　${err}`], 'error');
+    toastMessage([`仮説削除に失敗しました　${err}`], 'error');
   }
 };
