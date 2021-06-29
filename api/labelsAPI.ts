@@ -53,3 +53,24 @@ export async function patchLabel(title, areaId, canvasId, labelId, description):
   }
 }
 
+export async function deleteLabel(canvasId, labelId): Promise<Label> {
+  const userAuthHeader = await userAuthRequestHeader();
+  if (!userAuthHeader) {
+    return null;
+  }
+
+  try {
+    const labelResponse = await axios.delete<{ 'label': Label }>(
+      url + `/${canvasId}/` + 'labels',
+      {
+        headers: userAuthHeader,
+        data: {
+          label_id: labelId
+        }
+      }
+    );
+    return labelResponse.data.label;
+  } catch (err) {
+    throw err.response.data.errors.toString();
+  }
+}

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createLabel } from 'api/labelsAPI';
+import { createLabel, deleteLabel } from 'api/labelsAPI';
 import { patchLabel } from 'api/labelsAPI';
 import { AppThunk } from 'app/store';
 import toastMessage from 'features/toastMessage/toastMessage';
@@ -8,11 +8,13 @@ import { Label } from 'models/labels';
 interface LabelState {
   createdLabel: Label | null;
   updatedLabel: Label | null;
+  destroyedLabel: Label | null;
 }
 
 const initialState: LabelState = {
   createdLabel: null,
-  updatedLabel: null
+  updatedLabel: null,
+  destroyedLabel: null
 };
 
 const labelSlice = createSlice({
@@ -28,6 +30,9 @@ const labelSlice = createSlice({
     updatedLabelSuccess: (state, action) => {
       state.updatedLabel = action.payload;
     },
+    destroyLabelSuccess: (state, action) => {
+      state.destroyedLabel = action.payload;
+    }
   }
 });
 export default labelSlice.reducer;
@@ -35,7 +40,8 @@ export default labelSlice.reducer;
 export const {
   createLabelSuccess,
   createdLabelReset,
-  updatedLabelSuccess
+  updatedLabelSuccess,
+  destroyLabelSuccess
 } = labelSlice.actions;
 
 export const newLabel = (title, areaId, canvasId): AppThunk => async dispatch => {
@@ -59,5 +65,17 @@ export const updateLabel = (title, areaId, canvasId, labelId, description): AppT
   } catch (err) {
     console.log(err);
     toastMessage([`ラベル更新に失敗しました　${err}`], 'error');
+  }
+};
+
+export const destroyLabel = (canvasId, labelId): AppThunk => async dispatch => {
+  try {
+    const label: Label = await deleteLabel(canvasId, labelId);
+
+    dispatch(destroyLabelSuccess(label));
+    toastMessage(['仮説を削除しました'], 'success');
+  } catch (err) {
+    console.log(err);
+    toastMessage([`仮説削除に失敗しました　${err}`], 'error');
   }
 };
