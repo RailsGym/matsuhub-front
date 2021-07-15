@@ -78,7 +78,7 @@ export default function Header({ title = 'Default title' }) {
                     )}
                   >
                     {canvas && router.pathname !== '/canvases/new'
-                      ? canvas.title
+                      ? <span id="canvasTitle">{canvas.title}</span>
                       : 'キャンバスをつくる'}
                     <ChevronDownIcon
                       className={classNames(
@@ -148,7 +148,7 @@ export default function Header({ title = 'Default title' }) {
                       "group rounded-md inline-flex items-center text-md hover:text-gray-900 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none"
                     )}
                   >
-                    {loginUser ? <span>{loginUser.name}</span> : null}
+                    {loginUser ? <span id="userName">{loginUser.name}</span> : null}
                     <ChevronDownIcon
                       className={classNames(
                         userMenuOpen ? "text-gray-600" : "text-gray-400",
@@ -174,6 +174,7 @@ export default function Header({ title = 'Default title' }) {
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden w-1/3">
                         <div className="grid gap-6 bg-white px-5 py-6 sm:gap-5 sm:p-2">
                           <button
+                            id="userLogout"
                             className="text-sm font-medium text-gray-900 py-1 px-2"
                             onClick={logout}
                           >

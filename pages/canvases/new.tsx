@@ -83,11 +83,15 @@ export default function CanvasNew() {
       <STitle>キャンバス新規作成</STitle>
       <SNameLabel>名前</SNameLabel>
       <SCanvasTitleInput
+        name="name"
         type="text"
         value={title}
         onChange={handleInputChange}
       />
-      <SCreateButton onClick={saveCanvas}>
+      <SCreateButton
+        name="createCanvas"
+        onClick={saveCanvas}
+      >
         新規作成
       </SCreateButton>
     </SContainer>
