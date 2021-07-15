@@ -75,6 +75,7 @@ export default function Settings() {
             className="mr-3 h-8 w-1/2 border-gray-400 rounded-md"
           />
           <button
+            id="updateLabelTitle"
             onClick={onClickUpdateCanvas}
             className="h-8 w-1/12 rounded-md bg-customgreen text-white text-sm hover:text-customhovercolor hover:bg-customhoverbackground hover: outline-none focus:outline-none"
           >

@@ -1,0 +1,6 @@
+{
+  "//": "↓現状はテストごとにemailを変更しなければならない↓",
+  "email": "test+cy+3@example.com",
+  "name": "cyTestName",
+  "password": "cyTest1234"
+}
